@@ -40,7 +40,7 @@ class TaskClient extends TaskModel {
 			'details' => array(),
 			'sceduled' => null
 		);
-
+		$this->create();
 		return $this->save($task);
 	}
 
