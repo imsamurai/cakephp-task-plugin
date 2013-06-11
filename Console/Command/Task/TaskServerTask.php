@@ -73,7 +73,13 @@ class TaskServerTask extends Shell {
 	public function run(array $task) {
 		$this->_Process = new Process($task['command'] . $this->_argsToString($task['arguments']), $task['path']);
 		$this->_Process->setTimeout($task['timeout']);
-		$this->_Process->run();
+		$this->_Process->run(function ($type, $buffer) {
+					if ('err' === $type) {
+						$this->err($buffer);
+					} else {
+						$this->out($buffer);
+					}
+				});
 		$this->stop($task);
 	}
 
