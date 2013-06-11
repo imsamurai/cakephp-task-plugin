@@ -48,7 +48,8 @@ class TaskServerTask extends Shell {
 			'code' => $this->_Process->getExitCode(),
 			'code_string' => $this->_Process->getExitCodeText(),
 			'stdout' => $this->_Process->getOutput(),
-			'stderr' => $this->_Process->getErrorOutput()
+			'stderr' => $this->_Process->getErrorOutput(),
+			'stopped' => $this->_getCurrentDateTime()
 				) + $task;
 		$this->TaskServer->stoped($task);
 		$this->out("Task #{$task['id']} stopped, code " . (string) $task['code']);
@@ -61,6 +62,7 @@ class TaskServerTask extends Shell {
 	 */
 	public function start(array $task) {
 		$this->out("Task #{$task['id']} started");
+		$task['started'] = $this->_getCurrentDateTime();
 		$this->TaskServer->started($task);
 		$this->run($task);
 	}
@@ -100,6 +102,15 @@ class TaskServerTask extends Shell {
 		}
 
 		return $stringArguments;
+	}
+
+	/**
+	 * Returns current date for DB
+	 *
+	 * @return string
+	 */
+	protected function _getCurrentDateTime() {
+		return (new DateTime('now'))->format('Y-m-d H:i:s');
 	}
 
 }

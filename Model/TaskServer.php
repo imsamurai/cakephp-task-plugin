@@ -68,7 +68,6 @@ class TaskServer extends TaskModel {
 	 * @return mixed
 	 */
 	public function started(array $task) {
-		$task['started'] = $this->_getCurrentDateTime();
 		$task['status'] = 2;
 		return $this->save($task);
 	}
@@ -81,18 +80,10 @@ class TaskServer extends TaskModel {
 	 * @return mixed
 	 */
 	public function stoped(array $task) {
-		$task['stopped'] = $this->_getCurrentDateTime();
 		$task['status'] = 3;
 		return $this->save($task);
 	}
 
-	/**
-	 * Returns current date for DB
-	 *
-	 * @return string
-	 */
-	protected function _getCurrentDateTime() {
-		return (new DateTime('now'))->format('Y-m-d H:i:s');
-	}
+
 
 }
