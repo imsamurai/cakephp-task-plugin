@@ -32,7 +32,7 @@ class TaskClient extends TaskModel {
 	public function add($command, $path, array $arguments = array(), array $options = array()) {
 		$task = compact('command', 'path', 'arguments') + $options;
 		$task += array(
-			'timeout' => '4 hours',
+			'timeout' => 60*60,
 			'status' => 0,
 			'code' => 0,
 			'stdout' => '',
@@ -40,9 +40,6 @@ class TaskClient extends TaskModel {
 			'details' => array(),
 			'sceduled' => null
 		);
-
-		$timeoutInterval = DateInterval::createFromDateString($task['timeout']);
-		$task['timeout'] = $timeoutInterval->s;
 
 		return $this->save($task);
 	}
