@@ -32,7 +32,7 @@ class TaskServer extends TaskModel {
 		}
 		$runnedCount = $this->find('count', array(
 			'conditions' => array(
-				'status' => 2
+				'status' => array(1, 2)
 			)
 		));
 		return $maxSlots - (int) $runnedCount;
@@ -57,6 +57,8 @@ class TaskServer extends TaskModel {
 		if (!$task) {
 			return false;
 		}
+		$task[$this->alias]['status'] = 1;
+		$this->save($task);
 		return $task[$this->alias];
 	}
 

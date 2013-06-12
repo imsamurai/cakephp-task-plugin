@@ -15,7 +15,7 @@ use Symfony\Component\Process\ProcessUtils;
  */
 class TaskServerTask extends Shell {
 
-	public $uses = array('Task.TaskServer');
+	public $uses = array('Task.TaskServer', 'Task.TaskClient');
 
 	/**
 	 * Process
@@ -30,12 +30,17 @@ class TaskServerTask extends Shell {
 	 * @return void
 	 */
 	public function execute() {
-		$task = $this->TaskServer->getPending();
-		if (!$task || $this->TaskServer->freeSlots() < 1) {
-			return;
+		$tasks = array();
+		while ($this->TaskServer->freeSlots() > 0 && ($task = $this->TaskServer->getPending())) {
+			$tasks[] = $task;
 		}
 
-		$this->start($task);
+		if (empty($tasks)) {
+			return;
+		}
+		
+		$ProcessManager = new Spork\ProcessManager();
+		$ProcessManager->process($tasks, array($this, 'start'), new Spork\Batch\Strategy\ChunkStrategy(30));
 	}
 
 	/**
@@ -53,6 +58,7 @@ class TaskServerTask extends Shell {
 				) + $task;
 		$this->TaskServer->stoped($task);
 		$this->out("Task #{$task['id']} stopped, code " . (string) $task['code']);
+		return $task;
 	}
 
 	/**
@@ -61,10 +67,11 @@ class TaskServerTask extends Shell {
 	 * @param array $task
 	 */
 	public function start(array $task) {
+		ConnectionManager::getDataSource($this->TaskServer->useDbConfig)->reconnect(array('persistent'=>false));
 		$this->out("Task #{$task['id']} started");
 		$task['started'] = $this->_getCurrentDateTime();
 		$this->TaskServer->started($task);
-		$this->run($task);
+		return $this->run($task);
 	}
 
 	/**
@@ -82,7 +89,7 @@ class TaskServerTask extends Shell {
 						$this->out($buffer);
 					}
 				});
-		$this->stop($task);
+		return $this->stop($task);
 	}
 
 	/**
