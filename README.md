@@ -20,7 +20,7 @@ then add plugin loading in Config/bootstrap.php
 
 	CakePlugin::load('Task');
 
-add table `tasks` from `Config/Schema/tasks.sql`
+add tables from `Config/Schema/tasks.sql`
 
 include https://github.com/symfony/Process in your project, for ex with composer (tested with 2.3 version)
 

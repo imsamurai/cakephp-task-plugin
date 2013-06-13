@@ -32,7 +32,8 @@ class TaskServer extends TaskModel {
 		}
 		$runnedCount = $this->find('count', array(
 			'conditions' => array(
-				'status' => array(1, 2)
+				'status' => array(TaskType::DEFFERED, TaskType::RUNNING),
+				'server_id' => $this->_serverId()
 			)
 		));
 		return $maxSlots - (int) $runnedCount;
@@ -44,20 +45,20 @@ class TaskServer extends TaskModel {
 	 * @return bool|array
 	 */
 	public function getPending() {
-		$task = $this->find('first', array(
-			'conditions' => array(
-				'status' => 0
-			),
-			'order' => array(
-				'created' => 'asc'
-			),
-			'limit' => 1
-		));
+		$pendingId = $this->_getPendingId();
 
-		if (!$task) {
+		if (!$pendingId) {
 			return false;
 		}
-		$task[$this->alias]['status'] = 1;
+
+		$task = $this->find('first', array(
+			'conditions' => array(
+				'id' => $pendingId
+			)
+		));
+
+		$task[$this->alias]['status'] = TaskType::DEFFERED;
+		$task[$this->alias]['server_id'] = $this->_serverId();
 		$this->save($task);
 		return $task[$this->alias];
 	}
@@ -70,7 +71,7 @@ class TaskServer extends TaskModel {
 	 * @return mixed
 	 */
 	public function started(array $task) {
-		$task['status'] = 2;
+		$task['status'] = TaskType::RUNNING;
 		return $this->save($task);
 	}
 
@@ -82,10 +83,71 @@ class TaskServer extends TaskModel {
 	 * @return mixed
 	 */
 	public function stoped(array $task) {
-		$task['status'] = 3;
+		$task['status'] = TaskType::FINISHED;
 		return $this->save($task);
 	}
 
+	/**
+	 * Returns first task id that can be run
+	 *
+	 * @return bool|int
+	 */
+	protected function _getPendingId() {
+		$taskNumber = 0;
+		while (true) {
+			$this->contain(array(
+				'DependsOnTask' => array(
+					'id', 'status'
+				)
+					)
+			);
+			$taskCandidate = $this->find('first', array(
+				'fields' => 'id',
+				'conditions' => array(
+					'status' => TaskType::UNSTARTED,
+					'server_id' => 0
+				),
+				'order' => array(
+					'created' => 'asc'
+				),
+				'offset' => $taskNumber
+			));
 
+			if (!$taskCandidate) {
+				return false;
+			}
+
+
+			$waitForOtherTask = false;
+			foreach ($taskCandidate['DependsOnTask'] as $DependsOnTask) {
+				if ((int) $DependsOnTask['status'] !== TaskType::FINISHED) {
+					$waitForOtherTask = true;
+					break;
+				}
+			}
+			if (!$waitForOtherTask) {
+				return $taskCandidate[$this->alias]['id'];
+			}
+
+			$taskNumber++;
+		}
+
+		return false;
+	}
+
+	/**
+	 * Returns current server id that unique while script runs
+	 *
+	 * @staticvar int $serverId
+	 * @return int
+	 */
+	protected function _serverId() {
+		static $serverId = null;
+		if (is_null($serverId)) {
+			$serverId = mt_rand();
+		}
+
+		return $serverId;
+	}
 
 }

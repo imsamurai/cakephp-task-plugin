@@ -7,10 +7,12 @@
  * Format: http://book.cakephp.org/2.0/en/models.html
  */
 
+App::uses('TaskType', 'Task.Lib/Task');
+
 /**
  * @package Task.Model
  */
-abstract class TaskModel extends AppModel {
+class TaskModel extends AppModel {
 
 	/**
 	 * {@inheritdoc}
@@ -32,9 +34,31 @@ abstract class TaskModel extends AppModel {
 	 * @var array
 	 */
 	public $actsAs = array(
+		'Containable',
 		'Serializable.Serializable' => array(
 			'fields' => array('details', 'arguments')
 		)
 	);
+
+	/**
+	 * {@inheritdoc}
+	 *
+	 * @var array
+	 */
+	public $hasAndBelongsToMany = array(
+		'DependsOnTask' => array(
+			'className' => 'TaskModel',
+			'joinTable' => 'dependent_tasks',
+			'foreignKey' => 'task_id',
+			'associationForeignKey' => 'depends_on_task_id'
+		)
+	);
+
+	/**
+	 * {@inheritdoc}
+	 *
+	 * @var bool
+	 */
+	public $recursive = false;
 
 }
