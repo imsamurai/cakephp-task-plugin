@@ -144,9 +144,15 @@ class TaskServer extends TaskModel {
 	protected function _serverId() {
 		static $serverId = null;
 		if (is_null($serverId)) {
-			$serverId = mt_rand();
+			$File = new File(TMP.'task_server_id', true);
+			$serverId = (int)$File->read();
+			if (!$serverId) {
+				$serverId = mt_rand();
+				$File->write($serverId);
+			}
+			$File->close();
 		}
-
+		
 		return $serverId;
 	}
 
