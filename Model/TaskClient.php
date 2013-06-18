@@ -48,7 +48,8 @@ class TaskClient extends TaskModel {
 		$dependsOnIds = $this->find('list', array(
 			'fields' => array('id', 'id'),
 			'conditions' => array(
-				'hash' => $task['hash']
+				'hash' => $task['hash'],
+				'status' => array(TaskType::UNSTARTED, TaskType::DEFFERED, TaskType::RUNNING)
 			)
 		));
 
