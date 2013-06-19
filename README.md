@@ -1,9 +1,9 @@
 Cakephp Task Plugin
 ===================
 
-Plugin for run deffered (sceduled) tasks (console scripts)
+Plugin for run deffered (scheduled) tasks (console scripts)
 
-!Sceduled run is not available yet!
+!Scheduled run is not available yet!
 
 
 ## Installation

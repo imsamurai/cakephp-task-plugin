@@ -41,7 +41,7 @@ class TaskClient extends TaskModel {
 			'stderr' => '',
 			'details' => array(),
 			'server_id' => 0,
-			'sceduled' => null,
+			'scheduled' => null,
 			'hash' => $this->_hash($command, $path, $arguments)
 		);
 

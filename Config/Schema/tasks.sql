@@ -14,7 +14,7 @@ CREATE TABLE `tasks` (
   `stderr` longtext,
   `details` longtext,
   `timeout` int(10) unsigned DEFAULT '0',
-  `sceduled` datetime DEFAULT NULL,
+  `scheduled` datetime DEFAULT NULL,
   `started` datetime DEFAULT NULL,
   `stopped` datetime DEFAULT NULL,
   `created` datetime DEFAULT NULL,

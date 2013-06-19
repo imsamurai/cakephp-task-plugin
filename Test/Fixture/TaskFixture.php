@@ -25,7 +25,7 @@ class TaskFixture extends CakeTestFixture {
 		'stderr' => array('type' => 'string', 'null' => false, 'default' => NULL, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'details' => array('type' => 'string', 'null' => false, 'default' => NULL, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'timeout' => array('type' => 'integer', 'null' => false, 'default' => '0', 'length' => 10, 'collate' => 'utf8_general_ci'),
-		'sceduled' => array('type' => 'datetime'),
+		'scheduled' => array('type' => 'datetime'),
 		'started' => array('type' => 'datetime'),
 		'stopped' => array('type' => 'datetime'),
 		'created' => array('type' => 'datetime'),
