@@ -40,7 +40,7 @@ class TaskServerTask extends Shell {
 		}
 		
 		$ProcessManager = new Spork\ProcessManager();
-		$ProcessManager->process($tasks, array($this, 'start'), new Spork\Batch\Strategy\ChunkStrategy(30));
+		$ProcessManager->process($tasks, array($this, 'start'), new Spork\Batch\Strategy\ChunkStrategy(count($tasks)));
 	}
 
 	/**
