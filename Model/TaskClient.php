@@ -27,11 +27,15 @@ class TaskClient extends TaskModel {
 	 * @param string $path
 	 * @param array $arguments
 	 * @param array $options
+	 * - `unique` - if true and found active duplicates wont add new task
+	 * - `dependsOn` - an array of task ids that must be done before this task starts
 	 * @return bool
 	 */
 	public function add($command, $path, array $arguments = array(), array $options = array()) {
 		$dependsOn = (array) Hash::get($options, 'dependsOn');
-		unset($options['dependsOn']);
+		$unique = (bool) Hash::get($options, 'unique');
+		unset($options['dependsOn'], $options['unique']);
+
 		$task = compact('command', 'path', 'arguments') + $options;
 		$task += array(
 			'timeout' => 60 * 60,
@@ -53,7 +57,9 @@ class TaskClient extends TaskModel {
 			)
 		));
 
-		if ($dependsOnIds) {
+		if ($unique && $dependsOnIds) {
+			return false;
+		} else if ($dependsOnIds) {
 			$dependsOn = array_merge($dependsOn, $dependsOnIds);
 		}
 
