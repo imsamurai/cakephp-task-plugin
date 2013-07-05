@@ -41,7 +41,13 @@ class TaskServerTask extends Shell {
 
 		$ProcessManager = new Spork\ProcessManager();
 		$ProcessManager->process($tasks, array($this, 'start'), new Spork\Batch\Strategy\ChunkStrategy(count($tasks)));
-		//$ProcessManager->killAll(SIGKILL);
+		$timeout = max((array)Hash::extract($tasks, '{n}.timeout'));
+		if ($timeout) {
+			$timeout+=60;
+			sleep($timeout);
+			$ProcessManager->killAll(SIGKILL);
+		}
+
 	}
 
 	/**
