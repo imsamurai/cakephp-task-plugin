@@ -22,7 +22,7 @@ then add plugin loading in Config/bootstrap.php
 
 add tables from `Config/Schema/tasks.sql`
 
-include https://github.com/symfony/Process in your project, for ex with composer (tested with 2.3 version)
+include https://github.com/symfony/Process and https://github.com/kriswallsmith/spork in your project, for ex with composer (tested with 2.3 version)
 
 ## Configuration
 
