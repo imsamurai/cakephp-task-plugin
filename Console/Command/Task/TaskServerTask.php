@@ -1,4 +1,5 @@
 <?
+
 /**
  * Author: imsamurai <im.samuray@gmail.com>
  * Date: 10.06.2013
@@ -30,16 +31,12 @@ class TaskServerTask extends Shell {
 		}
 
 		$ProcessManager = new Spork\ProcessManager();
-		$ProcessManager->process($tasks, function ($task) {
-					$TaskRunner = new TaskRunner($this->TaskServer, $this->TaskClient);
-					return $TaskRunner->start($task);
-				}, new Spork\Batch\Strategy\ChunkStrategy(count($tasks)));
-//		$timeout = max((array)Hash::extract($tasks, '{n}.timeout'));
-//		if ($timeout) {
-//			$timeout+=60;
-//			sleep($timeout);
-//			$ProcessManager->killAll(SIGKILL);
-//		}
+		foreach ($tasks as $task) {
+			$ProcessManager->fork(function () use ($task) {
+						$TaskRunner = new TaskRunner($this->TaskServer, $this->TaskClient);
+						$TaskRunner->start($task);
+					});
+		}
 	}
 
 }
