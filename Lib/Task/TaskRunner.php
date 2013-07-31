@@ -88,6 +88,8 @@ class TaskRunner extends Object {
 		ConnectionManager::getDataSource($this->_TaskServer->useDbConfig)->reconnect(array('persistent' => false));
 		$this->_Shell->out("Task #{$this->_task['id']} started");
 		$this->_task['started'] = $this->_getCurrentDateTime();
+		$this->_task['stderr'] = '';
+		$this->_task['stdout'] = '';
 		$this->_TaskServer->started($this->_task);
 		$this->_run();
 		return $this->_task;
@@ -117,9 +119,12 @@ class TaskRunner extends Object {
 			$this->_Process->run(function ($type, $buffer) {
 						if ('err' === $type) {
 							$this->_Shell->err($buffer);
+							$this->_task['stderr'] .= $buffer;
 						} else {
 							$this->_Shell->out($buffer);
+							$this->_task['stdout'] .= $buffer;
 						}
+						$this->_TaskServer->updated($this->_task);
 					});
 			$this->_task['code']  = $this->_Process->getExitCode();
 			$this->_task['code_string'] = $this->_Process->getExitCodeText();

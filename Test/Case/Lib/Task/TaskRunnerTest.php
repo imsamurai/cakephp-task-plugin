@@ -23,11 +23,13 @@ class TaskRunnerTest extends CakeTestCase {
 		$TaskClient = $this->getMock('TaskClient');
 		$TaskServer = $this->getMock('TaskServer', array(
 			'stopped',
-			'started'
+			'started',
+			'updated'
 		));
 		$TaskServer->useDbConfig = 'test';
 		$TaskServer->expects($this->once())->method('started');
 		$TaskServer->expects($this->once())->method('stopped');
+		$TaskServer->expects($this->never())->method('updated');
 		$Shell = $this->getMock('Shell', array(
 			'out',
 			'err'
@@ -38,7 +40,7 @@ class TaskRunnerTest extends CakeTestCase {
 			'path' => '',
 			'command' => 'php',
 			'arguments' => array(
-				'-r' => 'sleep(2);echo 123;'
+				'-r' => 'sleep(2);'
 			),
 			'timeout' => 1
 		);
@@ -49,6 +51,42 @@ class TaskRunnerTest extends CakeTestCase {
 		debug($runnedTask);
 
 		$this->assertSame(134, $runnedTask['code']);
+	}
+
+	public function testUpdate() {
+		$TaskClient = $this->getMock('TaskClient');
+		$TaskServer = $this->getMock('TaskServer', array(
+			'stopped',
+			'started',
+			'updated'
+		));
+		$TaskServer->useDbConfig = 'test';
+		$TaskServer->expects($this->once())->method('started');
+		$TaskServer->expects($this->once())->method('stopped');
+		$TaskServer->expects($this->exactly(3))->method('updated')->will($this->returnCallback(function($task) {
+			debug($task['stdout']); 
+		}));
+		$Shell = $this->getMock('Shell', array(
+			'out',
+			'err'
+		));
+
+		$task = array(
+			'id' => 1,
+			'path' => '',
+			'command' => 'php',
+			'arguments' => array(
+				'-r' => 'echo 123;sleep(1);echo 555;sleep(1);echo 321;echo 444;'
+			),
+			'timeout' => 10
+		);
+		$TaskRunner = new TaskRunner($task, $TaskServer, $TaskClient, $Shell);
+
+
+		$runnedTask = $TaskRunner->start();
+		debug($runnedTask);
+
+		$this->assertSame('123555321444', $runnedTask['stdout']);
 	}
 
 }
