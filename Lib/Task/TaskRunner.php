@@ -44,6 +44,8 @@ class TaskRunner extends Object {
 	 * @var Shell
 	 */
 	protected $_Shell = null;
+	protected $_code = null;
+	protected $_codeString = null;
 
 	/**
 	 * Constructor
@@ -65,8 +67,8 @@ class TaskRunner extends Object {
 	 */
 	public function stop(array $task) {
 		$task = array(
-			'code' => $this->_Process->getExitCode(),
-			'code_string' => $this->_Process->getExitCodeText(),
+			'code' => $this->_code,
+			'code_string' => $this->_codeString,
 			'stdout' => $this->_Process->getOutput(),
 			'stderr' => $this->_Process->getErrorOutput(),
 			'stopped' => $this->_getCurrentDateTime()
@@ -97,13 +99,21 @@ class TaskRunner extends Object {
 	public function run(array $task) {
 		$this->_Process = new Process($task['command'] . $this->_argsToString($task['arguments']), $task['path']);
 		$this->_Process->setTimeout($task['timeout']);
-		$this->_Process->run(function ($type, $buffer) {
-					if ('err' === $type) {
-						$this->_Shell->err($buffer);
-					} else {
-						$this->_Shell->out($buffer);
-					}
-				});
+		try {
+			$this->_Process->run(function ($type, $buffer) {
+						if ('err' === $type) {
+							$this->_Shell->err($buffer);
+						} else {
+							$this->_Shell->out($buffer);
+						}
+					});
+			$this->_code = $this->_Process->getExitCode();
+			$this->_codeString = $this->_Process->getExitCodeText();
+		} catch (Exception $Exception) {
+			$this->_code = 134;
+			$this->_codeString = $Exception->getMessage();
+		}
+
 		return $this->stop($task);
 	}
 
