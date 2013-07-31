@@ -6,6 +6,9 @@
  * Format: http://book.cakephp.org/2.0/en/development/testing.html
  */
 
+App::uses('TaskClient', 'Task.Model');
+App::uses('TaskServer', 'Task.Model');
+
 /**
  * @package Task.Test.Case.Model
  */
@@ -36,8 +39,8 @@ class TaskServerTest extends CakeTestCase {
 
 	public function setUp() {
 		parent::setUp();
-		$this->TaskClient = ClassRegistry::init('Task.TaskClient');
-		$this->TaskServer = ClassRegistry::init('Task.TaskServer');
+		$this->TaskClient = new TaskClient(false, null, 'test');
+		$this->TaskServer = new TaskServer(false, null, 'test');
 	}
 
 	public function testFreeSlots() {
@@ -63,7 +66,7 @@ class TaskServerTest extends CakeTestCase {
 		$task = $this->TaskServer->getPending();
 		$this->TaskServer->started($task);
 		$startedTask = $this->TaskClient->find('first', array('conditions' => array('id'=>$task['id'])));
-		$this->assertEqual($startedTask['TaskClient']['status'], TaskType::RUNNING);
+		$this->assertEqual($startedTask['Task']['status'], TaskType::RUNNING);
 	}
 
 	public function testStopped() {
@@ -71,7 +74,7 @@ class TaskServerTest extends CakeTestCase {
 		$task = $this->TaskServer->getPending();
 		$this->TaskServer->stopped($task);
 		$startedTask = $this->TaskClient->find('first', array('conditions' => array('id'=>$task['id'])));
-		$this->assertEqual($startedTask['TaskClient']['status'], TaskType::FINISHED);
+		$this->assertEqual($startedTask['Task']['status'], TaskType::FINISHED);
 	}
 
 	public function testDependent() {
