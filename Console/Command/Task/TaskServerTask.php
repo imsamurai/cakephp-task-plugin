@@ -33,8 +33,8 @@ class TaskServerTask extends Shell {
 		$ProcessManager = new Spork\ProcessManager();
 		foreach ($tasks as $task) {
 			$ProcessManager->fork(function () use ($task) {
-						$TaskRunner = new TaskRunner($this->TaskServer, $this->TaskClient);
-						$TaskRunner->start($task);
+						$TaskRunner = new TaskRunner($task, $this->TaskServer, $this->TaskClient);
+						$TaskRunner->start();
 					});
 		}
 	}

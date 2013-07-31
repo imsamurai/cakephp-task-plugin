@@ -76,13 +76,24 @@ class TaskServer extends TaskModel {
 	}
 
 	/**
+	 * Must be called when process write output
+	 *
+	 * @param array $task
+	 *
+	 * @return mixed
+	 */
+	public function updated(array $task) {
+		return $this->save($task);
+	}
+
+	/**
 	 * Must be called when task has been stopped
 	 *
 	 * @param array $task
 	 *
 	 * @return mixed
 	 */
-	public function stoped(array $task) {
+	public function stopped(array $task) {
 		$task['status'] = TaskType::FINISHED;
 		return $this->save($task);
 	}
@@ -152,7 +163,7 @@ class TaskServer extends TaskModel {
 			}
 			$File->close();
 		}
-		
+
 		return $serverId;
 	}
 

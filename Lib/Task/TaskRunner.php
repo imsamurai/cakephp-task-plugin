@@ -44,61 +44,75 @@ class TaskRunner extends Object {
 	 * @var Shell
 	 */
 	protected $_Shell = null;
+
+	/**
+	 * Result code
+	 *
+	 * @var int
+	 */
 	protected $_code = null;
+
+	/**
+	 * Result code text
+	 *
+	 * @var string
+	 */
 	protected $_codeString = null;
+
+	/**
+	 * Task
+	 *
+	 * @var array
+	 */
+	protected $_task = null;
 
 	/**
 	 * Constructor
 	 *
+	 * @param array $task
 	 * @param TaskServer $TaskServer
 	 * @param TaskClient $TaskClient
 	 * @param Shell $Shell
 	 */
-	public function __construct(TaskServer $TaskServer, TaskClient $TaskClient, Shell $Shell = null) {
+	public function __construct(array $task, TaskServer $TaskServer, TaskClient $TaskClient, Shell $Shell = null) {
+		$this->_task = $task;
 		$this->_TaskServer = $TaskServer;
 		$this->_TaskClient = $TaskClient;
 		$this->_Shell = $Shell ? $Shell : new Shell();
 	}
 
 	/**
-	 * Notify client about stopped task
-	 *
-	 * @param array $task
+	 * Notify client about started task and run this task
 	 */
-	public function stop(array $task) {
-		$task = array(
-			'code' => $this->_code,
-			'code_string' => $this->_codeString,
+	public function start() {
+		ConnectionManager::getDataSource($this->_TaskServer->useDbConfig)->reconnect(array('persistent' => false));
+		$this->_Shell->out("Task #{$this->_task['id']} started");
+		$this->_task['started'] = $this->_getCurrentDateTime();
+		$this->_TaskServer->started($this->_task);
+		$this->_run();
+		return $this->_task;
+	}
+
+
+	/**
+	 * Notify client about stopped task
+	 */
+	protected function _stopped() {
+		$this->_task = array(
 			'stdout' => $this->_Process->getOutput(),
 			'stderr' => $this->_Process->getErrorOutput(),
 			'stopped' => $this->_getCurrentDateTime()
-				) + $task;
-		$this->_TaskServer->stoped($task);
-		$this->_Shell->out("Task #{$task['id']} stopped, code " . (string) $task['code']);
-		return $task;
-	}
-
-	/**
-	 * Notify client about started task and run this task
-	 *
-	 * @param array $task
-	 */
-	public function start(array $task) {
-		ConnectionManager::getDataSource($this->_TaskServer->useDbConfig)->reconnect(array('persistent' => false));
-		$this->_Shell->out("Task #{$task['id']} started");
-		$task['started'] = $this->_getCurrentDateTime();
-		$this->_TaskServer->started($task);
-		return $this->run($task);
+				) + $this->_task;
+		$this->_TaskServer->stopped($this->_task);
+		$this->_Shell->out("Task #{$this->_task['id']} stopped, code " . (string) $this->_task['code']);
 	}
 
 	/**
 	 * Runs task
-	 *
-	 * @param array $task
 	 */
-	public function run(array $task) {
-		$this->_Process = new Process($task['command'] . $this->_argsToString($task['arguments']), $task['path']);
-		$this->_Process->setTimeout($task['timeout']);
+	protected function _run() {
+		$this->_Process = new Process($this->_task['command'] . $this->_argsToString($this->_task['arguments']), $this->_task['path']);
+		$this->_Process->setTimeout($this->_task['timeout']);
 		try {
 			$this->_Process->run(function ($type, $buffer) {
 						if ('err' === $type) {
@@ -107,14 +121,14 @@ class TaskRunner extends Object {
 							$this->_Shell->out($buffer);
 						}
 					});
-			$this->_code = $this->_Process->getExitCode();
-			$this->_codeString = $this->_Process->getExitCodeText();
+			$this->_task['code']  = $this->_Process->getExitCode();
+			$this->_task['code_string'] = $this->_Process->getExitCodeText();
 		} catch (Exception $Exception) {
-			$this->_code = 134;
-			$this->_codeString = $Exception->getMessage();
+			$this->_task['code'] = 134;
+			$this->_task['code_string'] = $Exception->getMessage();
 		}
 
-		return $this->stop($task);
+		$this->_stopped();
 	}
 
 	/**

@@ -22,18 +22,17 @@ class TaskRunnerTest extends CakeTestCase {
 	public function testTimeout() {
 		$TaskClient = $this->getMock('TaskClient');
 		$TaskServer = $this->getMock('TaskServer', array(
-			'stoped',
+			'stopped',
 			'started'
 		));
 		$TaskServer->useDbConfig = 'test';
 		$TaskServer->expects($this->once())->method('started');
-		$TaskServer->expects($this->once())->method('stoped');
+		$TaskServer->expects($this->once())->method('stopped');
 		$Shell = $this->getMock('Shell', array(
 			'out',
 			'err'
 		));
 
-		$TaskRunner = new TaskRunner($TaskServer, $TaskClient, $Shell);
 		$task = array(
 			'id' => 1,
 			'path' => '',
@@ -43,8 +42,10 @@ class TaskRunnerTest extends CakeTestCase {
 			),
 			'timeout' => 1
 		);
+		$TaskRunner = new TaskRunner($task, $TaskServer, $TaskClient, $Shell);
 
-		$runnedTask = $TaskRunner->start($task);
+
+		$runnedTask = $TaskRunner->start();
 		debug($runnedTask);
 
 		$this->assertSame(134, $runnedTask['code']);
