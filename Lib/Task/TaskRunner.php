@@ -50,11 +50,12 @@ class TaskRunner extends Object {
 	 *
 	 * @param TaskServer $TaskServer
 	 * @param TaskClient $TaskClient
+	 * @param Shell $Shell
 	 */
-	public function __construct(TaskServer $TaskServer, TaskClient $TaskClient) {
+	public function __construct(TaskServer $TaskServer, TaskClient $TaskClient, Shell $Shell = null) {
 		$this->_TaskServer = $TaskServer;
 		$this->_TaskClient = $TaskClient;
-		$this->_Shell = new Shell();
+		$this->_Shell = $Shell ? $Shell : new Shell();
 	}
 
 	/**
