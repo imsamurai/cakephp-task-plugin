@@ -70,7 +70,7 @@ class TaskServer extends TaskModel {
 	 *
 	 * @return mixed
 	 */
-	public function started(array $task) {
+	public function started(array &$task) {
 		$task['status'] = TaskType::RUNNING;
 		return $this->save($task);
 	}
@@ -82,7 +82,7 @@ class TaskServer extends TaskModel {
 	 *
 	 * @return mixed
 	 */
-	public function updated(array $task) {
+	public function updated(array &$task) {
 		return $this->save($task);
 	}
 
@@ -93,7 +93,7 @@ class TaskServer extends TaskModel {
 	 *
 	 * @return mixed
 	 */
-	public function stopped(array $task) {
+	public function stopped(array &$task) {
 		$task['status'] = TaskType::FINISHED;
 		return $this->save($task);
 	}
