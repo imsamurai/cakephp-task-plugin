@@ -22,7 +22,7 @@ foreach ($dependsOnTask as $task) {
 		$name = $this->Html->tag('s', $name);
 	}
 	$dependsOnTaskFormatted[] = $this->Html->link(
-			$name, array('controller' => 'tasks', 'action' => 'view', $task['id']), array('escape' => false)
+			$name, array('action' => 'view', $task['id']), array('escape' => false)
 	);
 }
 
