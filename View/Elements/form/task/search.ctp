@@ -21,16 +21,16 @@ echo $this->Form->create('Task', array('novalidate', 'class' => 'well form-searc
 </div>
 <div style="float:left;width:300px;">
 	<div class="div-right">
-<?= $this->Form->input('started', array('class' => 'input-medium search-query daterangepicker')) ?>
+<?= $this->Form->input('started', array('class' => 'input-large daterangepicker')) ?>
 	</div>
 	<div class="div-right">
-<?= $this->Form->input('created', array('class' => 'input-medium search-query daterangepicker')) ?>
+<?= $this->Form->input('created', array('class' => 'input-large daterangepicker')) ?>
 	</div>
 	<div class="div-right">
-<?= $this->Form->input('stopped', array('class' => 'input-medium search-query daterangepicker')) ?>
+<?= $this->Form->input('stopped', array('class' => 'input-large daterangepicker')) ?>
 	</div>
 	<div class="div-right">
-<?= $this->Form->input('modified', array('class' => 'input-medium search-query daterangepicker')) ?>
+<?= $this->Form->input('modified', array('class' => 'input-large daterangepicker')) ?>
 	</div>
 </div>
 <div style="clear:left;"></div>
