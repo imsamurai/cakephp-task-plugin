@@ -18,7 +18,7 @@ or if you use git add as submodule:
 
 then add plugin loading in Config/bootstrap.php
 
-	CakePlugin::load('Task');
+	CakePlugin::load('Task', array('bootstrap' => true));
 
 add tables from `Config/Schema/tasks.sql`
 
@@ -37,3 +37,4 @@ Write global config if you need to use custom settings function:
 
 Use `TaskClient::add()` for adding new tasks
 Put `Console/cake Task.task task_server` in the cron, for ex each 1-5 minutes (depends on your needs)
+Try `http://yourdomain/task/` for basic view
