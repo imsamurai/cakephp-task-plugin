@@ -17,19 +17,25 @@ class TaskRunnerTest extends CakeTestCase {
 
 	public function setUp() {
 		parent::setUp();
+		Configure::write('Task', array(
+			'checkInterval' => 1,
+			'stopTimeout' => 1
+		));
 	}
 
-	public function testTimeout() {
+	public function testTerminate() {
 		$TaskClient = $this->getMock('TaskClient');
 		$TaskServer = $this->getMock('TaskServer', array(
 			'stopped',
 			'started',
-			'updated'
+			'updated',
+			'mustStop'
 		));
 		$TaskServer->useDbConfig = 'test';
 		$TaskServer->expects($this->once())->method('started');
 		$TaskServer->expects($this->once())->method('stopped');
 		$TaskServer->expects($this->never())->method('updated');
+		$TaskServer->expects($this->atLeastOnce())->method('mustStop')->will($this->returnValue(true));
 		$Shell = $this->getMock('Shell', array(
 			'out',
 			'err'
@@ -50,22 +56,22 @@ class TaskRunnerTest extends CakeTestCase {
 		$runnedTask = $TaskRunner->start();
 		debug($runnedTask);
 
-		$this->assertSame(134, $runnedTask['code']);
+		$this->assertSame(143, $runnedTask['code']);
 	}
 
-	public function testUpdate() {
+	public function testTimeout() {
 		$TaskClient = $this->getMock('TaskClient');
 		$TaskServer = $this->getMock('TaskServer', array(
 			'stopped',
 			'started',
-			'updated'
+			'updated',
+			'mustStop'
 		));
 		$TaskServer->useDbConfig = 'test';
 		$TaskServer->expects($this->once())->method('started');
 		$TaskServer->expects($this->once())->method('stopped');
-		$TaskServer->expects($this->exactly(3))->method('updated')->will($this->returnCallback(function($task) {
-			debug($task['stdout']); 
-		}));
+		$TaskServer->expects($this->never())->method('updated');
+		$TaskServer->expects($this->atLeastOnce())->method('mustStop')->will($this->returnValue(false));
 		$Shell = $this->getMock('Shell', array(
 			'out',
 			'err'
@@ -76,7 +82,45 @@ class TaskRunnerTest extends CakeTestCase {
 			'path' => '',
 			'command' => 'php',
 			'arguments' => array(
-				'-r' => 'echo 123;sleep(1);echo 555;sleep(1);echo 321;echo 444;'
+				'-r' => 'sleep(2);'
+			),
+			'timeout' => 1
+		);
+		$TaskRunner = new TaskRunner($task, $TaskServer, $TaskClient, $Shell);
+
+
+		$runnedTask = $TaskRunner->start();
+		debug($runnedTask);
+
+		$this->assertSame(0, $runnedTask['code']);
+	}
+
+	public function testUpdate() {
+		$TaskClient = $this->getMock('TaskClient');
+		$TaskServer = $this->getMock('TaskServer', array(
+			'stopped',
+			'started',
+			'updated',
+			'mustStop'
+		));
+		$TaskServer->useDbConfig = 'test';
+		$TaskServer->expects($this->once())->method('started');
+		$TaskServer->expects($this->once())->method('stopped');
+		$TaskServer->expects($this->exactly(4))->method('updated')->will($this->returnCallback(function($task) {
+			debug($task['stdout']); 
+		}));
+		$TaskServer->expects($this->atLeastOnce())->method('mustStop')->will($this->returnValue(false));
+		$Shell = $this->getMock('Shell', array(
+			'out',
+			'err'
+		));
+
+		$task = array(
+			'id' => 1,
+			'path' => '',
+			'command' => 'php',
+			'arguments' => array(
+				'-r' => 'echo 123;sleep(1);echo 555;sleep(1);echo 321;sleep(1);echo 444;'
 			),
 			'timeout' => 10
 		);

@@ -15,5 +15,7 @@ final class TaskType extends Type {
 	const DEFFERED = 1;
 	const RUNNING = 2;
 	const FINISHED = 3;
+	const STOPPING = 4;
+	const STOPPED = 5;
 
 }

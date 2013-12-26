@@ -23,6 +23,7 @@ echo $this->element('pagination/pagination');
 	<thead>
 		<tr>
 			<th><?= $this->Paginator->sort('id'); ?></th>
+			<th><?= $this->Paginator->sort('process_id'); ?></th>
 			<th><?= $this->Paginator->sort('command'); ?></th>
 			<th>Arguments</th>
 			<th><?= $this->Paginator->sort('status'); ?></th>
@@ -42,6 +43,7 @@ foreach ($data as $one) {
 	?>
 			<tr>
 				<td><?= $one['TaskClient']['id']; ?></td>
+				<td><?= $one['TaskClient']['process_id']; ?></td>
 				<td><?= $one['TaskClient']['command']; ?></td>
 				<td><?
 					$arguments = '';
@@ -66,8 +68,18 @@ foreach ($data as $one) {
 				<td><?= $one['TaskClient']['created']; ?></td>
 				<td><?= $one['TaskClient']['modified']; ?></td>
 				<td>
-			<?= $this->Html->link('View', array('action' => 'view', $one['TaskClient']['id']), array('class' => 'btn btn-mini')); ?>
-				</td>
+						<div class="btn-group"><button class="btn dropdown-toggle" data-toggle="dropdown">Actions <span class="caret"></span></button>
+							<ul class="dropdown-menu">
+								<?= $this->Html->tag('li', $this->Html->link('View', array('action' => 'view', $one['TaskClient']['id']))); ?>
+								<?= $this->Html->tag('li', 
+										$this->Html->link('Stop', array('action' => 'stop', $one['TaskClient']['id']), array(
+											'class'=>'btn-danger'
+											), "Are you sure want to stop '{$one['TaskClient']['command']}'?")
+										); ?>
+							</ul>
+						</div>
+						
+					</td>
 			</tr>
 	<?
 }

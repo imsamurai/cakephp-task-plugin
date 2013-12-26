@@ -72,9 +72,17 @@ class TaskServerTest extends CakeTestCase {
 	public function testStopped() {
 		$this->TaskClient->add('ls', '', array('-l'));
 		$task = $this->TaskServer->getPending();
-		$this->TaskServer->stopped($task);
+		$this->TaskServer->stopped($task, false);
 		$startedTask = $this->TaskClient->find('first', array('conditions' => array('id'=>$task['id'])));
 		$this->assertEqual($startedTask['Task']['status'], TaskType::FINISHED);
+	}
+	
+	public function testStoppedManual() {
+		$this->TaskClient->add('ls', '', array('-l'));
+		$task = $this->TaskServer->getPending();
+		$this->TaskServer->stopped($task, true);
+		$startedTask = $this->TaskClient->find('first', array('conditions' => array('id'=>$task['id'])));
+		$this->assertEqual($startedTask['Task']['status'], TaskType::STOPPED);
 	}
 
 	public function testDependent() {

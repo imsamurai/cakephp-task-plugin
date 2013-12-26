@@ -11,6 +11,8 @@ App::uses('TaskAppController', 'Task.Controller');
 /**
  * TasksController
  * 
+ * @property TaskClient $TaskClient TaskClient model
+ * 
  * @package Task.Controller
  */
 class TaskController extends TaskAppController {
@@ -30,7 +32,19 @@ class TaskController extends TaskAppController {
 		$this->paginate = array(
 			'TaskClient' => array(
 				'limit' => Configure::read('Pagination.limit'),
-				'fields' => array('command', 'arguments', 'status', 'code_string', 'stderr', 'started', 'stopped', 'created', 'modified', 'id'),
+				'fields' => array(
+					'command', 
+					'arguments', 
+					'status', 
+					'code_string', 
+					'stderr', 
+					'started', 
+					'stopped', 
+					'created', 
+					'modified', 
+					'id',
+					'process_id',
+					),
 				'conditions' => $this->_paginationFilter(),
 				'order' => array('created' => 'desc'),
 				'contain' => array('DependsOnTask' => array('id', 'status'))
@@ -61,6 +75,14 @@ class TaskController extends TaskAppController {
 			TaskType::FINISHED => array(
 				'name' => 'finished',
 				'class' => 'label-inverse'
+			),
+			TaskType::STOPPING => array(
+				'name' => 'stopping',
+				'class' => 'label-warning'
+			),
+			TaskType::STOPPED => array(
+				'name' => 'stopped',
+				'class' => 'label-danger'
 			)
 		));
 	}
@@ -87,6 +109,32 @@ class TaskController extends TaskAppController {
 			throw new NotFoundException("Task id=$taskId not found!");
 		}
 		$this->set($task);
+	}
+	
+	/**
+	 * Stop task
+	 * 
+	 * @param int $taskId
+	 */
+	public function stop($taskId) {
+		$task = $this->TaskClient->read(null, $taskId);
+
+		if (!$task) {
+			throw new NotFoundException("Task id=$taskId not found!");
+		}
+	
+		$success = $task[$this->TaskClient->alias]['process_id'] && $this->TaskClient->saveField('status', TaskType::STOPPING);
+		
+		if ($success) {
+			$this->Session->setFlash("Task $taskId will be stopped shortly", 'alert/simple', array(
+				'class' => 'alert-success', 'title' => 'Ok!'
+			));
+		} else {
+			$this->Session->setFlash("Can't stop task $taskId!", 'alert/simple', array(
+				'class' => 'alert-error', 'title' => 'Error!'
+			));
+		}
+		$this->redirect($this->referer());
 	}
 	
 	/**

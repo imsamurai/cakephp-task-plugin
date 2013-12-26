@@ -32,7 +32,7 @@ class TaskServer extends TaskModel {
 		}
 		$runnedCount = $this->find('count', array(
 			'conditions' => array(
-				'status' => array(TaskType::DEFFERED, TaskType::RUNNING),
+				'status' => array(TaskType::DEFFERED, TaskType::RUNNING, TaskType::STOPPING),
 				'server_id' => $this->_serverId()
 			)
 		));
@@ -90,12 +90,24 @@ class TaskServer extends TaskModel {
 	 * Must be called when task has been stopped
 	 *
 	 * @param array $task
+	 * @param bool $manual True means process stopped manually
 	 *
 	 * @return mixed
 	 */
-	public function stopped(array &$task) {
-		$task['status'] = TaskType::FINISHED;
+	public function stopped(array &$task, $manual) {
+		$task['status'] = $manual ? TaskType::STOPPED : TaskType::FINISHED;
 		return $this->save($task);
+	}
+	
+	/**
+	 * Checks if task must be stopped
+	 *
+	 * @param int $taskId
+	 *
+	 * @return bool
+	 */
+	public function mustStop($taskId) {
+		return $this->field('status', array('id' => $taskId)) == TaskType::STOPPING;
 	}
 
 	/**
@@ -131,7 +143,7 @@ class TaskServer extends TaskModel {
 
 			$waitForOtherTask = false;
 			foreach ($taskCandidate['DependsOnTask'] as $DependsOnTask) {
-				if ((int) $DependsOnTask['status'] !== TaskType::FINISHED) {
+				if (!in_array((int) $DependsOnTask['status'], array(TaskType::FINISHED, TaskType::STOPPED))) {
 					$waitForOtherTask = true;
 					break;
 				}

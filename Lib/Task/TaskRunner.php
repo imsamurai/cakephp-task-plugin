@@ -95,17 +95,19 @@ class TaskRunner extends Object {
 		return $this->_task;
 	}
 
-
 	/**
 	 * Notify client about stopped task
+	 * 
+	 * @param bool $manual True means process stopped manually
 	 */
-	protected function _stopped() {
+	protected function _stopped($manual = false) {
 		$this->_task = array(
 			'stdout' => $this->_Process->getOutput(),
 			'stderr' => $this->_Process->getErrorOutput(),
-			'stopped' => $this->_getCurrentDateTime()
+			'stopped' => $this->_getCurrentDateTime(),
+			'process_id' => 0,
 				) + $this->_task;
-		$this->_TaskServer->stopped($this->_task);
+		$this->_TaskServer->stopped($this->_task, $manual);
 		$this->_Shell->out("Task #{$this->_task['id']} stopped, code " . (string) $this->_task['code']);
 	}
 
@@ -113,27 +115,54 @@ class TaskRunner extends Object {
 	 * Runs task
 	 */
 	protected function _run() {
+		$manual = false;
 		$this->_Process = new Process($this->_task['command'] . $this->_argsToString($this->_task['arguments']), $this->_task['path']);
 		$this->_Process->setTimeout($this->_task['timeout']);
 		try {
-			$this->_Process->run(function ($type, $buffer) {
-						if ('err' === $type) {
-							$this->_Shell->err($buffer);
-							$this->_task['stderr'] .= $buffer;
-						} else {
-							$this->_Shell->out($buffer);
-							$this->_task['stdout'] .= $buffer;
-						}
-						$this->_TaskServer->updated($this->_task);
-					});
-			$this->_task['code']  = $this->_Process->getExitCode();
+			$this->_Process->start(function ($type, $buffer) {
+				if ('err' === $type) {
+					$this->_Shell->err($buffer);
+					$this->_task['stderr'] .= $buffer;
+				} else {
+					$this->_Shell->out($buffer);
+					$this->_task['stdout'] .= $buffer;
+				}
+				$this->_TaskServer->updated($this->_task);
+			});
+			
+			$this->_task['process_id'] = $this->_Process->getPid();
+			
+			while ($this->_Process->isRunning()) {
+				sleep(Configure::read('Task.checkInterval'));
+				if ($this->_TaskServer->mustStop($this->_task['id'])) {
+					$this->_terminate();
+					$manual = true;
+					break;
+				}
+			}
+
+			$this->_task['code'] = $this->_Process->getExitCode();
 			$this->_task['code_string'] = $this->_Process->getExitCodeText();
 		} catch (Exception $Exception) {
 			$this->_task['code'] = 134;
 			$this->_task['code_string'] = $Exception->getMessage();
 		}
 
-		$this->_stopped();
+		$this->_stopped($manual);
+	}
+	
+	/**
+	 * Terminate current process
+	 */
+	protected function _terminate() {
+		$ppid = $this->_task['process_id'];
+		$pids = preg_split('/\s+/', `ps -o pid --no-heading --ppid $ppid`);
+		foreach ($pids as $pid) {
+			if (is_numeric($pid)) {
+				posix_kill($pid, /* SIGTERM */ 15);
+			}
+		}
+		$this->_Process->stop(Configure::read('Task.stopTimeout'), /* SIGTERM */ 15);
 	}
 
 	/**
