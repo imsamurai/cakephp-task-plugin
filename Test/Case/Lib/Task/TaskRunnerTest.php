@@ -34,7 +34,7 @@ class TaskRunnerTest extends CakeTestCase {
 		$TaskServer->useDbConfig = 'test';
 		$TaskServer->expects($this->once())->method('started');
 		$TaskServer->expects($this->once())->method('stopped');
-		$TaskServer->expects($this->never())->method('updated');
+		$TaskServer->expects($this->any())->method('updated');
 		$TaskServer->expects($this->atLeastOnce())->method('mustStop')->will($this->returnValue(true));
 		$Shell = $this->getMock('Shell', array(
 			'out',
