@@ -56,7 +56,7 @@ class TaskRunnerTest extends CakeTestCase {
 		$runnedTask = $TaskRunner->start();
 		debug($runnedTask);
 
-		$this->assertSame(143, $runnedTask['code']);
+		$this->assertNotEqual((int) $runnedTask['code'], 0);
 	}
 
 	public function testTimeout() {
@@ -106,7 +106,7 @@ class TaskRunnerTest extends CakeTestCase {
 		$TaskServer->useDbConfig = 'test';
 		$TaskServer->expects($this->once())->method('started');
 		$TaskServer->expects($this->once())->method('stopped');
-		$TaskServer->expects($this->exactly(4))->method('updated')->will($this->returnCallback(function($task) {
+		$TaskServer->expects($this->atLeastOnce())->method('updated')->will($this->returnCallback(function($task) {
 			debug($task['stdout']); 
 		}));
 		$TaskServer->expects($this->atLeastOnce())->method('mustStop')->will($this->returnValue(false));
