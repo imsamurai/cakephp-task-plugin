@@ -62,7 +62,7 @@ class TaskController extends TaskAppController {
 		$this->set('statuses', array(
 			TaskType::UNSTARTED => array(
 				'name' => 'new',
-				'class' => ''
+				'class' => 'label label-success'
 			),
 			TaskType::DEFFERED => array(
 				'name' => 'deffered',
@@ -78,11 +78,11 @@ class TaskController extends TaskAppController {
 			),
 			TaskType::STOPPING => array(
 				'name' => 'stopping',
-				'class' => 'label-warning'
+				'class' => 'label-info'
 			),
 			TaskType::STOPPED => array(
 				'name' => 'stopped',
-				'class' => 'label-danger'
+				'class' => 'label-important'
 			)
 		));
 	}
