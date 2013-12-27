@@ -16,6 +16,7 @@ Configure::write('Task', array(
 	'stopTimeout' => Configure::read('Task.stopTimeout') ? Configure::read('Task.stopTimeout') : 5,
 	'maxSlots' => Configure::read('Task.maxSlots') ? Configure::read('Task.maxSlots') : 16,
 	'timeout' => Configure::read('Task.timeout') ? Configure::read('Task.timeout') : 60 * 60 * 8 ,
+	'dateFormat' => Configure::read('Task.dateFormat') ? Configure::read('Task.dateFormat') : 'd.m.Y',
 ));
 App::uses('TaskType', 'Task.Lib/Task');
 App::uses('Sanitize', 'Utility');
