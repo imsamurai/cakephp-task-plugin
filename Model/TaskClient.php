@@ -80,6 +80,35 @@ class TaskClient extends TaskModel {
 			return $this->read()[$this->alias];
 		}
 	}
+	
+	/**
+	 * Stop task by id
+	 * 
+	 * @param int $taskId Unique task id
+	 * @return boolean True if success
+	 * @throws NotFoundException If no such task found
+	 */
+	public function stop($taskId) {
+		$task = $this->read(null, $taskId);
+
+		if (!$task) {
+			throw new NotFoundException("Task id=$taskId not found!");
+		}
+
+		switch ($task[$this->alias]['status']) {
+			case TaskType::UNSTARTED: {
+					return $this->saveField('status', TaskType::STOPPED);
+				}
+			case TaskType::RUNNING: {
+					return $this->saveField('status', TaskType::STOPPING);
+				}
+			case TaskType::DEFFERED: {
+					sleep(1);
+					return $this->stop($taskId);
+				}
+			default: return false;
+		}
+	}
 
 	/**
 	 * Unique hash of the command

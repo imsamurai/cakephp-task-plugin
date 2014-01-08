@@ -117,30 +117,7 @@ class TaskController extends TaskAppController {
 	 * @param int $taskId
 	 */
 	public function stop($taskId) {
-		$task = $this->TaskClient->read(null, $taskId);
-
-		if (!$task) {
-			throw new NotFoundException("Task id=$taskId not found!");
-		}
-
-		switch ($task[$this->TaskClient->alias]['status']) {
-			case TaskType::UNSTARTED: {
-					$success = $this->TaskClient->saveField('status', TaskType::STOPPED);
-					break;
-				}
-			case TaskType::RUNNING: {
-					$success = $this->TaskClient->saveField('status', TaskType::STOPPING);
-					break;
-				}
-			case TaskType::DEFFERED: {
-					sleep(1);
-					$this->stop($taskId);
-					break;
-				}
-			default: $success = false;
-		}
-
-		if ($success) {
+		if ($this->TaskClient->stop($taskId)) {
 			$this->Session->setFlash("Task $taskId will be stopped shortly", 'alert/simple', array(
 				'class' => 'alert-success', 'title' => 'Ok!'
 			));
