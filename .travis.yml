@@ -13,9 +13,23 @@ before_script:
   - mysql -e 'create database test1;'
   - git clone git://github.com/cakephp/cakephp ../cakephp && cd ../cakephp && git checkout $CAKE_VERSION
   - cp -R ../cakephp-task-plugin plugins/Task
+  - git clone git://github.com/imsamurai/cakephp-serializable-behaviour.git app/Plugin/Serializable
   - chmod -R 777 ../cakephp/app/tmp
+  - composer install
   - set +H
   - echo "CakePlugin::load('Task', array('bootstrap' => true));" >> ../cakephp/app/Config/bootstrap.php
+  - echo "CakePlugin::load('Serializable');" >> ../cakephp/app/Config/bootstrap.php
+  - echo "Configure::write('Serializable', array(
+    'serialize' => function($value) {
+        return base64_encode(serialize($value));
+    },
+    'unserialize' => function($value) {
+        return unserialize(base64_decode($value));
+    }
+    ));" >> ../cakephp/app/Config/bootstrap.php
+  - echo "<?php $ds = DIRECTORY_SEPARATOR;
+    require_once dirname(dirname(dirname(__FILE__))) . $ds . 'vendor' . $ds . 'autoload.php';
+    return ShellDispatcher::run($argv);" > app/Console/cake.php
   - echo "<?php
     class DATABASE_CONFIG {
     public \$test = array(
@@ -27,10 +41,10 @@ before_script:
         'encoding' => 'utf8'
     );
 
-    }" > ../cakephp/app/Config/database.php
+    }" > app/Config/database.php
 
 script:
-  - ./lib/Cake/Console/cake test Task AllTask --stderr
+  - ./app/Console/cake test Task AllTask --stderr
 
 notifications:
   email: im.samuray@gmail.com
