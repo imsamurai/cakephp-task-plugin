@@ -19,7 +19,9 @@
     }
   ],
   "require": {
-    "composer/installers": "*"
+    "composer/installers": "*",
+	"symfony/process": "2.3.*",
+	"kriswallsmith/spork": "dev-master"
   },
   "support": {
     "email": "im.samuray@gmail.com",
