@@ -7,6 +7,20 @@ Plugin for run deffered (scheduled) tasks (console scripts)
 
 
 ## Installation
+Composer (for ex. version 1.0.0):
+
+```javascript
+{
+	"require": {
+		"imsamurai/cakephp-task-plugin": "1.0.0"
+	},
+	"minimum-stability": "dev"
+}
+```
+	
+it installs in `Plugin` directory (in same level with composer.json) so you may want to add `Plugin/Task` into ignore file.
+	
+or clone:
 
 	cd my_cake_app/app
 	git clone git://github.com/imsamurai/cakephp-task-plugin.git Plugin/Task
@@ -28,10 +42,12 @@ include https://github.com/symfony/Process and https://github.com/kriswallsmith/
 
 Write global config if you need to use custom settings function:
 
-	Configure::write('Task', array(
-      //maximum runned tasks at the same time
-	  'maxSlots' => <number of slots>
-	));
+```php
+Configure::write('Task', array(
+  //maximum runned tasks at the same time
+  'maxSlots' => <number of slots>
+));
+```
 
 ## Usage
 
