@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * Author: imsamurai <im.samuray@gmail.com>
  * Date: 18.06.2013
@@ -11,14 +11,14 @@
 ?>
 <h1>View Task</h1>
 <br />
-<?
+<?php
 if (!isset($TaskClient)) {
 	echo $this->element('no_data');
 	return;
 }
 ?>
 <table class="table table-bordered table-striped table-sortable">
-	<?
+	<?php
 	$arguments = '';
 	foreach ($TaskClient['arguments'] as $name => $value) {
 		if (!is_numeric($name)) {
@@ -37,5 +37,5 @@ if (!isset($TaskClient)) {
 			<td style="white-space: pre;"><?= is_array($value) ? Debugger::dump($value) : $value; ?></td>
 
 		</tr>
-	<? } ?>
+<? } ?>
 </table>

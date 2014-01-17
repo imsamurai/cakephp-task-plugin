@@ -1,4 +1,4 @@
-<?
+<?php
 
 /**
  * Author: imsamurai <im.samuray@gmail.com>
@@ -56,7 +56,7 @@ class TaskRunnerTest extends CakeTestCase {
 		$runnedTask = $TaskRunner->start();
 		debug($runnedTask);
 
-		$this->assertNotEqual((int) $runnedTask['code'], 0);
+		$this->assertNotEqual((int)$runnedTask['code'], 0);
 	}
 
 	public function testTimeout() {
@@ -107,8 +107,8 @@ class TaskRunnerTest extends CakeTestCase {
 		$TaskServer->expects($this->once())->method('started');
 		$TaskServer->expects($this->once())->method('stopped');
 		$TaskServer->expects($this->atLeastOnce())->method('updated')->will($this->returnCallback(function($task) {
-			debug($task['stdout']); 
-		}));
+					debug($task['stdout']);
+				}));
 		$TaskServer->expects($this->atLeastOnce())->method('mustStop')->will($this->returnValue(false));
 		$Shell = $this->getMock('Shell', array(
 			'out',

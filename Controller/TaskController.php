@@ -33,18 +33,18 @@ class TaskController extends TaskAppController {
 			'TaskClient' => array(
 				'limit' => Configure::read('Pagination.limit'),
 				'fields' => array(
-					'command', 
-					'arguments', 
-					'status', 
-					'code_string', 
-					'stderr', 
-					'started', 
-					'stopped', 
-					'created', 
-					'modified', 
+					'command',
+					'arguments',
+					'status',
+					'code_string',
+					'stderr',
+					'started',
+					'stopped',
+					'created',
+					'modified',
 					'id',
 					'process_id',
-					),
+				),
 				'conditions' => $this->_paginationFilter(),
 				'order' => array('created' => 'desc'),
 				'contain' => array('DependsOnTask' => array('id', 'status'))
@@ -110,7 +110,7 @@ class TaskController extends TaskAppController {
 		}
 		$this->set($task);
 	}
-	
+
 	/**
 	 * Stop task
 	 * 
@@ -128,7 +128,7 @@ class TaskController extends TaskAppController {
 		}
 		$this->redirect($this->referer());
 	}
-	
+
 	/**
 	 * Builds pagination conditions from search form
 	 * 
@@ -141,7 +141,7 @@ class TaskController extends TaskAppController {
 			if (empty($conditions[$dateRangeField])) {
 				continue;
 			}
-			$conditions[$dateRangeField.' BETWEEN ? AND ?'] = explode(' to ', $conditions[$dateRangeField]);
+			$conditions[$dateRangeField . ' BETWEEN ? AND ?'] = explode(' to ', $conditions[$dateRangeField]);
 			unset($conditions[$dateRangeField]);
 		}
 		return $conditions;

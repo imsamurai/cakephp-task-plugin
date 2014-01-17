@@ -1,11 +1,11 @@
-<?
+<?php
+
 /**
  * Author: imsamurai <im.samuray@gmail.com>
  * Date: 12.06.2013
  * Time: 17:27:41
  * Format: http://book.cakephp.org/2.0/en/development/testing.html
  */
-
 App::uses('TaskClient', 'Task.Model');
 App::uses('TaskServer', 'Task.Model');
 
@@ -13,7 +13,8 @@ App::uses('TaskServer', 'Task.Model');
  * @package Task.Test.Case.Model
  */
 class TaskServerTest extends CakeTestCase {
-    /**
+
+	/**
 	 * Fixtures
 	 *
 	 * @var array
@@ -50,7 +51,7 @@ class TaskServerTest extends CakeTestCase {
 		$this->TaskClient->add('ls', '', array('-l'));
 		$this->assertSame($maxSlots, $this->TaskServer->freeSlots());
 		$this->TaskServer->getPending();
-		$this->assertSame($maxSlots-1, $this->TaskServer->freeSlots());
+		$this->assertSame($maxSlots - 1, $this->TaskServer->freeSlots());
 	}
 
 	public function testGetPending() {
@@ -65,7 +66,7 @@ class TaskServerTest extends CakeTestCase {
 		$this->TaskClient->add('ls', '', array('-l'));
 		$task = $this->TaskServer->getPending();
 		$this->TaskServer->started($task);
-		$startedTask = $this->TaskClient->find('first', array('conditions' => array('id'=>$task['id'])));
+		$startedTask = $this->TaskClient->find('first', array('conditions' => array('id' => $task['id'])));
 		$this->assertEqual($startedTask['Task']['status'], TaskType::RUNNING);
 	}
 
@@ -73,15 +74,15 @@ class TaskServerTest extends CakeTestCase {
 		$this->TaskClient->add('ls', '', array('-l'));
 		$task = $this->TaskServer->getPending();
 		$this->TaskServer->stopped($task, false);
-		$startedTask = $this->TaskClient->find('first', array('conditions' => array('id'=>$task['id'])));
+		$startedTask = $this->TaskClient->find('first', array('conditions' => array('id' => $task['id'])));
 		$this->assertEqual($startedTask['Task']['status'], TaskType::FINISHED);
 	}
-	
+
 	public function testStoppedManual() {
 		$this->TaskClient->add('ls', '', array('-l'));
 		$task = $this->TaskServer->getPending();
 		$this->TaskServer->stopped($task, true);
-		$startedTask = $this->TaskClient->find('first', array('conditions' => array('id'=>$task['id'])));
+		$startedTask = $this->TaskClient->find('first', array('conditions' => array('id' => $task['id'])));
 		$this->assertEqual($startedTask['Task']['status'], TaskType::STOPPED);
 	}
 
@@ -98,4 +99,5 @@ class TaskServerTest extends CakeTestCase {
 		$this->assertEqual($pendedTask1['id'], $task1['id']);
 		$this->assertEqual($pendedTask2['id'], $task2['id']);
 	}
+
 }

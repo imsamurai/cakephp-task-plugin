@@ -1,4 +1,4 @@
-<?
+<?php
 
 /**
  * Author: imsamurai <im.samuray@gmail.com>
@@ -39,7 +39,7 @@ class TaskClientTest extends CakeTestCase {
 		$path = '';
 		$arguments = array('-l');
 		$task = $this->TaskClient->add($command, $path, $arguments);
-		$this->assertTrue((bool) $task);
+		$this->assertTrue((bool)$task);
 		$this->assertEqual(1, $task['id']);
 		$this->assertEqual($command, $task['command']);
 		$this->assertEqual($path, $task['path']);

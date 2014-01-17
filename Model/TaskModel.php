@@ -1,4 +1,4 @@
-<?
+<?php
 
 /**
  * Author: imsamurai <im.samuray@gmail.com>
@@ -6,7 +6,6 @@
  * Time: 9:51:57
  * Format: http://book.cakephp.org/2.0/en/models.html
  */
-
 App::uses('TaskType', 'Task.Lib/Task');
 
 /**

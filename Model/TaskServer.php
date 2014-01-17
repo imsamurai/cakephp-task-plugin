@@ -1,4 +1,4 @@
-<?
+<?php
 
 /**
  * Author: imsamurai <im.samuray@gmail.com>
@@ -26,7 +26,7 @@ class TaskServer extends TaskModel {
 	 * @return int
 	 */
 	public function freeSlots() {
-		$maxSlots = (int) Configure::read('Task.maxSlots');
+		$maxSlots = (int)Configure::read('Task.maxSlots');
 		if (!$maxSlots) {
 			$maxSlots = 10;
 		}
@@ -36,7 +36,7 @@ class TaskServer extends TaskModel {
 				'server_id' => $this->_serverId()
 			)
 		));
-		return $maxSlots - (int) $runnedCount;
+		return $maxSlots - (int)$runnedCount;
 	}
 
 	/**
@@ -98,7 +98,7 @@ class TaskServer extends TaskModel {
 		$task['status'] = $manual ? TaskType::STOPPED : TaskType::FINISHED;
 		return $this->save($task);
 	}
-	
+
 	/**
 	 * Checks if task must be stopped
 	 *
@@ -143,7 +143,7 @@ class TaskServer extends TaskModel {
 
 			$waitForOtherTask = false;
 			foreach ($taskCandidate['DependsOnTask'] as $DependsOnTask) {
-				if (!in_array((int) $DependsOnTask['status'], array(TaskType::FINISHED, TaskType::STOPPED))) {
+				if (!in_array((int)$DependsOnTask['status'], array(TaskType::FINISHED, TaskType::STOPPED))) {
 					$waitForOtherTask = true;
 					break;
 				}
@@ -167,7 +167,7 @@ class TaskServer extends TaskModel {
 	protected function _serverId() {
 		static $serverId = null;
 		if (is_null($serverId)) {
-			$File = new File(TMP.'task_server_id', true);
+			$File = new File(TMP . 'task_server_id', true);
 			$serverId = (int)$File->read();
 			if (!$serverId) {
 				$serverId = mt_rand();

@@ -18,7 +18,7 @@ if (!$dependsOnTask) {
 $dependsOnTaskFormatted = array();
 foreach ($dependsOnTask as $task) {
 	$name = "#{$task['id']}";
-	if ((int) $task['status'] === TaskType::FINISHED) {
+	if ((int)$task['status'] === TaskType::FINISHED) {
 		$name = $this->Html->tag('s', $name);
 	}
 	$dependsOnTaskFormatted[] = $this->Html->link(

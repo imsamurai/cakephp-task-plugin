@@ -1,4 +1,4 @@
-<?
+<?php
 /**
  * Author: imsamurai <im.samuray@gmail.com>
  * Date: 09.07.2012
@@ -10,7 +10,7 @@
 /* @var $this IDEView */
 ?>
 <h1>Task list</h1>
-<?
+<?php
 echo $this->element('form/task/search');
 
 //if (empty($data)) {
@@ -38,14 +38,13 @@ echo $this->element('pagination/pagination');
 		</tr>
 	</thead>
 	<tbody>
-<?
-foreach ($data as $one) {
+<?php foreach ($data as $one) {
 	?>
 			<tr>
 				<td><?= $one['TaskClient']['id']; ?></td>
 				<td><?= $one['TaskClient']['process_id']; ?></td>
 				<td><?= $one['TaskClient']['command']; ?></td>
-				<td><?
+				<td><?php
 					$arguments = '';
 					foreach ($one['TaskClient']['arguments'] as $name => $value) {
 						if (!is_numeric($name)) {
@@ -68,21 +67,21 @@ foreach ($data as $one) {
 				<td><?= $one['TaskClient']['created']; ?></td>
 				<td><?= $one['TaskClient']['modified']; ?></td>
 				<td>
-						<div class="btn-group"><button class="btn dropdown-toggle" data-toggle="dropdown">Actions <span class="caret"></span></button>
-							<ul class="dropdown-menu">
-								<?= $this->Html->tag('li', $this->Html->link('View', array('action' => 'view', $one['TaskClient']['id']))); ?>
-								<?= $this->Html->tag('li', 
-										$this->Html->link('Stop', array('action' => 'stop', $one['TaskClient']['id']), array(
-											'class'=>'btn-danger'
+					<div class="btn-group"><button class="btn dropdown-toggle" data-toggle="dropdown">Actions <span class="caret"></span></button>
+						<ul class="dropdown-menu">
+							<?= $this->Html->tag('li', $this->Html->link('View', array('action' => 'view', $one['TaskClient']['id']))); ?>
+							<?=
+							$this->Html->tag('li', $this->Html->link('Stop', array('action' => 'stop', $one['TaskClient']['id']), array(
+										'class' => 'btn-danger'
 											), "Are you sure want to stop '{$one['TaskClient']['command']}'?")
-										); ?>
-							</ul>
-						</div>
-						
-					</td>
+							);
+							?>
+						</ul>
+					</div>
+
+				</td>
 			</tr>
-	<?
-}
+<?php }
 ?>
 	</tbody>
 </table>

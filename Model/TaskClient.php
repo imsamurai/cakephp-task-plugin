@@ -1,4 +1,4 @@
-<?
+<?php
 
 /**
  * Author: imsamurai <im.samuray@gmail.com>
@@ -32,8 +32,8 @@ class TaskClient extends TaskModel {
 	 * @return bool
 	 */
 	public function add($command, $path, array $arguments = array(), array $options = array()) {
-		$dependsOn = (array) Hash::get($options, 'dependsOn');
-		$unique = (bool) Hash::get($options, 'unique');
+		$dependsOn = (array)Hash::get($options, 'dependsOn');
+		$unique = (bool)Hash::get($options, 'unique');
 		unset($options['dependsOn'], $options['unique']);
 
 		$task = compact('command', 'path', 'arguments') + $options;
@@ -71,7 +71,7 @@ class TaskClient extends TaskModel {
 			);
 			$success = $this->saveAssociated($data);
 		} else {
-			$success =  $this->save($task);
+			$success = $this->save($task);
 		}
 
 		if (!$success) {
@@ -80,7 +80,7 @@ class TaskClient extends TaskModel {
 			return $this->read()[$this->alias];
 		}
 	}
-	
+
 	/**
 	 * Stop task by id
 	 * 

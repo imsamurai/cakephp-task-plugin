@@ -108,7 +108,7 @@ class TaskRunner extends Object {
 			'process_id' => 0,
 				) + $this->_task;
 		$this->_TaskServer->stopped($this->_task, $manual);
-		$this->_Shell->out("Task #{$this->_task['id']} stopped, code " . (string) $this->_task['code']);
+		$this->_Shell->out("Task #{$this->_task['id']} stopped, code " . (string)$this->_task['code']);
 	}
 
 	/**
@@ -129,9 +129,9 @@ class TaskRunner extends Object {
 				}
 				$this->_TaskServer->updated($this->_task);
 			});
-			
+
 			$this->_task['process_id'] = $this->_Process->getPid();
-			
+
 			while ($this->_Process->isRunning()) {
 				sleep(Configure::read('Task.checkInterval'));
 				if ($this->_TaskServer->mustStop($this->_task['id'])) {
@@ -150,7 +150,7 @@ class TaskRunner extends Object {
 
 		$this->_stopped($manual);
 	}
-	
+
 	/**
 	 * Terminate current process
 	 */

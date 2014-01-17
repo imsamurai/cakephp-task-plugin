@@ -6,6 +6,7 @@
 class TaskFixture extends CakeTestFixture {
 
 	public $useDbConfig = 'test';
+
 	/**
 	 * Fields
 	 *
@@ -21,7 +22,7 @@ class TaskFixture extends CakeTestFixture {
 		'hash' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 100, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'status' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'length' => 3, 'collate' => 'utf8_general_ci'),
 		'code' => array('type' => 'integer', 'null' => false, 'default' => '0', 'length' => 10),
-		'code_string' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' =>500, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
+		'code_string' => array('type' => 'string', 'null' => false, 'default' => NULL, 'length' => 500, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'stdout' => array('type' => 'string', 'null' => false, 'default' => NULL, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'stderr' => array('type' => 'string', 'null' => false, 'default' => NULL, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'details' => array('type' => 'string', 'null' => false, 'default' => NULL, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
