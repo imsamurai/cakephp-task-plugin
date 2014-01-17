@@ -28,8 +28,9 @@ before_script:
         return unserialize(base64_decode($value));
     }
     ));" >> ../cakephp/app/Config/bootstrap.php
-  - echo "<?php \$ds = DIRECTORY_SEPARATOR;
-    require_once dirname(dirname(dirname(__FILE__))) . \$ds . 'vendor' . \$ds . 'autoload.php';
+  - echo "<?php
+    require_once dirname(dirname(dirname(__FILE__))) . '/vendor/autoload.php';
+    require_once dirname(dirname(dirname(__FILE__))) . '/lib/Cake/Console/ShellDispatcher.php';
     return ShellDispatcher::run(\$argv);" > app/Console/cake.php
   - echo "<?php
     class DATABASE_CONFIG {
