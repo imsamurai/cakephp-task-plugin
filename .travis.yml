@@ -21,11 +21,11 @@ before_script:
   - echo "CakePlugin::load('Task', array('bootstrap' => true));" >> ../cakephp/app/Config/bootstrap.php
   - echo "CakePlugin::load('Serializable');" >> ../cakephp/app/Config/bootstrap.php
   - echo "Configure::write('Serializable', array(
-    'serialize' => function($value) {
-        return base64_encode(serialize($value));
+    'serialize' => function(\$value) {
+        return base64_encode(serialize(\$value));
     },
-    'unserialize' => function($value) {
-        return unserialize(base64_decode($value));
+    'unserialize' => function(\$value) {
+        return unserialize(base64_decode(\$value));
     }
     ));" >> ../cakephp/app/Config/bootstrap.php
   - echo "<?php
