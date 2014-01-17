@@ -1,0 +1,32 @@
+{
+  "name": "imsamurai/cakephp-task-plugin",
+  "description": "Plugin for run deffered (scheduled) tasks (console scripts)",
+  "type": "cakephp-plugin",
+  "keywords": [
+    "cakephp",
+    "task",
+    "plugin",
+    "process"
+  ],
+  "homepage": "http://github.com/imsamurai/cakephp-task-plugin",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Shamray Alexander",
+      "email": "im.samuray@gmail.com",
+      "homepage": "https://imsamurai.me",
+      "role": "Maintainer"
+    }
+  ],
+  "require": {
+    "composer/installers": "*"
+  },
+  "support": {
+    "email": "im.samuray@gmail.com",
+    "issues": "https://github.com/imsamurai/cakephp-task-plugin/issues",
+    "source": "https://github.com/imsamurai/cakephp-task-plugin"
+  },
+  "extra": {
+    "installer-name": "Task"
+  }
+}
