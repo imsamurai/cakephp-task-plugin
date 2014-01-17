@@ -1,4 +1,4 @@
-Cakephp Task Plugin
+Cakephp Task Plugin [![Build Status](https://travis-ci.org/imsamurai/cakephp-task-plugin.png)](https://travis-ci.org/imsamurai/cakephp-task-plugin)
 ===================
 
 Plugin for run deffered (scheduled) tasks (console scripts)
