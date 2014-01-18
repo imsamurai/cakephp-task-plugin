@@ -31,7 +31,7 @@ before_script:
   - git clone https://github.com/FriendsOfCake/travis.git --depth 1 ../travis
   - ../travis/before_script.sh
   - ls -la
-  - cd $REPO_PATH
+  - cd ..
   - ls -la
   - cp Plugin/Task/composer.json .
   - composer install
