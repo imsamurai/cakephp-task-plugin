@@ -30,12 +30,6 @@ matrix:
 before_script:
   - git clone https://github.com/FriendsOfCake/travis.git --depth 1 ../travis
   - ../travis/before_script.sh
-  - ls -la
-  - cd ..
-  - ls -la
-  - cp Plugin/Task/composer.json .
-  - composer install
-  - set +H
   - echo "
     App::build(array('Plugin' => array(ROOT.'Plugin'.DC)));
     CakePlugin::load('Task', array('bootstrap' => true));
