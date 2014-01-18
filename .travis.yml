@@ -49,7 +49,8 @@ before_script:
     return ShellDispatcher::run(\$argv);" > ../cakephp/app/Console/cake.php
   - mkdir ../Standart/
   - git clone https://github.com/imsamurai/cakephp-codesniffer.git --depth 1 ../Standart/CakePHP
-  - whereis phpcs
+  - ls -la ~/.phpenv/versions/$(phpenv version-name)/bin/
+  - cat ~/.phpenv/versions/$(phpenv version-name)/bin/phpcs
   
 script:
   - ../travis/script.sh
