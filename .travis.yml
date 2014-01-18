@@ -47,10 +47,8 @@ before_script:
     require_once dirname(dirname(__FILE__)) . '/vendor/autoload.php';
     require_once dirname(dirname(dirname(__FILE__))) . '/lib/Cake/Console/ShellDispatcher.php';
     return ShellDispatcher::run(\$argv);" > ../cakephp/app/Console/cake.php
-  - ls -la /home/travis/.phpenv/versions/5.4.23/
-  - ls -la /home/travis/.phpenv/versions/
-  - ls -la /home/travis/.phpenv/
-  - ls -la /home/travis/
+  - ls -la /home/travis/.phpenv/versions/5.4.23/php/
+  - ls -la /home/travis/.phpenv/versions/5.4.23/share/
   
 script:
   - ../travis/script.sh
