@@ -52,7 +52,6 @@ class TaskRunnerTest extends CakeTestCase {
 		);
 		$TaskRunner = new TaskRunner($task, $TaskServer, $TaskClient, $Shell);
 
-
 		$runnedTask = $TaskRunner->start();
 		debug($runnedTask);
 
@@ -88,7 +87,6 @@ class TaskRunnerTest extends CakeTestCase {
 		);
 		$TaskRunner = new TaskRunner($task, $TaskServer, $TaskClient, $Shell);
 
-
 		$runnedTask = $TaskRunner->start();
 		debug($runnedTask);
 
@@ -106,9 +104,11 @@ class TaskRunnerTest extends CakeTestCase {
 		$TaskServer->useDbConfig = 'test';
 		$TaskServer->expects($this->once())->method('started');
 		$TaskServer->expects($this->once())->method('stopped');
-		$TaskServer->expects($this->atLeastOnce())->method('updated')->will($this->returnCallback(function($task) {
+		$TaskServer->expects($this->atLeastOnce())->method('updated')->will(
+				$this->returnCallback(function($task) {
 					debug($task['stdout']);
-				}));
+				})
+		);
 		$TaskServer->expects($this->atLeastOnce())->method('mustStop')->will($this->returnValue(false));
 		$Shell = $this->getMock('Shell', array(
 			'out',
@@ -125,7 +125,6 @@ class TaskRunnerTest extends CakeTestCase {
 			'timeout' => 10
 		);
 		$TaskRunner = new TaskRunner($task, $TaskServer, $TaskClient, $Shell);
-
 
 		$runnedTask = $TaskRunner->start();
 		debug($runnedTask);

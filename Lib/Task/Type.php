@@ -15,16 +15,16 @@ class Type {
 	/**
 	 * Current type
 	 *
-	 * @var string $_type
+	 * @var string $__type
 	 */
-	private $_type;
+	private $__type;
 
 	/**
 	 * @param string $type Type
 	 */
 	public function __construct($type) {
 		if (static::isValidType($type)) {
-			$this->_type = $type;
+			$this->__type = $type;
 		} else {
 			$exception = get_class($this) . 'InvalidTypeException';
 			throw new $exception($type);
@@ -78,7 +78,7 @@ class Type {
 	 * @return string
 	 */
 	public function toString() {
-		return $this->_type;
+		return $this->__type;
 	}
 
 	/**

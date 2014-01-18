@@ -22,9 +22,9 @@ if (!isset($TaskClient)) {
 	$arguments = '';
 	foreach ($TaskClient['arguments'] as $name => $value) {
 		if (!is_numeric($name)) {
-			$arguments.=' ' . $name;
+			$arguments .= ' ' . $name;
 		}
-		$arguments.=' ' . $value;
+		$arguments .= ' ' . $value;
 	}
 	$TaskClient['arguments'] = $arguments;
 	$TaskClient['stdout'] = Sanitize::html(preg_replace('/(\[[0-9;]{1,}m)/ims', '', $TaskClient['stdout']));
@@ -37,5 +37,7 @@ if (!isset($TaskClient)) {
 			<td style="white-space: pre;"><?= is_array($value) ? Debugger::dump($value) : $value; ?></td>
 
 		</tr>
-<? } ?>
+		<?php
+	}
+	?>
 </table>

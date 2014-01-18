@@ -175,9 +175,9 @@ class TaskRunner extends Object {
 		$stringArguments = '';
 		foreach ($arguments as $name => $value) {
 			if (is_numeric($name)) {
-				$stringArguments.=' ' . $value;
+				$stringArguments .= ' ' . $value;
 			} else {
-				$stringArguments.=' ' . $name . ' ' . ProcessUtils::escapeArgument($value);
+				$stringArguments .= ' ' . $name . ' ' . ProcessUtils::escapeArgument($value);
 			}
 		}
 

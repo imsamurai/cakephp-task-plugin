@@ -140,7 +140,6 @@ class TaskServer extends TaskModel {
 				return false;
 			}
 
-
 			$waitForOtherTask = false;
 			foreach ($taskCandidate['DependsOnTask'] as $DependsOnTask) {
 				if (!in_array((int)$DependsOnTask['status'], array(TaskType::FINISHED, TaskType::STOPPED))) {

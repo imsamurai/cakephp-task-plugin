@@ -1,9 +1,10 @@
-<?php /**
+<?php
+/**
  * Author: imsamurai <im.samuray@gmail.com>
  * Date: 20.04.2012
  * Time: 12:59:13
  * 
- * @package Task.View
+ * @package Task.View.Element
  */
 ?>
 <div class="pagination pagination-right">

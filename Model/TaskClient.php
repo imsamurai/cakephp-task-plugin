@@ -59,7 +59,7 @@ class TaskClient extends TaskModel {
 
 		if ($unique && $dependsOnIds) {
 			return false;
-		} else if ($dependsOnIds) {
+		} elseif ($dependsOnIds) {
 			$dependsOn = array_merge($dependsOn, $dependsOnIds);
 		}
 
@@ -106,7 +106,8 @@ class TaskClient extends TaskModel {
 					sleep(1);
 					return $this->stop($taskId);
 				}
-			default: return false;
+			default: 
+				return false;
 		}
 	}
 

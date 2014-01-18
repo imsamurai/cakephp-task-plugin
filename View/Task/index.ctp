@@ -38,8 +38,8 @@ echo $this->element('pagination/pagination');
 		</tr>
 	</thead>
 	<tbody>
-<?php foreach ($data as $one) {
-	?>
+		<?php foreach ($data as $one) {
+			?>
 			<tr>
 				<td><?= $one['TaskClient']['id']; ?></td>
 				<td><?= $one['TaskClient']['process_id']; ?></td>
@@ -48,15 +48,15 @@ echo $this->element('pagination/pagination');
 					$arguments = '';
 					foreach ($one['TaskClient']['arguments'] as $name => $value) {
 						if (!is_numeric($name)) {
-							$arguments.=' ' . $name;
+							$arguments .= ' ' . $name;
 						}
-						$arguments.=' ' . $value;
+						$arguments .= ' ' . $value;
 					}
 					echo $arguments;
 					?></td>
 				<td><?=
-				$this->Html->tag('span', $statuses[$one['TaskClient']['status']]['name'], array('class' => 'label ' . $statuses[$one['TaskClient']['status']]['class']));
-				?></td>
+					$this->Html->tag('span', $statuses[$one['TaskClient']['status']]['name'], array('class' => 'label ' . $statuses[$one['TaskClient']['status']]['class']));
+					?></td>
 				<td><?= $this->Html->tag('span', $one['TaskClient']['code_string'], array('class' => 'label label-' . ($one['TaskClient']['code_string'] == 'OK' ? 'success' : 'important'))); ?></td>
 				<td><?= $this->element('task/depends-on', array('dependsOnTask' => $one['DependsOnTask'])); ?></td>
 				<td><?= $this->Text->truncate(Sanitize::html(preg_replace('/(\[[0-9;]{1,}m)/ims', '', $one['TaskClient']['stderr'])), 500); ?></td>
@@ -81,8 +81,8 @@ echo $this->element('pagination/pagination');
 
 				</td>
 			</tr>
-<?php }
-?>
+		<?php }
+		?>
 	</tbody>
 </table>
 <?php

@@ -1,4 +1,4 @@
-<?
+<?php
 
 /**
  * Author: imsamurai <im.samuray@gmail.com>
@@ -26,10 +26,10 @@ class TaskShell extends Shell {
 		$parser->description('Task shell global options');
 
 		foreach ($this->tasks as $task) {
-			list($plugin, $task_name) = pluginSplit($task);
-			$parser->addSubcommand(Inflector::underscore($task_name), array(
-				'help' => $this->{$task_name}->getOptionParser()->description(),
-				'parser' => $this->{$task_name}->getOptionParser()
+			list(, $taskName) = pluginSplit($task);
+			$parser->addSubcommand(Inflector::underscore($taskName), array(
+				'help' => $this->{$taskName}->getOptionParser()->description(),
+				'parser' => $this->{$taskName}->getOptionParser()
 			));
 		}
 		return $parser;

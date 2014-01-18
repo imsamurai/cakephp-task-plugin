@@ -91,6 +91,7 @@ class TaskController extends TaskAppController {
 	 * View task
 	 * 
 	 * @param int $taskId
+	 * @throws NotFoundException If task not found
 	 */
 	public function view($taskId) {
 		$task = $this->TaskClient->find('first', array(
