@@ -48,7 +48,8 @@ before_script:
     require_once dirname(dirname(dirname(__FILE__))) . '/lib/Cake/Console/ShellDispatcher.php';
     return ShellDispatcher::run(\$argv);" > Console/cake.php
   - ls -la
-  - ls -la ../cakephp/app/Plugin/
+  - ls -la ../cakephp/app/
+    - ls -la ../cakephp/app/vendor/
   - ls -la ../cakephp/vendors/
   - ls -la ../cakephp/app/Plugin/Task/ 
   
