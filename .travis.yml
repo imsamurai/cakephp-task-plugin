@@ -47,9 +47,7 @@ before_script:
     require_once dirname(dirname(__FILE__)) . '/vendor/autoload.php';
     require_once dirname(dirname(dirname(__FILE__))) . '/lib/Cake/Console/ShellDispatcher.php';
     return ShellDispatcher::run(\$argv);" > ../cakephp/app/Console/cake.php
-  - pear list  
-  - pear list-files CakePHP_CodeSniffer
-  - pear list-files cakephp
+  - cat ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
   
 script:
   - ../travis/script.sh
