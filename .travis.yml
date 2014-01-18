@@ -9,7 +9,7 @@ env:
     - PLUGIN_NAME=Task
     - PLUGIN_PATH=Plugin/Task
     - REQUIRE=""
-    - DB=mysql CAKE_VERSION=2.4
+    - DB=mysql
   matrix:
     - CAKE_VERSION=2.3
     - CAKE_VERSION=2.4
@@ -32,6 +32,7 @@ before_script:
   - ../travis/before_script.sh
   - ls -la
   - cat composer.json
+  - composer install
   - echo "
     App::build(array('Plugin' => array(ROOT.'Plugin'.DC)));
     CakePlugin::load('Task', array('bootstrap' => true));
