@@ -49,7 +49,7 @@ before_script:
     return ShellDispatcher::run(\$argv);" > ../cakephp/app/Console/cake.php
   - mkdir ../Standart/
   - git clone https://github.com/imsamurai/cakephp-codesniffer.git --depth 1 ../Standart/CakePHP
-  - php -r "\$reflector = new ReflectionClass('CakePHP_Sniffs_Commenting_FunctionCommentThrowTagSniff');echo \$reflector->getFileName();"
+  - whereis phpcs
   
 script:
   - ../travis/script.sh
