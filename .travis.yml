@@ -11,7 +11,7 @@ env:
     - REQUIRE=""
     - DB=mysql
   matrix:
-    - CAKE_VERSION=2.3
+    - CAKE_VERSION=2.3.10
     - CAKE_VERSION=2.4
     - CAKE_VERSION=master
 
@@ -31,7 +31,6 @@ before_script:
   - git clone https://github.com/FriendsOfCake/travis.git --depth 1 ../travis
   - ../travis/before_script.sh
   - echo "
-    App::build(array('Plugin' => array(ROOT.'Plugin'.DC)));
     CakePlugin::load('Task', array('bootstrap' => true));
     CakePlugin::load('Serializable');
     Configure::write('Serializable', array(
@@ -42,19 +41,14 @@ before_script:
         return unserialize(base64_decode(\$value));
     }
     ));
-    " >> Config/bootstrap.php
+    " >> ../cakephp/app/Config/bootstrap.php
   - echo "<?php
-    require_once dirname(dirname(dirname(__FILE__))) . '/vendor/autoload.php';
+    require_once dirname(dirname(__FILE__)) . '/vendor/autoload.php';
     require_once dirname(dirname(dirname(__FILE__))) . '/lib/Cake/Console/ShellDispatcher.php';
-    return ShellDispatcher::run(\$argv);" > Console/cake.php
-  - ls -la
-  - ls -la ../cakephp/app/
-  - ls -la ../cakephp/app/vendor/
-  - ls -la ../cakephp/vendors/
-  - ls -la ../cakephp/app/Plugin/Task/ 
+    return ShellDispatcher::run(\$argv);" > ../cakephp/app/Console/cake.php
   
 script:
-  - Console/cake test Task AllTask --stderr
+  - ../cakephp/app/Console/cake test Task AllTask --stderr
   - ../travis/script.sh
 
 after_success:
