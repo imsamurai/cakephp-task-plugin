@@ -51,6 +51,7 @@ before_script:
   - git clone https://github.com/imsamurai/cakephp-codesniffer.git --depth 1 ../Standart/CakePHP
   - ls -la ~/.phpenv/versions/$(phpenv version-name)/bin/
   - cat ~/.phpenv/versions/$(phpenv version-name)/bin/phpcs
+  - php -r "echo ini_get('include_path');"
   
 script:
   - ../travis/script.sh
