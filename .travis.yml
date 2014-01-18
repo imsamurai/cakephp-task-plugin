@@ -9,9 +9,9 @@ env:
     - PLUGIN_NAME=Task
     - PLUGIN_PATH=Plugin/Task
     - REQUIRE=""
-    - DB=mysql
+    - DB=mysql CAKE_VERSION=2.4
   matrix:
-    - CAKE_VERSION=2.3.10
+    - CAKE_VERSION=2.3
     - CAKE_VERSION=2.4
     - CAKE_VERSION=master
 
@@ -48,7 +48,6 @@ before_script:
     return ShellDispatcher::run(\$argv);" > ../cakephp/app/Console/cake.php
   
 script:
-  - ../cakephp/app/Console/cake test Task AllTask --stderr
   - ../travis/script.sh
 
 after_success:
