@@ -21,6 +21,7 @@ class Type {
 
 	/**
 	 * @param string $type Type
+	 * @throws Exception On invalid type
 	 */
 	public function __construct($type) {
 		if (static::isValidType($type)) {
