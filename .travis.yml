@@ -49,8 +49,10 @@ before_script:
     return ShellDispatcher::run(\$argv);" > ../cakephp/app/Console/cake.php
   - mkdir ../Standart/
   - git clone https://github.com/imsamurai/cakephp-codesniffer.git --depth 1 ../Standart/CakePHP
-  - echo "include_path='.:$(pwd)/Standart/'"
-  - echo "include_path='.:$(pwd)/Standart/'" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - echo "include_path='.:$(pwd)/../Standart/'"
+  - echo "include_path='.:$(pwd)/../Standart/'" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - cat ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - php --ini
   
 script:
   - ../travis/script.sh
