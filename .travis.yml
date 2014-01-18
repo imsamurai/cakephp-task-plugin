@@ -5,47 +5,59 @@ php:
   - 5.5
 
 env:
-  - CAKE_VERSION=2.3.10 COVERALLS=1
-  - CAKE_VERSION=2.4.3 COVERALLS=1
-  - CAKE_VERSION=master COVERALLS=1
+  global:
+    - PLUGIN_NAME=Upload
+    - REQUIRE=""
+    - DB=mysql CAKE_VERSION=2.4
+  matrix:
+    - CAKE_VERSION=2.3
+    - CAKE_VERSION=2.4
+    - CAKE_VERSION=master
 
+matrix:
+  include:
+    - php: 5.4
+      env:
+        - COVERALLS=1
+    - php: 5.4
+      env:
+        - PHPCS=1
+    - php: 5.4
+      env:
+        - FOC_VALIDATE=1
+        
 before_script:
-  - mysql -e 'create database test1;'
-  - git clone git://github.com/cakephp/cakephp ../cakephp && cd ../cakephp && git checkout $CAKE_VERSION
-  - cp -R ../cakephp-task-plugin plugins/Task
+  - git clone https://github.com/FriendsOfCake/travis.git --depth 1 ../travis
+  - ../travis/before_script.sh
+  - cp -R ../cakephp-task-plugin Plugin/Task
   - chmod -R 777 ../cakephp/app/tmp
-  - cp plugins/Task/composer.json .
+  - cp Plugin/Task/composer.json .
   - composer install
   - set +H
-  - echo "CakePlugin::load('Task', array('bootstrap' => true));" >> ../cakephp/app/Config/bootstrap.php
-  - echo "CakePlugin::load('Serializable');" >> ../cakephp/app/Config/bootstrap.php
-  - echo "Configure::write('Serializable', array(
+  - echo "
+    App::build(array('Plugin' => array(ROOT.'Plugin'.DC)));
+    CakePlugin::load('Task', array('bootstrap' => true));
+    CakePlugin::load('Serializable');
+    Configure::write('Serializable', array(
     'serialize' => function(\$value) {
         return base64_encode(serialize(\$value));
     },
     'unserialize' => function(\$value) {
         return unserialize(base64_decode(\$value));
     }
-    ));" >> ../cakephp/app/Config/bootstrap.php
+    ));
+    " >> ../cakephp/app/Config/bootstrap.php
   - echo "<?php
     require_once dirname(dirname(dirname(__FILE__))) . '/vendor/autoload.php';
     require_once dirname(dirname(dirname(__FILE__))) . '/lib/Cake/Console/ShellDispatcher.php';
     return ShellDispatcher::run(\$argv);" > app/Console/cake.php
-  - echo "<?php
-    class DATABASE_CONFIG {
-    public \$test = array(
-        'datasource' => 'Database/Mysql',
-        'host' => '127.0.0.1',
-        'login' => 'travis',
-        'database' => 'test1',
-        'prefix' => '',
-        'encoding' => 'utf8'
-    );
-
-    }" > app/Config/database.php
 
 script:
   - ./app/Console/cake test Task AllTask --stderr
+  - ../travis/script.sh
+
+after_success:
+  - ../travis/after_success.sh
 
 notifications:
   email: im.samuray@gmail.com
