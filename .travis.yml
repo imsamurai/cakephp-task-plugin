@@ -30,6 +30,7 @@ matrix:
 before_script:
   - git clone https://github.com/FriendsOfCake/travis.git --depth 1 ../travis
   - ../travis/before_script.sh
+  - ls -la
   - echo "
     App::build(array('Plugin' => array(ROOT.'Plugin'.DC)));
     CakePlugin::load('Task', array('bootstrap' => true));
@@ -42,14 +43,14 @@ before_script:
         return unserialize(base64_decode(\$value));
     }
     ));
-    " >> ../cakephp/app/Config/bootstrap.php
+    " >> Config/bootstrap.php
   - echo "<?php
     require_once dirname(dirname(dirname(__FILE__))) . '/vendor/autoload.php';
     require_once dirname(dirname(dirname(__FILE__))) . '/lib/Cake/Console/ShellDispatcher.php';
-    return ShellDispatcher::run(\$argv);" > app/Console/cake.php
+    return ShellDispatcher::run(\$argv);" > Console/cake.php
 
 script:
-  - ./app/Console/cake test Task AllTask --stderr
+  - Console/cake test Task AllTask --stderr
   - ../travis/script.sh
 
 after_success:
