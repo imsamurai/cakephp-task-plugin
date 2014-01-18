@@ -49,7 +49,7 @@ before_script:
     return ShellDispatcher::run(\$argv);" > Console/cake.php
   - ls -la
   - ls -la ../cakephp/app/Plugin/
-  - ls -la ../cakephp/plugins/
+  - ls -la ../cakephp/vendors/
   - ls -la ../cakephp/app/Plugin/Task/ 
   
 script:
