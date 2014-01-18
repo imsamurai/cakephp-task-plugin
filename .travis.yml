@@ -9,7 +9,8 @@ env:
     - PLUGIN_NAME=Task
     - PLUGIN_PATH=Plugin/Task
     - REQUIRE=""
-    - DB=mysql CAKE_VERSION=2.4
+    - DB=mysql
+    - CAKE_VERSION=2.4
   matrix:
     - CAKE_VERSION=2.3
     - CAKE_VERSION=2.4
