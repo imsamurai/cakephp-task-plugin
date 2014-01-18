@@ -34,7 +34,7 @@ before_script:
   - echo "
     CakePlugin::load('Task', array('bootstrap' => true));
     CakePlugin::load('Serializable');
-    Configure::write('Serializable', array(
+    Configure::write('Serializable, array(
     'serialize' => function(\$value) {
         return base64_encode(serialize(\$value));
     },
@@ -47,7 +47,10 @@ before_script:
     require_once dirname(dirname(__FILE__)) . '/vendor/autoload.php';
     require_once dirname(dirname(dirname(__FILE__))) . '/lib/Cake/Console/ShellDispatcher.php';
     return ShellDispatcher::run(\$argv);" > ../cakephp/app/Console/cake.php
-  - cat ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
+  - ls -la /home/travis/.phpenv/versions/5.4.23/
+  - ls -la /home/travis/.phpenv/versions/
+  - ls -la /home/travis/.phpenv/
+  - ls -la /home/travis/
   
 script:
   - ../travis/script.sh
