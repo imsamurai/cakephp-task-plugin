@@ -30,9 +30,6 @@ matrix:
 before_script:
   - git clone https://github.com/FriendsOfCake/travis.git --depth 1 ../travis
   - ../travis/before_script.sh
-  - ls -la
-  - cat composer.json
-  - composer install
   - echo "
     App::build(array('Plugin' => array(ROOT.'Plugin'.DC)));
     CakePlugin::load('Task', array('bootstrap' => true));
@@ -51,11 +48,10 @@ before_script:
     require_once dirname(dirname(dirname(__FILE__))) . '/lib/Cake/Console/ShellDispatcher.php';
     return ShellDispatcher::run(\$argv);" > Console/cake.php
   - ls -la
-  - ls -la vendor/
-  - ls -la ..
-  - ls -la ../travis
-  - ls -la ../cakephp-task-plugin
-
+  - ls -la ../cakephp
+  - ls -la ../cakephp/vendor/
+  - ls -la ../cakephp/Plugin/
+    
 script:
   - Console/cake test Task AllTask --stderr
   - ../travis/script.sh
