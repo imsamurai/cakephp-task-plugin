@@ -29,6 +29,7 @@ matrix:
 before_script:
   - git clone https://github.com/FriendsOfCake/travis.git --depth 1 ../travis
   - ../travis/before_script.sh
+  - mkdir -p Plugin/Task
   - cp -R ../cakephp-task-plugin Plugin/Task
   - chmod -R 777 ../cakephp/app/tmp
   - cp Plugin/Task/composer.json .
