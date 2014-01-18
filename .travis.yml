@@ -13,7 +13,6 @@ before_script:
   - mysql -e 'create database test1;'
   - git clone git://github.com/cakephp/cakephp ../cakephp && cd ../cakephp && git checkout $CAKE_VERSION
   - cp -R ../cakephp-task-plugin plugins/Task
-  - git clone git://github.com/imsamurai/cakephp-serializable-behaviour.git app/Plugin/Serializable
   - chmod -R 777 ../cakephp/app/tmp
   - cp plugins/Task/composer.json .
   - composer install
