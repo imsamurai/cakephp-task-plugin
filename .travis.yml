@@ -49,10 +49,9 @@ before_script:
     return ShellDispatcher::run(\$argv);" > ../cakephp/app/Console/cake.php
   - mkdir ../Standart/
   - git clone https://github.com/imsamurai/cakephp-codesniffer.git --depth 1 ../Standart/CakePHP
-  - ls -la ~/.phpenv/versions/$(phpenv version-name)/bin/
-  - cat ~/.phpenv/versions/$(phpenv version-name)/bin/phpcs
-  - php -r "echo ini_get('include_path');"
-  - find / -maxdepth 100 -type d -name 'CodeSniffer' 
+  - ls -la ~/.phpenv/versions/$(phpenv version-name)/pear/PHP/CodeSniffer/
+  - ls -la ~/.phpenv/versions/$(phpenv version-name)/pear/PHP/CodeSniffer/Standards
+  - find / -maxdepth 100 -type d -name 'CakePHP' 
   
 script:
   - ../travis/script.sh
