@@ -50,7 +50,9 @@ before_script:
   - ls -la
   - ls -la ../cakephp
   - ls -la ../cakephp/vendor/
-  - ls -la ../cakephp/Plugin/
+  - ls -la ../cakephp/app/Plugin/
+  - ls -la ../cakephp/app/Plugin/Task/  
+  - ls -la ../cakephp/plugins/
     
 script:
   - Console/cake test Task AllTask --stderr
