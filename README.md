@@ -1,5 +1,7 @@
-Cakephp Task Plugin [![Build Status](https://travis-ci.org/imsamurai/cakephp-task-plugin.png)](https://travis-ci.org/imsamurai/cakephp-task-plugin) [![Coverage Status](https://coveralls.io/repos/imsamurai/cakephp-task-plugin/badge.png?branch=master)](https://coveralls.io/r/imsamurai/cakephp-task-plugin?branch=master)
+Cakephp Task Plugin
 ===================
+
+[![Build Status](https://travis-ci.org/imsamurai/cakephp-task-plugin.png)](https://travis-ci.org/imsamurai/cakephp-task-plugin) [![Coverage Status](https://coveralls.io/repos/imsamurai/cakephp-task-plugin/badge.png?branch=master)](https://coveralls.io/r/imsamurai/cakephp-task-plugin?branch=master) [![Latest Stable Version](https://poser.pugx.org/imsamurai/cakephp-task-plugin/v/stable.png)](https://packagist.org/packages/imsamurai/cakephp-task-plugin) [![Total Downloads](https://poser.pugx.org/imsamurai/cakephp-task-plugin/downloads.png)](https://packagist.org/packages/imsamurai/cakephp-task-plugin) [![Latest Unstable Version](https://poser.pugx.org/imsamurai/cakephp-task-plugin/v/unstable.png)](https://packagist.org/packages/imsamurai/cakephp-task-plugin) [![License](https://poser.pugx.org/imsamurai/cakephp-task-plugin/license.png)](https://packagist.org/packages/imsamurai/cakephp-task-plugin)
 
 Plugin for run deffered (scheduled) tasks (console scripts)
 
