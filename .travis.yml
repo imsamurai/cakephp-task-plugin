@@ -34,14 +34,6 @@ before_script:
   - echo "
     CakePlugin::load('Task', array('bootstrap' => true));
     CakePlugin::load('Serializable');
-    Configure::write('Serializable', array(
-    'serialize' => function(\$value) {
-        return base64_encode(serialize(\$value));
-    },
-    'unserialize' => function(\$value) {
-        return unserialize(base64_decode(\$value));
-    }
-    ));
     " >> ../cakephp/app/Config/bootstrap.php
   - echo "<?php
     require_once dirname(dirname(__FILE__)) . '/vendor/autoload.php';
