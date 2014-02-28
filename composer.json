@@ -20,9 +20,9 @@
   ],
   "require": {
     "composer/installers": "*",
-	"symfony/process": "2.3.*",
+	"symfony/process": "2.4.*",
 	"kriswallsmith/spork": "dev-master",
-	"imsamurai/cakephp-serializable-behaviour": "1.*"
+	"imsamurai/cakephp-serializable-behaviour": "1.0.*"
   },
   "support": {
     "email": "im.samuray@gmail.com",
