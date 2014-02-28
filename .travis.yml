@@ -35,12 +35,12 @@ before_script:
         echo "
           CakePlugin::load('Task', array('bootstrap' => true));
           CakePlugin::load('Serializable');
-        " >> ../cakephp/app/Config/bootstrap.php
+        " >> ../cakephp/app/Config/bootstrap.php;
         echo "<?php
           require_once dirname(dirname(__FILE__)) . '/vendor/autoload.php';
           require_once dirname(dirname(dirname(__FILE__))) . '/lib/Cake/Console/ShellDispatcher.php';
           return ShellDispatcher::run(\$argv);
-        " > ../cakephp/app/Console/cake.php
+        " > ../cakephp/app/Console/cake.php;
     fi
   - if [ "$PHPCS" == 1 ]; then
       rm -rf ~/.phpenv/versions/$(phpenv version-name)/pear/PHP/CodeSniffer/Standards/CakePHP;
