@@ -142,7 +142,7 @@ class TaskRunner extends Object {
 			}
 
 			$this->_task['code'] = $this->_Process->getExitCode();
-			$this->_task['code_string'] = $this->_Process->getExitCodeText();debug($this->_task);
+			$this->_task['code_string'] = $this->_Process->getExitCodeText();
 		} catch (Exception $Exception) {
 			$this->_task['code'] = 134;
 			$this->_task['code_string'] = $Exception->getMessage();
