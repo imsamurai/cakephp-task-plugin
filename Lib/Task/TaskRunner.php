@@ -115,7 +115,6 @@ class TaskRunner extends Object {
 	 * Runs task
 	 */
 	protected function _run() {
-		$manual = false;
 		$this->_Process = new Process($this->_task['command'] . $this->_argsToString($this->_task['arguments']), $this->_task['path']);
 		$this->_Process->setTimeout($this->_task['timeout']);
 		try {
@@ -136,19 +135,20 @@ class TaskRunner extends Object {
 				sleep(Configure::read('Task.checkInterval'));
 				if ($this->_TaskServer->mustStop($this->_task['id'])) {
 					$this->_terminate();
-					$manual = true;
-					break;
+					$this->_task['code'] = 143;
+					$this->_task['code_string'] = Process::$exitCodes[143];
+					return $this->_stopped(true);
 				}
 			}
 
 			$this->_task['code'] = $this->_Process->getExitCode();
-			$this->_task['code_string'] = $this->_Process->getExitCodeText();
+			$this->_task['code_string'] = $this->_Process->getExitCodeText();debug($this->_task);
 		} catch (Exception $Exception) {
 			$this->_task['code'] = 134;
 			$this->_task['code_string'] = $Exception->getMessage();
 		}
 
-		$this->_stopped($manual);
+		$this->_stopped(false);
 	}
 
 	/**

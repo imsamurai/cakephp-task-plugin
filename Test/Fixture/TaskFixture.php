@@ -13,9 +13,9 @@ class TaskFixture extends CakeTestFixture {
 	 * @var array
 	 */
 	public $fields = array(
-		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 20, 'key' => 'primary'),
-		'process_id' => array('type' => 'integer', 'null' => false, 'default' => '0', 'length' => 10),
-		'server_id' => array('type' => 'integer', 'null' => false, 'default' => '0', 'length' => 10),
+		'id' => array('type' => 'biginteger', 'null' => false, 'default' => null, 'length' => 20, 'key' => 'primary'),
+		'process_id' => array('type' => 'biginteger', 'null' => false, 'default' => '0', 'length' => 20),
+		'server_id' => array('type' => 'biginteger', 'null' => false, 'default' => '0', 'length' => 20),
 		'command' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 500, 'collate' => 'utf8_general_ci'),
 		'path' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 500, 'collate' => 'utf8_general_ci'),
 		'arguments' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
