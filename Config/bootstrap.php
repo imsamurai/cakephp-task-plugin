@@ -11,12 +11,14 @@
 /* @var $this View */
 
 Configure::write('Pagination.pages', Configure::read('Pagination.pages') ? Configure::read('Pagination.pages') : 10);
-Configure::write('Task', array(
-	'checkInterval' => Configure::read('Task.checkInterval') ? Configure::read('Task.checkInterval') : 5,
-	'stopTimeout' => Configure::read('Task.stopTimeout') ? Configure::read('Task.stopTimeout') : 5,
-	'maxSlots' => Configure::read('Task.maxSlots') ? Configure::read('Task.maxSlots') : 16,
-	'timeout' => Configure::read('Task.timeout') ? Configure::read('Task.timeout') : 60 * 60 * 8,
-	'dateFormat' => Configure::read('Task.dateFormat') ? Configure::read('Task.dateFormat') : 'd.m.Y',
-));
+$config = (array)Configure::read('Task');
+$config += array(
+	'checkInterval' => 5,
+	'stopTimeout' => 5,
+	'maxSlots' => 16,
+	'timeout' => 60 * 60 * 8,
+	'dateFormat' => 'd.m.Y',
+);
+Configure::write('Task', $config);
 App::uses('TaskType', 'Task.Lib/Task');
 App::uses('Sanitize', 'Utility');
