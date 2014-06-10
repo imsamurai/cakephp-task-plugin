@@ -44,7 +44,7 @@ echo $this->element('pagination/pagination');
 				<td><?= $one['TaskClient']['id']; ?></td>
 				<td><?= $one['TaskClient']['process_id']; ?></td>
 				<td><?= $one['TaskClient']['command']; ?></td>
-				<td><?php
+				<?php
 					$arguments = '';
 					foreach ($one['TaskClient']['arguments'] as $name => $value) {
 						if (!is_numeric($name)) {
@@ -52,8 +52,10 @@ echo $this->element('pagination/pagination');
 						}
 						$arguments .= ' ' . $value;
 					}
+				?>
+				<td title="<?php echo $arguments ?>"><?php 
 					echo $this->Text->truncate($arguments, 100);
-					?></td>
+				?></td>
 				<td><?=
 					$this->Html->tag('span', $statuses[$one['TaskClient']['status']]['name'], array('class' => 'label ' . $statuses[$one['TaskClient']['status']]['class']));
 					?></td>
