@@ -30,12 +30,21 @@ class TaskServerTask extends Shell {
 			return;
 		}
 
+		$events = (array)Configure::read('Task.processEvents');
+		foreach ($events as $event) {
+			CakeEventManager::instance()->attach(ClassRegistry::init($event['model']), $event['key'], $event['options']);
+		}
+
 		$ProcessManager = new Spork\ProcessManager();
 		foreach ($tasks as $task) {
 			$ProcessManager->fork(function () use ($task) {
 				$TaskRunner = new TaskRunner($task, $this->TaskServer, $this->TaskClient);
 				$TaskRunner->start();
 			});
+		}
+
+		foreach ($events as $event) {
+			CakeEventManager::instance()->detach(ClassRegistry::init($event['model']), $event['key'], $event['options']);
 		}
 	}
 

@@ -72,7 +72,10 @@ class TaskServer extends TaskModel {
 	 */
 	public function started(array &$task) {
 		$task['status'] = TaskType::RUNNING;
-		return $this->save($task);
+		$savedTask = $this->save($task);
+		$event = new CakeEvent('Task.taskStarted', $this, $savedTask);
+		$this->getEventManager()->dispatch($event);
+		return $savedTask;
 	}
 
 	/**
@@ -83,7 +86,10 @@ class TaskServer extends TaskModel {
 	 * @return mixed
 	 */
 	public function updated(array &$task) {
-		return $this->save($task);
+		$savedTask = $this->save($task);
+		$event = new CakeEvent('Task.taskUpdated', $this, $savedTask);
+		$this->getEventManager()->dispatch($event);
+		return $savedTask;
 	}
 
 	/**
@@ -96,7 +102,10 @@ class TaskServer extends TaskModel {
 	 */
 	public function stopped(array &$task, $manual) {
 		$task['status'] = $manual ? TaskType::STOPPED : TaskType::FINISHED;
-		return $this->save($task);
+		$savedTask = $this->save($task);
+		$event = new CakeEvent('Task.taskStopped', $this, $savedTask);
+		$this->getEventManager()->dispatch($event);
+		return $savedTask;
 	}
 
 	/**
