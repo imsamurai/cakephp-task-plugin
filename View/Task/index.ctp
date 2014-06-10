@@ -52,7 +52,7 @@ echo $this->element('pagination/pagination');
 						}
 						$arguments .= ' ' . $value;
 					}
-					echo $arguments;
+					echo $this->Text->truncate($arguments, 100);
 					?></td>
 				<td><?=
 					$this->Html->tag('span', $statuses[$one['TaskClient']['status']]['name'], array('class' => 'label ' . $statuses[$one['TaskClient']['status']]['class']));
