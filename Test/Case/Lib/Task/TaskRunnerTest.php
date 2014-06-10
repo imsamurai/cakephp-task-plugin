@@ -81,16 +81,16 @@ class TaskRunnerTest extends CakeTestCase {
 			'path' => '',
 			'command' => 'php',
 			'arguments' => array(
-				'-r' => 'sleep(2);'
+				'-r' => 'while (true) {};'
 			),
-			'timeout' => 1
+			'timeout' => 10
 		);
 		$TaskRunner = new TaskRunner($task, $TaskServer, $TaskClient, $Shell);
 
 		$runnedTask = $TaskRunner->start();
 		debug($runnedTask);
 
-		$this->assertSame(0, $runnedTask['code']);
+		$this->assertSame(134, $runnedTask['code']);
 	}
 
 	public function testUpdate() {
