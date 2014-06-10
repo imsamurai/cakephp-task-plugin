@@ -54,10 +54,16 @@ class TaskController extends TaskAppController {
 			'data' => $this->paginate("TaskClient")
 		));
 
-		$this->set('commandList', $this->TaskClient->find('list', array(
-					'fields' => array('command', 'command'),
-					'group' => array('command'),
-		)));
+		$this->set(array(
+			'commandList' => $this->TaskClient->find('list', array(
+				'fields' => array('command', 'command'),
+				'group' => array('command'),
+			)),
+			'statusList' => $this->TaskClient->find('list', array(
+				'fields' => array('status', 'status'),
+				'group' => array('status'),
+			)),
+		));
 
 		$this->set('statuses', array(
 			TaskType::UNSTARTED => array(
