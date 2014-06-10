@@ -90,7 +90,7 @@ class TaskRunnerTest extends CakeTestCase {
 		$runnedTask = $TaskRunner->start();
 		debug($runnedTask);
 
-		$this->assertSame(0, $runnedTask['code']);
+		$this->assertSame(134, $runnedTask['code']);
 	}
 
 	public function testUpdate() {
