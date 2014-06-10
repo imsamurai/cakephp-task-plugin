@@ -81,9 +81,9 @@ class TaskRunnerTest extends CakeTestCase {
 			'path' => '',
 			'command' => 'php',
 			'arguments' => array(
-				'-r' => 'sleep(2);'
+				'-r' => 'while (true) {};'
 			),
-			'timeout' => 1
+			'timeout' => 10
 		);
 		$TaskRunner = new TaskRunner($task, $TaskServer, $TaskClient, $Shell);
 
