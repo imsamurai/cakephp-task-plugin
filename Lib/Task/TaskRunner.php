@@ -1,6 +1,5 @@
 <?php
 
-use Symfony\Component\Process\Process;
 use Symfony\Component\Process\ProcessUtils;
 
 /**
@@ -9,6 +8,8 @@ use Symfony\Component\Process\ProcessUtils;
  * Time: 13:23:01
  *
  */
+
+App::uses('TaskProcess', 'Task.Lib/Task');
 
 /**
  * Task Runner
@@ -115,7 +116,7 @@ class TaskRunner extends Object {
 	 * Runs task
 	 */
 	protected function _run() {
-		$this->_Process = new Process($this->_task['command'] . $this->_argsToString($this->_task['arguments']), $this->_task['path']);
+		$this->_Process = new TaskProcess($this->_task['command'] . $this->_argsToString($this->_task['arguments']), $this->_task['path']);
 		$this->_Process->setTimeout($this->_task['timeout']);
 		try {
 			$this->_Process->start(function ($type, $buffer) {
@@ -135,9 +136,9 @@ class TaskRunner extends Object {
 				$this->_Process->checkTimeout();
 				sleep(Configure::read('Task.checkInterval'));
 				if ($this->_TaskServer->mustStop($this->_task['id'])) {
-					$this->_terminate();
+					$this->_Process->stop(Configure::read('Task.stopTimeout'));
 					$this->_task['code'] = 143;
-					$this->_task['code_string'] = Process::$exitCodes[143];
+					$this->_task['code_string'] = TaskProcess::$exitCodes[143];
 					return $this->_stopped(true);
 				}
 			}
@@ -150,20 +151,6 @@ class TaskRunner extends Object {
 		}
 
 		$this->_stopped(false);
-	}
-
-	/**
-	 * Terminate current process
-	 */
-	protected function _terminate() {
-		$ppid = $this->_task['process_id'];
-		$pids = preg_split('/\s+/', `ps -o pid --no-heading --ppid $ppid`);
-		foreach ($pids as $pid) {
-			if (is_numeric($pid)) {
-				posix_kill($pid, /* SIGTERM */ 15);
-			}
-		}
-		$this->_Process->stop(Configure::read('Task.stopTimeout'), /* SIGTERM */ 15);
 	}
 
 	/**
