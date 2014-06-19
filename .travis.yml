@@ -34,7 +34,10 @@ before_script:
   - ../travis/before_script.sh
   - if [ "$PHPCS" != 1 ]; then
         echo "
-          require_once APP . '/vendor/phpunit/phpunit/PHPUnit/Autoload.php';
+          if (!defined('DS')) {
+            define('DS', DIRECTORY_SEPARATOR);
+          }
+          require_once APP . DS . 'vendor' . DS . 'phpunit' . DS . 'phpunit' . DS . 'PHPUnit' . DS . 'Autoload.php';
           CakePlugin::load('Task', array('bootstrap' => true));
           CakePlugin::load('Serializable');
         " >> ../cakephp/app/Config/bootstrap.php;
