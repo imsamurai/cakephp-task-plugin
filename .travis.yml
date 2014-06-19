@@ -15,7 +15,7 @@ env:
   matrix:
     - CAKE_VERSION=2.3
     - CAKE_VERSION=2.4
-    - CAKE_VERSION=master
+    - CAKE_VERSION=2.5
 
 matrix:
   include:
@@ -34,9 +34,6 @@ before_script:
   - ../travis/before_script.sh
   - if [ "$PHPCS" != 1 ]; then
         echo "
-          if (!defined('DS')) {
-            define('DS', DIRECTORY_SEPARATOR);
-          }
           require_once APP . DS . 'vendor' . DS . 'phpunit' . DS . 'phpunit' . DS . 'PHPUnit' . DS . 'Autoload.php';
           CakePlugin::load('Task', array('bootstrap' => true));
           CakePlugin::load('Serializable');
