@@ -53,7 +53,7 @@ echo $this->element('pagination/pagination');
 						$arguments .= ' ' . $value;
 					}
 				?>
-				<td title="<?php echo $arguments ?>"><?php 
+				<td title="<?php echo htmlspecialchars($arguments, ENT_QUOTES) ?>"><?php
 					echo $this->Text->truncate($arguments, 100);
 				?></td>
 				<td><?=
