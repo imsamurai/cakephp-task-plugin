@@ -72,7 +72,8 @@ echo $this->element('pagination/pagination');
 
 				</td>
 			</tr>
-		<?php }
+			<?php
+		}
 		?>
 	</tbody>
 </table>
