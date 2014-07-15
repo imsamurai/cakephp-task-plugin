@@ -186,7 +186,7 @@ class TaskHelper extends AppHelper {
 	 * @return string
 	 */
 	public function codeString(array $task, $full = true) {
-		return $this->_isCli || (!$task['code_string']) ? $task['code_string'] : $this->Html->tag('span', $this->_text($task['code_string'], Configure::read('Task.truncateCode'), true), array(
+		return $this->_isCli || (!$task['code_string']) ? $task['code_string'] : $this->Html->tag('span', $this->_text($task['code_string'], $full ? 0 : Configure::read('Task.truncateCode'), true), array(
 			'class' => 'label label-' . ($task['code_string'] == 'OK' ? 'success' : 'important'
 				)));
 	}

@@ -50,7 +50,7 @@ echo $this->element('pagination/pagination');
 				<td><?= $this->Task->command($task); ?></td>
 				<td><?= $this->Task->arguments($task, false); ?></td>
 				<td><?= $this->Task->status($task); ?></td>
-				<td><?= $this->Task->codeString($task); ?></td>
+				<td><?= $this->Task->codeString($task, false); ?></td>
 				<td><?= $this->Task->waiting($dependentTasks); ?></td>
 				<td style="word-wrap: break-word; max-width: 200px"><?= $this->Task->stderr($task, false); ?></td>
 				<td nowrap="nowrap"><?= str_replace(', ', "<br>", $this->Task->running($task)); ?>
