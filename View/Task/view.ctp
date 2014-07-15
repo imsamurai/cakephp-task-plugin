@@ -12,29 +12,46 @@
 <h1>View Task</h1>
 <br />
 <?php
-if (!isset($TaskClient)) {
+if (!isset($task)) {
 	echo $this->element('no_data');
 	return;
 }
 ?>
 <table class="table table-bordered table-striped table-sortable">
 	<?php
-	$arguments = '';
-	foreach ($TaskClient['arguments'] as $name => $value) {
-		if (!is_numeric($name)) {
-			$arguments .= ' ' . $name;
-		}
-		$arguments .= ' ' . $value;
-	}
-	$TaskClient['arguments'] = $arguments;
-	$TaskClient['stdout'] = Sanitize::html(preg_replace('/(\[[0-9;]{1,}m)/ims', '', $TaskClient['stdout']));
-	$TaskClient['stderr'] = Sanitize::html(preg_replace('/(\[[0-9;]{1,}m)/ims', '', $TaskClient['stderr']));
-	$TaskClient['wait for'] = $this->element('task/depends-on', array('dependsOnTask' => $DependsOnTask));
-	foreach ($TaskClient as $key => $value) {
+	$fields = array(
+		'id' => null,
+		'process_id' => null,
+		'command' => null,
+		'arguments' => null,
+		'status' => null,
+		'code_string' => null,
+		'running' => null,
+		'started' => null,
+		'stopped' => null,
+		'created' => null,
+		'modified' => null,
+		'timeout' => null,
+		'waiting' => '<td><div>' . $this->Task->waiting($dependentTasks) . '</div></td>',
+		'stderr' => null,
+		'stdout' => null,
+		'code' => null,
+		'details' => null,
+		'path' => null,
+		'hash' => null,
+		'server_id' => null
+	);
+	foreach ($fields as $field => $value) {
 		?>
 		<tr>
-			<td><strong><?= $key; ?></strong></td>
-			<td style="white-space: pre;"><?= is_array($value) ? Debugger::dump($value) : $value; ?></td>
+			<td><strong><?= Inflector::humanize($field); ?></strong></td>
+			<?php
+			if ($value) {
+				echo $value;
+			} else {
+				?>
+				<td><div style="white-space: pre;max-height: 500px;max-width: 1260px;overflow: auto;"><?= $this->Task->{Inflector::camelize($field)}($task); ?></div></td>
+				<?php } ?>
 
 		</tr>
 		<?php

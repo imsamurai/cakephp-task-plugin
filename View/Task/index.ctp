@@ -7,7 +7,8 @@
  *
  * @package Task.View
  */
-/* @var $this IDEView */
+/* @var $this View */
+/* @var $Task TaskHelper */
 ?>
 <h1>Task list</h1>
 <?php
@@ -19,7 +20,7 @@ echo $this->element('form/task/search');
 //}
 echo $this->element('pagination/pagination');
 ?>
-<table class="table table-bordered table-striped">
+<table class="table table-bordered table-striped table-sortable">
 	<thead>
 		<tr>
 			<th><?= $this->Paginator->sort('id'); ?></th>
@@ -30,52 +31,40 @@ echo $this->element('pagination/pagination');
 			<th><?= $this->Paginator->sort('code'); ?></th>
 			<th><?= $this->Paginator->sort('wait'); ?></th>
 			<th><?= $this->Paginator->sort('stderr', 'Error'); ?></th>
+			<th>Run</th>
 			<th><?= $this->Paginator->sort('started'); ?></th>
 			<th><?= $this->Paginator->sort('stopped'); ?></th>
 			<th><?= $this->Paginator->sort('created'); ?></th>
-			<th><?= $this->Paginator->sort('modified'); ?></th>
-			<th>Actions</th>
+			<th class="sorter-false"></th>
 		</tr>
 	</thead>
 	<tbody>
-		<?php foreach ($data as $one) {
+		<?php
+		foreach ($data as $one) {
+			$task = $one['TaskClient'];
+			$dependentTasks = $one['DependsOnTask'];
 			?>
 			<tr>
-				<td><?= $one['TaskClient']['id']; ?></td>
-				<td><?= $one['TaskClient']['process_id']; ?></td>
-				<td><?= $one['TaskClient']['command']; ?></td>
-				<?php
-					$arguments = '';
-					foreach ($one['TaskClient']['arguments'] as $name => $value) {
-						if (!is_numeric($name)) {
-							$arguments .= ' ' . $name;
-						}
-						$arguments .= ' ' . $value;
-					}
-				?>
-				<td title="<?php echo htmlspecialchars($arguments, ENT_QUOTES) ?>"><?php
-					echo $this->Text->truncate($arguments, 100);
-				?></td>
-				<td><?=
-					$this->Html->tag('span', $statuses[$one['TaskClient']['status']]['name'], array('class' => 'label ' . $statuses[$one['TaskClient']['status']]['class']));
-					?></td>
-				<td><?= $this->Html->tag('span', $one['TaskClient']['code_string'], array('class' => 'label label-' . ($one['TaskClient']['code_string'] == 'OK' ? 'success' : 'important'))); ?></td>
-				<td><?= $this->element('task/depends-on', array('dependsOnTask' => $one['DependsOnTask'])); ?></td>
-				<td><?= $this->Text->truncate(Sanitize::html(preg_replace('/(\[[0-9;]{1,}m)/ims', '', $one['TaskClient']['stderr'])), 500); ?></td>
-				<td><?= $one['TaskClient']['started'] ? $one['TaskClient']['started'] : 'Not yet'; ?></td>
-				<td><?= $one['TaskClient']['stopped'] ? $one['TaskClient']['stopped'] : 'Not yet'; ?></td>
-
-
-				<td><?= $one['TaskClient']['created']; ?></td>
-				<td><?= $one['TaskClient']['modified']; ?></td>
+				<td><?= $this->Task->id($task); ?></td>
+				<td><?= $this->Task->processId($task); ?></td>
+				<td><?= $this->Task->command($task); ?></td>
+				<td><?= $this->Task->arguments($task, false); ?></td>
+				<td><?= $this->Task->status($task); ?></td>
+				<td><?= $this->Task->codeString($task); ?></td>
+				<td><?= $this->Task->waiting($dependentTasks); ?></td>
+				<td style="word-wrap: break-word; max-width: 200px"><?= $this->Task->stderr($task, false); ?></td>
+				<td nowrap="nowrap"><?= str_replace(', ', "<br>", $this->Task->running($task)); ?>
+				<td nowrap="nowrap"><?= str_replace(', ', "<br>", $this->Task->started($task)); ?></td>
+				<td nowrap="nowrap"><?= str_replace(', ', "<br>", $this->Task->stopped($task)); ?></td>
+				<td nowrap="nowrap"><?= str_replace(', ', "<br>", $this->Task->created($task)); ?></td>
 				<td>
-					<div class="btn-group"><button class="btn dropdown-toggle" data-toggle="dropdown">Actions <span class="caret"></span></button>
-						<ul class="dropdown-menu">
-							<?= $this->Html->tag('li', $this->Html->link('View', array('action' => 'view', $one['TaskClient']['id']))); ?>
+					<div class="btn-group"><button class="btn dropdown-toggle" data-toggle="dropdown"><i class="icon-tasks"></i><span class="caret"></span></button>
+						<ul class="dropdown-menu pull-right">
+							<?= $this->Html->tag('li', $this->Html->link('View', array('action' => 'view', $task['id']))); ?>
 							<?=
-							$this->Html->tag('li', $this->Html->link('Stop', array('action' => 'stop', $one['TaskClient']['id']), array(
+							$this->Html->tag('li', $this->Html->link('Stop', array('action' => 'stop', $task['id']), array(
 										'class' => 'btn-danger'
-											), "Are you sure want to stop '{$one['TaskClient']['command']}'?")
+											), "Are you sure want to stop '{$task['command']}'?")
 							);
 							?>
 						</ul>

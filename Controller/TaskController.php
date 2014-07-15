@@ -23,6 +23,13 @@ class TaskController extends TaskAppController {
 	 * @var array 
 	 */
 	public $uses = array('Task.TaskClient');
+	
+	/**
+	 * {@inheritdoc}
+	 *
+	 * @var array 
+	 */
+	public $helpers = array('Task.Task');
 
 	/**
 	 * View list of tasks
@@ -65,32 +72,6 @@ class TaskController extends TaskAppController {
 			)),
 		));
 
-		$this->set('statuses', array(
-			TaskType::UNSTARTED => array(
-				'name' => 'new',
-				'class' => 'label label-success'
-			),
-			TaskType::DEFFERED => array(
-				'name' => 'deffered',
-				'class' => ''
-			),
-			TaskType::RUNNING => array(
-				'name' => 'running',
-				'class' => 'label-warning'
-			),
-			TaskType::FINISHED => array(
-				'name' => 'finished',
-				'class' => 'label-inverse'
-			),
-			TaskType::STOPPING => array(
-				'name' => 'stopping',
-				'class' => 'label-info'
-			),
-			TaskType::STOPPED => array(
-				'name' => 'stopped',
-				'class' => 'label-important'
-			)
-		));
 	}
 
 	/**
@@ -115,7 +96,9 @@ class TaskController extends TaskAppController {
 		if (!$task) {
 			throw new NotFoundException("Task id=$taskId not found!");
 		}
-		$this->set($task);
+		
+		$this->set('task', $task['TaskClient']);
+		$this->set('dependentTasks', $task['DependsOnTask']);
 	}
 
 	/**

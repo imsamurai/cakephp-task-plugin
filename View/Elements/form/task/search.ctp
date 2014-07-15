@@ -11,7 +11,7 @@
 
 $statusOptions = array();
 foreach ($statusList as $status) {
-	$statusOptions[$status] = $statuses[$status]['name'];
+	$statusOptions[$status] = TaskHelper::$statuses[$status]['name'];
 }
 
 echo $this->Form->create('Task', array('novalidate', 'class' => 'well form-search', 'type' => 'get'));

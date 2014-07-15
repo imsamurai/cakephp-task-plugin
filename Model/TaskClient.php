@@ -19,7 +19,7 @@ class TaskClient extends TaskModel {
 	 * @var string
 	 */
 	public $name = 'Task';
-
+	
 	/**
 	 * Adds new task
 	 *

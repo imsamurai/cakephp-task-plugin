@@ -18,6 +18,11 @@ $config += array(
 	'maxSlots' => 16,
 	'timeout' => 60 * 60 * 8,
 	'dateFormat' => 'd.m.Y',
+	'dateDiffFormat' => "%a days, %h hours, %i minutes",
+	'truncateError' => 200,
+	'truncateOutput' => 500,
+	'truncateArguments' => 100,
+	'truncateWaitFor' => 5,
 );
 Configure::write('Task', $config);
 App::uses('TaskType', 'Task.Lib/Task');
