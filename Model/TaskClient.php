@@ -144,6 +144,25 @@ class TaskClient extends TaskModel {
 					$this->DependsOnTask->alias => array($taskId)
 		));
 	}
+	
+	/**
+	 * Delete task by id
+	 * 
+	 * @param int $taskId Unique task id
+	 * @return bool True if success
+	 * @throws NotFoundException If no such task found
+	 */
+	public function remove($taskId) {
+		if (!$this->stop($taskId)) {
+			return false;
+		}
+		$this->id = $taskId;
+		while(!in_array($this->field('status'), array(TaskType::STOPPED, TaskType::FINISHED))) {
+			sleep(1);
+		}
+
+		return $this->delete($taskId);
+	}
 
 	/**
 	 * Unique hash of the command

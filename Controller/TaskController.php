@@ -135,6 +135,24 @@ class TaskController extends TaskAppController {
 		}
 		$this->redirect($this->referer());
 	}
+	
+	/**
+	 * Delete task
+	 * 
+	 * @param int $taskId
+	 */
+	public function remove($taskId) {
+		if ($this->TaskClient->remove($taskId)) {
+			$this->Session->setFlash("Task $taskId deleted", 'alert/simple', array(
+				'class' => 'alert-success', 'title' => 'Ok!'
+			));
+		} else {
+			$this->Session->setFlash("Can't delete task $taskId!", 'alert/simple', array(
+				'class' => 'alert-error', 'title' => 'Error!'
+			));
+		}
+		$this->redirect($this->referer());
+	}
 
 	/**
 	 * Builds pagination conditions from search form
