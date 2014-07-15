@@ -71,7 +71,6 @@ class TaskController extends TaskAppController {
 				'group' => array('status'),
 			)),
 		));
-
 	}
 
 	/**
@@ -113,6 +112,24 @@ class TaskController extends TaskAppController {
 			));
 		} else {
 			$this->Session->setFlash("Can't stop task $taskId!", 'alert/simple', array(
+				'class' => 'alert-error', 'title' => 'Error!'
+			));
+		}
+		$this->redirect($this->referer());
+	}
+	
+	/**
+	 * Restart task
+	 * 
+	 * @param int $taskId
+	 */
+	public function restart($taskId) {
+		if ($this->TaskClient->restart($taskId)) {
+			$this->Session->setFlash("Task $taskId will be restarted shortly", 'alert/simple', array(
+				'class' => 'alert-success', 'title' => 'Ok!'
+			));
+		} else {
+			$this->Session->setFlash("Can't restart task $taskId!", 'alert/simple', array(
 				'class' => 'alert-error', 'title' => 'Error!'
 			));
 		}

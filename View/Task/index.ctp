@@ -67,6 +67,12 @@ echo $this->element('pagination/pagination');
 											), "Are you sure want to stop '{$task['command']}'?")
 							);
 							?>
+							<?=
+							$this->Html->tag('li', $this->Html->link('Restart', array('action' => 'restart', $task['id']), array(
+										'class' => 'btn-danger'
+											), "Are you sure want to restart '{$task['command']}'?")
+							);
+							?>
 						</ul>
 					</div>
 

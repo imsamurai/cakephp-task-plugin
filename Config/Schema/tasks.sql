@@ -2,7 +2,7 @@ delimiter $$
 
 CREATE TABLE `tasks` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `process_id` bigint(20) DEFAULT 0,
+  `process_id` bigint(20) UNSIGNED DEFAULT 0,
   `server_id` bigint(20) DEFAULT 0,
   `command` varchar(500) DEFAULT NULL,
   `path` varchar(500) DEFAULT NULL,
@@ -28,4 +28,3 @@ CREATE TABLE `dependent_tasks` (
   `task_id` bigint(20) unsigned NOT NULL,
   `depends_on_task_id` bigint(20) unsigned NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8$$
-

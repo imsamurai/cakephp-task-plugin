@@ -96,19 +96,53 @@ class TaskClient extends TaskModel {
 		}
 
 		switch ($task[$this->alias]['status']) {
+			case TaskType::FINISHED:
+			case TaskType::STOPPED: {
+					return true;
+				}
 			case TaskType::UNSTARTED: {
 					return $this->saveField('status', TaskType::STOPPED);
 				}
-			case TaskType::RUNNING: {
+			case TaskType::RUNNING:
+			case TaskType::STOPPED: 
 					return $this->saveField('status', TaskType::STOPPING);
-				}
+				
 			case TaskType::DEFFERED: {
 					sleep(1);
 					return $this->stop($taskId);
 				}
-			default: 
+			default:
 				return false;
 		}
+	}
+	
+	/**
+	 * Restart task by id
+	 * 
+	 * @param int $taskId Unique task id
+	 * @return bool True if success
+	 * @throws NotFoundException If no such task found
+	 */
+	public function restart($taskId) {
+		if (!$this->stop($taskId)) {
+			return false;
+		}
+
+		$task = array(
+			'id' => null,
+			'stderr' => '',
+			'stdout' => '',
+			'status' => TaskType::UNSTARTED,
+			'code' => '',
+			'code_string' => '',
+			'started' => '',
+			'stopped' => ''
+				) + $this->read(null, $taskId)[$this->alias];
+		$this->create();		
+		return $this->saveAssociated(array(
+					$this->alias => $task,
+					$this->DependsOnTask->alias => array($taskId)
+		));
 	}
 
 	/**

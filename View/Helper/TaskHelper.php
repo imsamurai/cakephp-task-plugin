@@ -185,8 +185,10 @@ class TaskHelper extends AppHelper {
 	 * @param array $task
 	 * @return string
 	 */
-	public function codeString(array $task) {
-		return $this->_isCli ? $task['code_string'] : $this->Html->tag('span', $task['code_string'], array('class' => 'label label-' . ($task['code_string'] == 'OK' ? 'success' : 'important')));
+	public function codeString(array $task, $full = true) {
+		return $this->_isCli || (!$task['code_string']) ? $task['code_string'] : $this->Html->tag('span', $this->_text($task['code_string'], Configure::read('Task.truncateCode'), true), array(
+			'class' => 'label label-' . ($task['code_string'] == 'OK' ? 'success' : 'important'
+				)));
 	}
 
 	/**
@@ -294,7 +296,7 @@ class TaskHelper extends AppHelper {
 		if ($this->_isCli) {
 			return implode(', ', $formattedTasks);
 		} else {
-			$text = implode(', ', $this->_formatWaiting(array_slice($tasks, Configure::read('Task.truncateWaitFor')), false));
+			$text = implode(', ', $this->_formatWaiting(array_slice($tasks, 0, Configure::read('Task.truncateWaitFor')), false));
 			$text .= $tasksCount > Configure::read('Task.truncateWaitFor') ? '...' : '';
 			return $this->Html->tag('span', $text, array(
 						'title' => implode(', ', $formattedTasks)

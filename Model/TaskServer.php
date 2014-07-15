@@ -137,14 +137,24 @@ class TaskServer extends TaskModel {
 				'fields' => 'id',
 				'conditions' => array(
 					'status' => TaskType::UNSTARTED,
-					'server_id' => 0
+					'server_id' => array(0, $this->_serverId())
 				),
 				'order' => array(
 					'created' => 'asc'
 				),
 				'offset' => $taskNumber
 			));
-
+debug(array(
+				'fields' => 'id',
+				'conditions' => array(
+					'status' => TaskType::UNSTARTED,
+					'server_id' => array(0, $this->_serverId())
+				),
+				'order' => array(
+					'created' => 'asc'
+				),
+				'offset' => $taskNumber
+			));
 			if (!$taskCandidate) {
 				return false;
 			}

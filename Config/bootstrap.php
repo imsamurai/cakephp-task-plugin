@@ -22,6 +22,7 @@ $config += array(
 	'truncateError' => 200,
 	'truncateOutput' => 500,
 	'truncateArguments' => 100,
+	'truncateCode' => 5,
 	'truncateWaitFor' => 5,
 );
 Configure::write('Task', $config);
