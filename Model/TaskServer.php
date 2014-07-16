@@ -144,17 +144,6 @@ class TaskServer extends TaskModel {
 				),
 				'offset' => $taskNumber
 			));
-debug(array(
-				'fields' => 'id',
-				'conditions' => array(
-					'status' => TaskType::UNSTARTED,
-					'server_id' => array(0, $this->_serverId())
-				),
-				'order' => array(
-					'created' => 'asc'
-				),
-				'offset' => $taskNumber
-			));
 			if (!$taskCandidate) {
 				return false;
 			}

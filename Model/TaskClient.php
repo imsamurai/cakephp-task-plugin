@@ -157,7 +157,7 @@ class TaskClient extends TaskModel {
 			return false;
 		}
 		$this->id = $taskId;
-		while(!in_array($this->field('status'), array(TaskType::STOPPED, TaskType::FINISHED))) {
+		while (!in_array($this->field('status'), array(TaskType::STOPPED, TaskType::FINISHED))) {
 			sleep(1);
 		}
 
