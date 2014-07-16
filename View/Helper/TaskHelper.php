@@ -286,7 +286,7 @@ class TaskHelper extends AppHelper {
 	 * @param array $tasks
 	 * @return string
 	 */
-	public function waiting(array $tasks) {
+	public function waiting(array $tasks, $full = true) {
 		$formattedTasks = $this->_formatWaiting($tasks, true);
 		$tasksCount = count($formattedTasks);
 		if ($tasksCount === 0) {
@@ -295,6 +295,8 @@ class TaskHelper extends AppHelper {
 
 		if ($this->_isCli) {
 			return implode(', ', $formattedTasks);
+		} elseif ($full) {
+			return implode(', ', $this->_formatWaiting($tasks, false));
 		} else {
 			$text = implode(', ', $this->_formatWaiting(array_slice($tasks, 0, Configure::read('Task.truncateWaitFor')), false));
 			$text .= $tasksCount > Configure::read('Task.truncateWaitFor') ? '...' : '';
@@ -314,7 +316,7 @@ class TaskHelper extends AppHelper {
 	protected function _formatWaiting(array $tasks, $plain) {
 		$dependsOnTaskFormatted = array();
 		foreach ($tasks as $task) {
-			if (!in_array((int)$task['status'], array(TaskType::DEFFERED, TaskType::RUNNING, TaskType::STOPPING))) {
+			if (!in_array((int)$task['status'], array(TaskType::DEFFERED, TaskType::RUNNING, TaskType::STOPPING, TaskType::UNSTARTED))) {
 				continue;
 			}
 			$dependsOnTaskFormatted[] = $plain ? $task['id'] : $this->id($task);
