@@ -85,10 +85,11 @@ class TaskClient extends TaskModel {
 	 * Stop task by id
 	 * 
 	 * @param int $taskId Unique task id
+	 * @param int $retry Retry count
 	 * @return boolean True if success
 	 * @throws NotFoundException If no such task found
 	 */
-	public function stop($taskId) {
+	public function stop($taskId, $retry = 0) {
 		$task = $this->read(null, $taskId);
 
 		if (!$task) {
@@ -108,8 +109,11 @@ class TaskClient extends TaskModel {
 					return $this->saveField('status', TaskType::STOPPING);
 				
 			case TaskType::DEFFERED: {
+					if ($retry >= 10) {
+						return $this->saveField('status', TaskType::STOPPED);
+					}
 					sleep(1);
-					return $this->stop($taskId);
+					return $this->stop($taskId, ++$retry);
 				}
 			default:
 				return false;
