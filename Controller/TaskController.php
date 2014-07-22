@@ -12,6 +12,7 @@ App::uses('TaskAppController', 'Task.Controller');
  * TasksController
  * 
  * @property TaskClient $TaskClient TaskClient model
+ * @property TaskProfiler $TaskProfiler TaskProfiler model
  * 
  * @package Task.Controller
  */
@@ -22,7 +23,7 @@ class TaskController extends TaskAppController {
 	 *
 	 * @var array 
 	 */
-	public $uses = array('Task.TaskClient');
+	public $uses = array('Task.TaskClient', 'Task.TaskProfiler');
 	
 	/**
 	 * {@inheritdoc}
@@ -152,6 +153,24 @@ class TaskController extends TaskAppController {
 			));
 		}
 		$this->redirect($this->referer());
+	}
+	
+	/**
+	 * Profile task command
+	 */
+	public function profile() {
+		$this->request->data('Task', $this->request->query);
+		$command = $this->request->query('command');
+		$this->set('data', $command ? $this->TaskProfiler->profileCommand($command) : null);
+		$this->set(array(
+			'commandList' => $this->TaskClient->find('list', array(
+				'fields' => array('command', 'command'),
+				'group' => array('command'),
+			)),
+		));
+		if (CakePlugin::loaded('GoogleChart')) {
+			$this->helpers[] = 'GoogleChart.GoogleChart';
+		}
 	}
 
 	/**

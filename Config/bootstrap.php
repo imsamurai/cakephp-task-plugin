@@ -24,6 +24,7 @@ $config += array(
 	'truncateArguments' => 100,
 	'truncateCode' => 5,
 	'truncateWaitFor' => 5,
+	'profilerLimit' => 100
 );
 Configure::write('Task', $config);
 App::uses('TaskType', 'Task.Lib/Task');

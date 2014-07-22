@@ -21,6 +21,17 @@ class TaskClient extends TaskModel {
 	public $name = 'Task';
 	
 	/**
+	 * {@inheritdoc}
+	 *
+	 * @var array
+	 */
+	public $virtualFields = array(
+		'errored' => '!ISNULL(stderr)',
+		'runtime' => 'TIME_TO_SEC(TIMEDIFF(stopped, started))',
+		'waittime' => 'TIME_TO_SEC(TIMEDIFF(started, created))',
+	);
+	
+	/**
 	 * Adds new task
 	 *
 	 * @param string $command
