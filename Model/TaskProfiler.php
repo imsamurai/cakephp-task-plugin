@@ -117,6 +117,29 @@ class TaskProfiler {
 	}
 	
 	/**
+	 * Approximate runtime of the command
+	 * 
+	 * @param string $command
+	 * @return int
+	 */
+	public function approximateRuntime($command) {
+		$tasks = $this->Task->find('list', array(
+			'conditions' => array(
+				'command' => $command,
+				'status' => TaskType::FINISHED,
+				'runtime >' => 0
+			),
+			'fields' => array('id', 'runtime'),
+			'limit' => Configure::read('Task.approximateLimit'),
+			'order' => array(
+				'id' => 'DESC'
+			)
+		));
+		
+		return $tasks ? (int)(array_sum($tasks) / count($tasks)) : 0;
+	}
+	
+	/**
 	 * Convert seconds to human readable format
 	 * 
 	 * @param int $seconds

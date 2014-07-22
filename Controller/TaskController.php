@@ -50,6 +50,7 @@ class TaskController extends TaskAppController {
 					'stopped',
 					'created',
 					'modified',
+					'runtime',
 					'id',
 					'process_id',
 				),
@@ -62,15 +63,21 @@ class TaskController extends TaskAppController {
 			'data' => $this->paginate("TaskClient")
 		));
 
+		$commandList = $this->TaskClient->find('list', array(
+			'fields' => array('command', 'command'),
+			'group' => array('command'),
+		));
+		$statusList = $this->TaskClient->find('list', array(
+			'fields' => array('status', 'status'),
+			'group' => array('status'),
+		));
+		$approximateRuntimes = array_map(function($command) {
+			return $this->TaskProfiler->approximateRuntime($command);
+		}, $commandList);
 		$this->set(array(
-			'commandList' => $this->TaskClient->find('list', array(
-				'fields' => array('command', 'command'),
-				'group' => array('command'),
-			)),
-			'statusList' => $this->TaskClient->find('list', array(
-				'fields' => array('status', 'status'),
-				'group' => array('status'),
-			)),
+			'commandList' => $commandList,
+			'statusList' => $statusList,
+			'approximateRuntimes' => $approximateRuntimes,
 		));
 	}
 
@@ -97,8 +104,13 @@ class TaskController extends TaskAppController {
 			throw new NotFoundException("Task id=$taskId not found!");
 		}
 		
+		$commandList = array($task['TaskClient']['command'] => $task['TaskClient']['command']);
+		$approximateRuntimes = array_map(function($command) {
+			return $this->TaskProfiler->approximateRuntime($command);
+		}, $commandList);
 		$this->set('task', $task['TaskClient']);
 		$this->set('dependentTasks', $task['DependsOnTask']);
+		$this->set('approximateRuntimes', $approximateRuntimes);
 	}
 
 	/**

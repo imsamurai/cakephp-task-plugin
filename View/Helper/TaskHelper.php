@@ -118,6 +118,49 @@ class TaskHelper extends AppHelper {
 	}
 
 	/**
+	 * Running progressbar
+	 * 
+	 * @param array $task
+	 * @param array $runtimes
+	 * @return string
+	 */
+	public function runningBar(array $task, array $runtimes) {
+		if (in_array($task['status'], array(TaskType::FINISHED, TaskType::STOPPED))) {
+			return '';
+		}
+
+		if (!isset($runtimes[$task['command']])) {
+			$percent = 100;
+			$delta = 0;
+		} else {
+			$percent = ($task['runtime'] > 0) ? min(array(100, round(100 * $task['runtime'] / $runtimes[$task['command']]))) : 0;
+			$delta = (int)$runtimes[$task['command']] - (int)$task['runtime'];
+		}
+
+		if ($this->_isCli) {
+			return "$percent%";
+		}
+
+		if ($percent === 100) {
+			$class = 'progress progress-striped active';
+		} else {
+			$class = 'progress';
+		}
+
+		$format = Configure::read('Task.dateDiffBarFormat');
+
+		if ($delta >= 0) {
+			$deltaString = '- ' . $this->_secondsToHuman($delta, $format);
+			$class .= ' progress-success';
+		} else {
+			$deltaString = '+ ' . $this->_secondsToHuman(-1 * $delta, $format);
+			$class .= ' progress-danger';
+		}
+
+		return $this->Html->div($class, $this->Html->div('bar', $deltaString, array('style' => "width: $percent%;color:black;")));
+	}
+
+	/**
 	 * Created
 	 * 
 	 * @param array $task
@@ -187,8 +230,8 @@ class TaskHelper extends AppHelper {
 	 */
 	public function codeString(array $task, $full = true) {
 		return $this->_isCli || (!$task['code_string']) ? $task['code_string'] : $this->Html->tag('span', $this->_text($task['code_string'], $full ? 0 : Configure::read('Task.truncateCode'), true), array(
-			'class' => 'label label-' . ($task['code_string'] == 'OK' ? 'success' : 'important'
-				)));
+					'class' => 'label label-' . ($task['code_string'] == 'OK' ? 'success' : 'important'
+			)));
 	}
 
 	/**
@@ -381,6 +424,17 @@ class TaskHelper extends AppHelper {
 	 */
 	protected function _none($text = 'none') {
 		return $this->_isCli ? $text : $this->Html->tag('span', $text, array('class' => 'task-not-yet', 'style' => 'color: gray;'));
+	}
+
+	/**
+	 * Convert seconds to human readable format
+	 * 
+	 * @param int $seconds
+	 * @param string $format
+	 * @return string
+	 */
+	protected function _secondsToHuman($seconds, $format) {
+		return (new DateTime('today'))->diff(new DateTime('today +' . (int)$seconds . ' seconds'))->format($format);
 	}
 
 }

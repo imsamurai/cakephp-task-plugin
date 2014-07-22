@@ -20,22 +20,21 @@ echo $this->element('form/task/search');
 //}
 echo $this->element('pagination/pagination');
 ?>
-<table class="table table-bordered table-striped table-sortable">
+<table class="table table-bordered table-striped">
 	<thead>
 		<tr>
 			<th><?= $this->Paginator->sort('id'); ?></th>
-			<th><?= $this->Paginator->sort('process_id'); ?></th>
 			<th><?= $this->Paginator->sort('command'); ?></th>
 			<th>Arguments</th>
 			<th><?= $this->Paginator->sort('status'); ?></th>
 			<th><?= $this->Paginator->sort('code'); ?></th>
 			<th><?= $this->Paginator->sort('wait'); ?></th>
 			<th><?= $this->Paginator->sort('stderr', 'Error'); ?></th>
-			<th>Run</th>
+			<th><?= $this->Paginator->sort('runtime'); ?></th>
 			<th><?= $this->Paginator->sort('started'); ?></th>
 			<th><?= $this->Paginator->sort('stopped'); ?></th>
 			<th><?= $this->Paginator->sort('created'); ?></th>
-			<th class="sorter-false"></th>
+			<th></th>
 		</tr>
 	</thead>
 	<tbody>
@@ -46,14 +45,17 @@ echo $this->element('pagination/pagination');
 			?>
 			<tr>
 				<td><?= $this->Task->id($task); ?></td>
-				<td><?= $this->Task->processId($task); ?></td>
 				<td><?= $this->Task->command($task); ?></td>
 				<td><?= $this->Task->arguments($task, false); ?></td>
 				<td><?= $this->Task->status($task); ?></td>
 				<td><?= $this->Task->codeString($task, false); ?></td>
 				<td><?= $this->Task->waiting($dependentTasks, false); ?></td>
 				<td style="word-wrap: break-word; max-width: 200px"><?= $this->Task->stderr($task, false); ?></td>
-				<td nowrap="nowrap"><?= str_replace(', ', "<br>", $this->Task->running($task)); ?>
+				<td nowrap="nowrap">
+					<?= str_replace(', ', "<br>", $this->Task->running($task)); ?>
+					<?= $this->Task->runningBar($task, $approximateRuntimes); ?>
+					
+				</td>
 				<td nowrap="nowrap"><?= str_replace(', ', "<br>", $this->Task->started($task)); ?></td>
 				<td nowrap="nowrap"><?= str_replace(', ', "<br>", $this->Task->stopped($task)); ?></td>
 				<td nowrap="nowrap"><?= str_replace(', ', "<br>", $this->Task->created($task)); ?></td>

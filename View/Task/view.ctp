@@ -26,7 +26,7 @@ if (!isset($task)) {
 		'arguments' => null,
 		'status' => null,
 		'code_string' => null,
-		'running' => null,
+		'running' => '<td><div>' . $this->Task->running($task) . '<br>' . $this->Task->runningBar($task, $approximateRuntimes) . '</div></td>',
 		'started' => null,
 		'stopped' => null,
 		'created' => null,
@@ -51,7 +51,9 @@ if (!isset($task)) {
 			} else {
 				?>
 				<td><div style="white-space: pre;max-height: 500px;max-width: 1260px;overflow: auto;"><?= $this->Task->{Inflector::camelize($field)}($task); ?></div></td>
-				<?php } ?>
+			<?php
+			}
+			?>
 
 		</tr>
 		<?php

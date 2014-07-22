@@ -19,12 +19,14 @@ $config += array(
 	'timeout' => 60 * 60 * 8,
 	'dateFormat' => 'd.m.Y',
 	'dateDiffFormat' => "%a days, %h hours, %i minutes",
+	'dateDiffBarFormat' => "%ad, %hh, %im, %ss",
 	'truncateError' => 200,
 	'truncateOutput' => 500,
 	'truncateArguments' => 100,
 	'truncateCode' => 5,
 	'truncateWaitFor' => 5,
-	'profilerLimit' => 100
+	'profilerLimit' => 100,
+	'approximateLimit' => 10,
 );
 Configure::write('Task', $config);
 App::uses('TaskType', 'Task.Lib/Task');

@@ -27,10 +27,23 @@ class TaskClient extends TaskModel {
 	 */
 	public $virtualFields = array(
 		'errored' => '!ISNULL(stderr)',
-		'runtime' => 'TIME_TO_SEC(TIMEDIFF(stopped, started))',
+		'runtime' => 'TIME_TO_SEC(TIMEDIFF(IFNULL(stopped, \'%s\'), started))',
 		'waittime' => 'TIME_TO_SEC(TIMEDIFF(started, created))',
 	);
 	
+	/**
+	 * {@inheritdoc}
+	 * 
+	 * @param boolean|integer|string|array $id Set this ID for this model on startup,
+	 * can also be an array of options, see above.
+	 * @param string $table Name of database table to use.
+	 * @param string $ds DataSource connection name.
+	 */
+	public function __construct($id = false, $table = null, $ds = null) {
+		parent::__construct($id, $table, $ds);
+		$this->virtualFields['runtime'] = sprintf($this->virtualFields['runtime'], date('Y-m-d H:i:s'));
+	}
+
 	/**
 	 * Adds new task
 	 *
