@@ -68,7 +68,7 @@ class TaskProfiler {
 			$item['waittime'] = (int)$item['waittime'];
 			return $item;
 		}, Hash::extract($tasks, '{n}.{s}'));
-
+		
 		$runtimes = Hash::extract($statistics, '{n}.runtime');
 		$runtimeAverage = $runtimes ? array_sum($runtimes) / count($runtimes) : 0;
 		$runtimeMax = $runtimes ? max($runtimes) : 0;

@@ -13,7 +13,7 @@ echo $this->Form->create('Task', array('novalidate', 'class' => 'well form-searc
 ?>
 <div style="float:left;width:400px;margin-right:15px;">
 	<div class="div-right">
-		<?= $this->Form->input('Task.command', array('options' => $commandList, 'type' => 'select', 'empty' => '--none--')); ?>
+		<?= $this->Form->input('Task.command', array('options' => $commandList, 'type' => 'select', 'empty' => '--none--', 'class' => 'input-xxlarge')); ?>
 	</div>
 </div>
 <div style="clear:left;"></div>
