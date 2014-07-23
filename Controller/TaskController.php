@@ -197,7 +197,12 @@ class TaskController extends TaskAppController {
 			if (empty($conditions[$dateRangeField])) {
 				continue;
 			}
-			$conditions[$dateRangeField . ' BETWEEN ? AND ?'] = explode(' to ', $conditions[$dateRangeField]);
+			if (preg_match('/(?P<start>\S*)\s([\w-]*+)\s(?P<end>\S*)/', $conditions[$dateRangeField], $range)) {
+				$conditions[$dateRangeField . ' BETWEEN ? AND ?'] = array(
+					(new DateTime($range['start']))->format('Y-m-d H:i:s'),
+					(new DateTime($range['end']))->format('Y-m-d H:i:s')
+				);
+			}
 			unset($conditions[$dateRangeField]);
 		}
 		return $conditions;

@@ -40,13 +40,10 @@ echo $this->Form->create('Task', array(
 		<?= $this->Form->input('started', array('class' => 'input-large daterangepicker')) ?>
 	</div>
 	<div class="div-right">
-		<?= $this->Form->input('created', array('class' => 'input-large daterangepicker')) ?>
-	</div>
-	<div class="div-right">
 		<?= $this->Form->input('stopped', array('class' => 'input-large daterangepicker')) ?>
 	</div>
 	<div class="div-right">
-		<?= $this->Form->input('modified', array('class' => 'input-large daterangepicker')) ?>
+		<?= $this->Form->input('created', array('class' => 'input-large daterangepicker')) ?>
 	</div>
 </div>
 <div style="clear:left;"></div>
