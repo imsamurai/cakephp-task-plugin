@@ -14,7 +14,15 @@ foreach ($statusList as $status) {
 	$statusOptions[$status] = TaskHelper::$statuses[$status]['name'];
 }
 
-echo $this->Form->create('Task', array('novalidate', 'class' => 'well form-search', 'type' => 'get'));
+echo $this->Form->create('Task', array(
+	'novalidate',
+	'class' => 'well form-search',
+	'type' => 'get',
+	'url' => array(
+		'action' => 'index',
+		'controller' => 'task'
+	)
+));
 ?>
 <div style="float:left;width:400px;margin-right:15px;">
 	<div class="div-right">

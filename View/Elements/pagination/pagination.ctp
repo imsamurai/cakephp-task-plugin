@@ -9,7 +9,15 @@
 ?>
 <div class="pagination pagination-right">
     <ul>
-		<?= $this->Paginator->numbers(array('first' => 'First', 'last' => 'Last', 'tag' => 'li', 'currentClass' => 'active', 'modulus' => Configure::read('Pagination.pages'), 'separator' => '', 'url' => isset($url) ? $url : array()));
+		<?=
+		$this->Paginator->numbers(array(
+			'first' => 'First',
+			'last' => 'Last',
+			'tag' => 'li',
+			'currentClass' => 'active',
+			'modulus' => Configure::read('Pagination.pages'),
+			'separator' => ''
+		));
 		?>
     </ul>
 	<?php
