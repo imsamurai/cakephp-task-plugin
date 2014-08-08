@@ -84,7 +84,13 @@ class TaskHelper extends AppHelper {
 	 * @return string
 	 */
 	public function id(array $task) {
-		return $this->_isCli ? $task['id'] : $this->Html->link($task['id'], array('action' => 'view', $task['id'], 'full_base' => true));
+		return $this->_isCli ? $task['id'] : $this->Html->link($task['id'], array(
+					'action' => 'view',
+					'controller' => 'task',
+					'plugin' => 'task',
+					$task['id'],
+					'full_base' => true
+		));
 	}
 
 	/**
