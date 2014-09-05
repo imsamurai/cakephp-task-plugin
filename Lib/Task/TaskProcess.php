@@ -1,17 +1,17 @@
 <?php
-
-use Symfony\Component\Process\Process;
-
 /**
  * Author: imsamurai <im.samuray@gmail.com>
  * Date: 19.06.2014
  * Time: 13:12:39
  */
 
+use Symfony\Component\Process\Process;
+
 /**
  * Task Process wrapper
  *
- * @package Task.Lib.Task
+ * @package Task
+ * @subpackage Task
  */
 class TaskProcess extends Process {
 
@@ -31,6 +31,9 @@ class TaskProcess extends Process {
 
 	/**
 	 * Terminate current process
+	 * 
+	 * @param int $timeout
+	 * @param int $signal
 	 */
 	protected function _terminate($timeout = 10, $signal = /* SIGTERM */ 15) {
 		$ppid = $this->getPid();

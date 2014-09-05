@@ -8,8 +8,17 @@
  */
 App::uses('Type', 'Task.Lib/Task');
 
+/**
+ * Task types enum
+ * 
+ * @package Task
+ * @subpackage Task
+ */
 final class TaskType extends Type {
 
+	/**
+	 * Types
+	 */
 	const _DEFAULT = TaskType::UNSTARTED;
 	const UNSTARTED = 0;
 	const DEFFERED = 1;

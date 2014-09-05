@@ -1,20 +1,19 @@
 <?php
-
-use Symfony\Component\Process\ProcessUtils;
-
 /**
  * Author: imsamurai <im.samuray@gmail.com>
  * Date: 08.07.2013
  * Time: 13:23:01
- *
  */
+
+use Symfony\Component\Process\ProcessUtils;
 
 App::uses('TaskProcess', 'Task.Lib/Task');
 
 /**
  * Task Runner
  *
- * @package Task.Lib.Task
+ * @package Task
+ * @subpackage Task
  */
 class TaskRunner extends Object {
 

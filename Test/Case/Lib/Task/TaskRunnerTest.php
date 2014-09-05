@@ -11,10 +11,16 @@ App::uses('TaskClient', 'Task.Model');
 App::uses('Shell', 'Console');
 
 /**
- * @package Task.Test.Lib.Task
+ * Task runner tests
+ * 
+ * @package TaskTest
+ * @subpackage Task
  */
 class TaskRunnerTest extends CakeTestCase {
 
+	/**
+	 * {@inheritdoc}
+	 */
 	public function setUp() {
 		parent::setUp();
 		Configure::write('Task', array(
@@ -23,6 +29,9 @@ class TaskRunnerTest extends CakeTestCase {
 		));
 	}
 
+	/**
+	 * Test terminate task
+	 */
 	public function testTerminate() {
 		$TaskClient = $this->getMock('TaskClient');
 		$TaskServer = $this->getMock('TaskServer', array(
@@ -58,6 +67,9 @@ class TaskRunnerTest extends CakeTestCase {
 		$this->assertNotEqual((int)$runnedTask['code'], 0);
 	}
 
+	/**
+	 * Test task timeout
+	 */
 	public function testTimeout() {
 		$TaskClient = $this->getMock('TaskClient');
 		$TaskServer = $this->getMock('TaskServer', array(
@@ -93,6 +105,9 @@ class TaskRunnerTest extends CakeTestCase {
 		$this->assertSame(134, $runnedTask['code']);
 	}
 
+	/**
+	 * Test update task
+	 */
 	public function testUpdate() {
 		$TaskClient = $this->getMock('TaskClient');
 		$TaskServer = $this->getMock('TaskServer', array(

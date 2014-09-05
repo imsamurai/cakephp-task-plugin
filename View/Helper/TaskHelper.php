@@ -12,7 +12,8 @@ App::uses('Sanitize', 'Utility');
 /**
  * Task Helper
  * 
- * @package Task.Model
+ * @package Task
+ * @subpackage View.Helper
  * 
  * @property HtmlHelper $Html Html Helper
  * @property TimeHelper $Time Time Helper
@@ -232,6 +233,7 @@ class TaskHelper extends AppHelper {
 	 * String return code
 	 * 
 	 * @param array $task
+	 * @param bool $full
 	 * @return string
 	 */
 	public function codeString(array $task, $full = true) {
@@ -333,6 +335,7 @@ class TaskHelper extends AppHelper {
 	 * Waiting for tasks
 	 * 
 	 * @param array $tasks
+	 * @param bool $full
 	 * @return string
 	 */
 	public function waiting(array $tasks, $full = true) {

@@ -9,10 +9,18 @@
 App::uses('TaskRunner', 'Task.Lib/Task');
 
 /**
- * @package Task.Console.Command.Task
+ * Task server script
+ * 
+ * @package Task
+ * @package Console.Command.Task
  */
 class TaskServerTask extends Shell {
 
+	/**
+	 * {@inheritdoc}
+	 *
+	 * @var array
+	 */
 	public $uses = array('Task.TaskServer', 'Task.TaskClient');
 
 	/**

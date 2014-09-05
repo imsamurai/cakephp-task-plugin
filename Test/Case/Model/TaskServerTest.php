@@ -10,7 +10,10 @@ App::uses('TaskClient', 'Task.Model');
 App::uses('TaskServer', 'Task.Model');
 
 /**
- * @package Task.Test.Case.Model
+ * Task server test
+ * 
+ * @package TaskTest
+ * @subpackage Model
  */
 class TaskServerTest extends CakeTestCase {
 
@@ -38,12 +41,18 @@ class TaskServerTest extends CakeTestCase {
 	 */
 	public $TaskServer = null;
 
+	/**
+	 * {@inheritdoc}
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->TaskClient = new TaskClient(false, null, 'test');
 		$this->TaskServer = new TaskServer(false, null, 'test');
 	}
 
+	/**
+	 * Test get free slots count
+	 */
 	public function testFreeSlots() {
 		$maxSlots = 5;
 		Configure::write('Task.maxSlots', $maxSlots);
@@ -54,6 +63,9 @@ class TaskServerTest extends CakeTestCase {
 		$this->assertSame($maxSlots - 1, $this->TaskServer->freeSlots());
 	}
 
+	/**
+	 * Test get pending tasks
+	 */
 	public function testGetPending() {
 		$task = $this->TaskClient->add('ls', '', array('-l'));
 		$pendedTask = $this->TaskServer->getPending();
@@ -62,6 +74,9 @@ class TaskServerTest extends CakeTestCase {
 		$this->assertSame($task['id'], $pendedTask['id']);
 	}
 
+	/**
+	 * Test `started` callback
+	 */
 	public function testStarted() {
 		$this->TaskClient->add('ls', '', array('-l'));
 		$task = $this->TaskServer->getPending();
@@ -70,6 +85,9 @@ class TaskServerTest extends CakeTestCase {
 		$this->assertEqual($startedTask['Task']['status'], TaskType::RUNNING);
 	}
 
+	/**
+	 * Test `stopped` callback
+	 */
 	public function testStopped() {
 		$this->TaskClient->add('ls', '', array('-l'));
 		$task = $this->TaskServer->getPending();
@@ -78,6 +96,9 @@ class TaskServerTest extends CakeTestCase {
 		$this->assertEqual($startedTask['Task']['status'], TaskType::FINISHED);
 	}
 
+	/**
+	 * Test `started` manual callback
+	 */
 	public function testStoppedManual() {
 		$this->TaskClient->add('ls', '', array('-l'));
 		$task = $this->TaskServer->getPending();
@@ -86,6 +107,9 @@ class TaskServerTest extends CakeTestCase {
 		$this->assertEqual($startedTask['Task']['status'], TaskType::STOPPED);
 	}
 
+	/**
+	 * Test dependent tasks
+	 */
 	public function testDependent() {
 		$task1 = $this->TaskClient->add('ls', '', array('-l'));
 		$this->TaskClient->add('ls', '', array('-l'));

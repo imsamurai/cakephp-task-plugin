@@ -8,10 +8,18 @@
  */
 
 /**
- * @package Task.Console.Command
+ * Task shell
+ * 
+ * @package Task
+ * @subpackage Console.Command
  */
 class TaskShell extends Shell {
 
+	/**
+	 * {@inheritdoc}
+	 *
+	 * @var array
+	 */
 	public $tasks = array(
 		'Task.TaskServer'
 	);

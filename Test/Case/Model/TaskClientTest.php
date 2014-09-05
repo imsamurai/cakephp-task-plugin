@@ -8,7 +8,10 @@
  */
 
 /**
- * @package Task.Test.Case.Model
+ * Task client test
+ * 
+ * @package TaskTest
+ * @subpackage Model
  */
 class TaskClientTest extends CakeTestCase {
 
@@ -29,11 +32,17 @@ class TaskClientTest extends CakeTestCase {
 	 */
 	public $TaskClient = null;
 
+	/**
+	 * {@inheritdoc}
+	 */
 	public function setUp() {
 		parent::setUp();
 		$this->TaskClient = ClassRegistry::init('Task.TaskClient');
 	}
 
+	/**
+	 * Test add task
+	 */
 	public function testAdd() {
 		$command = 'ls';
 		$path = '';
@@ -46,6 +55,9 @@ class TaskClientTest extends CakeTestCase {
 		$this->assertEqual($arguments, $task['arguments']);
 	}
 
+	/**
+	 * Test get dependent task by hash
+	 */
 	public function testDependentByHash() {
 		$command = 'ls';
 		$path = '';
@@ -75,6 +87,9 @@ class TaskClientTest extends CakeTestCase {
 		$this->assertEqual($task2WithDependends['DependsOnTask'][0]['id'], $task1['id']);
 	}
 
+	/**
+	 * Test get dependent task by id
+	 */
 	public function testDependentById() {
 		$command = 'ls';
 		$path = '';

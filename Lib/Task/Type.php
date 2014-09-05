@@ -9,6 +9,9 @@
 
 /**
  * Main class for types
+ * 
+ * @package Type
+ * @package Task
  */
 class Type {
 
@@ -20,6 +23,8 @@ class Type {
 	private $__type;
 
 	/**
+	 * Constructor
+	 * 
 	 * @param string $type Type
 	 * @throws Exception On invalid type
 	 */

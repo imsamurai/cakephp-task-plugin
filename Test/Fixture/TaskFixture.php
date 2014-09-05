@@ -2,9 +2,17 @@
 
 /**
  * Task Fixture
+ * 
+ * @package TaskTest
+ * @subpackage Test.Fixture
  */
 class TaskFixture extends CakeTestFixture {
 
+	/**
+	 * {@inheritdoc}
+	 *
+	 * @var string
+	 */
 	public $useDbConfig = 'test';
 
 	/**

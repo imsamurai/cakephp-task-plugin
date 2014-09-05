@@ -2,9 +2,17 @@
 
 /**
  * DependentTask Fixture
+ * 
+ * @package TaskTest
+ * @subpackage Test.Fixture
  */
 class DependentTaskFixture extends CakeTestFixture {
 
+	/**
+	 * {@inheritdoc}
+	 *
+	 * @var string
+	 */
 	public $useDbConfig = 'test';
 
 	/**

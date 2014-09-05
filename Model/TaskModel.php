@@ -9,7 +9,10 @@
 App::uses('TaskType', 'Task.Lib/Task');
 
 /**
- * @package Task.Model
+ * Task base model
+ * 
+ * @package Task
+ * @subpackage Model
  */
 class TaskModel extends AppModel {
 
