@@ -1,0 +1,128 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Task plugin for CakePHP by imsamurai</title>
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/pygment_trac.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+    <script src="javascripts/main.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
+
+  </head>
+  <body>
+
+      <header>
+        <h1>Task plugin for CakePHP</h1>
+        <p>Plugin for run deffered (sceduled) tasks (console scripts)</p>
+      </header>
+
+      <div id="banner">
+        <span id="logo"></span>
+
+        <a href="https://github.com/imsamurai/cakephp-task-plugin" class="button fork"><strong>View On GitHub</strong></a>
+        <div class="downloads">
+          <span>Downloads:</span>
+          <ul>
+            <li><a href="https://github.com/imsamurai/cakephp-task-plugin/zipball/master" class="button">ZIP</a></li>
+            <li><a href="https://github.com/imsamurai/cakephp-task-plugin/tarball/master" class="button">TAR</a></li>
+          </ul>
+        </div>
+      </div><!-- end banner -->
+
+    <div class="wrapper">
+      <nav>
+        <ul></ul>
+      </nav>
+      <section>
+        <h2>
+<a name="api-documentation" class="anchor" href="#api-documentation"><span class="octicon octicon-link"></span></a>API Documentation</h2>
+
+<p>Check out <a href="http://imsamurai.github.io/cakephp-task-plugin/docs/master/">Task API Documentation</a></p>
+
+<h2>
+<a name="abstract" class="anchor" href="#abstract"><span class="octicon octicon-link"></span></a>Abstract</h2>
+
+<p><a href="https://travis-ci.org/imsamurai/cakephp-task-plugin"><img src="https://travis-ci.org/imsamurai/cakephp-task-plugin.png" alt="Build Status"></a> <a href="https://coveralls.io/r/imsamurai/cakephp-task-plugin?branch=master"><img src="https://coveralls.io/repos/imsamurai/cakephp-task-plugin/badge.png?branch=master" alt="Coverage Status"></a> <a href="https://packagist.org/packages/imsamurai/cakephp-task-plugin"><img src="https://poser.pugx.org/imsamurai/cakephp-task-plugin/v/stable.png" alt="Latest Stable Version"></a> <a href="https://packagist.org/packages/imsamurai/cakephp-task-plugin"><img src="https://poser.pugx.org/imsamurai/cakephp-task-plugin/downloads.png" alt="Total Downloads"></a> <a href="https://packagist.org/packages/imsamurai/cakephp-task-plugin"><img src="https://poser.pugx.org/imsamurai/cakephp-task-plugin/v/unstable.png" alt="Latest Unstable Version"></a> <a href="https://packagist.org/packages/imsamurai/cakephp-task-plugin"><img src="https://poser.pugx.org/imsamurai/cakephp-task-plugin/license.png" alt="License"></a></p>
+
+<p>Plugin for run deffered (scheduled) tasks (console scripts)</p>
+
+<p>!Scheduled run is not available yet!</p>
+
+<h2>
+<a name="installation" class="anchor" href="#installation"><span class="octicon octicon-link"></span></a>Installation</h2>
+
+<p>Composer (for ex. version 1.0.0):</p>
+
+<div class="highlight highlight-javascript"><pre><span class="p">{</span>
+    <span class="s2">"require"</span><span class="o">:</span> <span class="p">{</span>
+        <span class="s2">"imsamurai/cakephp-task-plugin"</span><span class="o">:</span> <span class="s2">"1.0.0"</span>
+    <span class="p">},</span>
+    <span class="s2">"minimum-stability"</span><span class="o">:</span> <span class="s2">"dev"</span>
+<span class="p">}</span>
+</pre></div>
+
+<p>it installs in <code>Plugin</code> directory (in same level with composer.json) so you may want to add <code>Plugin/Task</code> into ignore file.</p>
+
+<p>or clone:</p>
+
+<pre><code>cd my_cake_app/app
+git clone git://github.com/imsamurai/cakephp-task-plugin.git Plugin/Task
+</code></pre>
+
+<p>or if you use git add as submodule:</p>
+
+<pre><code>cd my_cake_app
+git submodule add "git://github.com/imsamurai/cakephp-task-plugin.git" "app/Plugin/Task"
+</code></pre>
+
+<p>then add plugin loading in Config/bootstrap.php</p>
+
+<pre><code>CakePlugin::load('Task', array('bootstrap' =&gt; true));
+</code></pre>
+
+<p>add tables from <code>Config/Schema/tasks.sql</code></p>
+
+<p>include <a href="https://github.com/symfony/Process">https://github.com/symfony/Process</a> and <a href="https://github.com/kriswallsmith/spork">https://github.com/kriswallsmith/spork</a> in your project, for ex with composer (tested with 2.3 version)</p>
+
+<h2>
+<a name="configuration" class="anchor" href="#configuration"><span class="octicon octicon-link"></span></a>Configuration</h2>
+
+<p>Write global config if you need to use custom settings function:</p>
+
+<div class="highlight highlight-php"><pre><span class="nx">Configure</span><span class="o">::</span><span class="na">write</span><span class="p">(</span><span class="s1">'Task'</span><span class="p">,</span> <span class="k">array</span><span class="p">(</span>
+  <span class="c1">//maximum runned tasks at the same time</span>
+  <span class="s1">'maxSlots'</span> <span class="o">=&gt;</span> <span class="o">&lt;</span><span class="nx">number</span> <span class="nx">of</span> <span class="nx">slots</span><span class="o">&gt;</span>
+<span class="p">));</span>
+</pre></div>
+
+<h2>
+<a name="usage" class="anchor" href="#usage"><span class="octicon octicon-link"></span></a>Usage</h2>
+
+<p>Use <code>TaskClient::add()</code> for adding new tasks
+Put <code>Console/cake Task.task task_server</code> in the cron, for ex each 1-5 minutes (depends on your needs)
+Try <code>http://yourdomain/task/</code> for basic view</p>
+      </section>
+      <footer>
+        <p>Project maintained by <a href="https://github.com/imsamurai">imsamurai</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://twitter.com/michigangraham">mattgraham</a></small></p>
+      </footer>
+    </div>
+    <!--[if !IE]><script>fixScale(document);</script><![endif]-->
+              <script type="text/javascript">
+            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+          </script>
+          <script type="text/javascript">
+            try {
+              var pageTracker = _gat._getTracker("UA-54309823-1");
+            pageTracker._trackPageview();
+            } catch(err) {}
+          </script>
+
+  </body>
+</html>
