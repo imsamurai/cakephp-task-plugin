@@ -15,8 +15,7 @@ Composer (for ex. version 1.0.0):
 {
 	"require": {
 		"imsamurai/cakephp-task-plugin": "1.0.0"
-	},
-	"minimum-stability": "dev"
+	}
 }
 ```
 	
