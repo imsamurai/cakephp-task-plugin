@@ -11,7 +11,7 @@
  * Main class for types
  * 
  * @package Type
- * @package Task
+ * @subpackage Task
  */
 class Type {
 

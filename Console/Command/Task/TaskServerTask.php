@@ -12,7 +12,7 @@ App::uses('TaskRunner', 'Task.Lib/Task');
  * Task server script
  * 
  * @package Task
- * @package Console.Command.Task
+ * @subpackage Console.Command.Task
  */
 class TaskServerTask extends Shell {
 
