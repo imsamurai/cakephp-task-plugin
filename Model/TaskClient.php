@@ -167,7 +167,8 @@ class TaskClient extends TaskModel {
 			'code' => '',
 			'code_string' => '',
 			'started' => '',
-			'stopped' => ''
+			'stopped' => '',
+			'server_id' => 0,
 				) + $this->read(null, $taskId)[$this->alias];
 		$this->create();		
 		$success = (bool)$this->saveAssociated(array(
