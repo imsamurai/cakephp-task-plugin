@@ -20,306 +20,306 @@
 <path fill="none" stroke="gray" d="M401,-580C401,-574 407,-568 413,-568"/>
 <text text-anchor="middle" x="672.5" y="-1816.1" font-family="Times Roman,serif" font-size="11.00" fill="gray">Global</text>
 </g>
-<!-- \\TaskModel -->
-<g id="node2" class="node"><title>\\TaskModel</title>
-<polygon fill="none" stroke="black" points="493,-1692 417,-1692 417,-1656 493,-1656 493,-1692"/>
-<text text-anchor="middle" x="455" y="-1671.1" font-family="Courier,monospace" font-size="11.00">TaskModel</text>
-</g>
-<!-- \\AppModel -->
-<g id="node28" class="node"><title>\\AppModel</title>
-<ellipse fill="none" stroke="black" cx="93" cy="-1674" rx="62.2254" ry="18.3848"/>
-<text text-anchor="middle" x="93" y="-1670.4" font-family="Times Roman,serif" font-size="14.00" fill="gray">\AppModel</text>
-</g>
-<!-- \\TaskModel&#45;&gt;\\AppModel -->
-<g id="edge3" class="edge"><title>\\TaskModel&#45;&gt;\\AppModel</title>
-<path fill="none" stroke="black" d="M416.26,-1674C356.596,-1674 241.219,-1674 165.674,-1674"/>
-<polygon fill="none" stroke="black" points="165.288,-1670.5 155.288,-1674 165.288,-1677.5 165.288,-1670.5"/>
-</g>
-<!-- \\TaskServer -->
-<g id="node3" class="node"><title>\\TaskServer</title>
-<polygon fill="none" stroke="black" points="872,-1692 788,-1692 788,-1656 872,-1656 872,-1692"/>
-<text text-anchor="middle" x="830" y="-1671.1" font-family="Courier,monospace" font-size="11.00">TaskServer</text>
-</g>
-<!-- \\TaskServer&#45;&gt;\\TaskModel -->
-<g id="edge5" class="edge"><title>\\TaskServer&#45;&gt;\\TaskModel</title>
-<path fill="none" stroke="black" d="M787.712,-1674C717.645,-1674 577.87,-1674 503.756,-1674"/>
-<polygon fill="none" stroke="black" points="503.748,-1670.5 493.748,-1674 503.748,-1677.5 503.748,-1670.5"/>
-</g>
-<!-- \\TaskProfiler -->
-<g id="node4" class="node"><title>\\TaskProfiler</title>
-<polygon fill="none" stroke="black" points="879,-1746 781,-1746 781,-1710 879,-1710 879,-1746"/>
-<text text-anchor="middle" x="830" y="-1725.1" font-family="Courier,monospace" font-size="11.00">TaskProfiler</text>
-</g>
-<!-- \\TaskClient -->
-<g id="node5" class="node"><title>\\TaskClient</title>
-<polygon fill="none" stroke="black" points="872,-1800 788,-1800 788,-1764 872,-1764 872,-1800"/>
-<text text-anchor="middle" x="830" y="-1779.1" font-family="Courier,monospace" font-size="11.00">TaskClient</text>
-</g>
-<!-- \\TaskClient&#45;&gt;\\TaskModel -->
-<g id="edge7" class="edge"><title>\\TaskClient&#45;&gt;\\TaskModel</title>
-<path fill="none" stroke="black" d="M787.849,-1771.71C768.365,-1766.83 744.951,-1760.82 724,-1755 646.359,-1733.43 556.892,-1705.97 503.201,-1689.2"/>
-<polygon fill="none" stroke="black" points="504.192,-1685.84 493.603,-1686.2 502.102,-1692.52 504.192,-1685.84"/>
-</g>
-<!-- \\TaskServerTask -->
-<g id="node6" class="node"><title>\\TaskServerTask</title>
-<polygon fill="none" stroke="black" points="885,-1584 775,-1584 775,-1548 885,-1548 885,-1584"/>
-<text text-anchor="middle" x="830" y="-1563.1" font-family="Courier,monospace" font-size="11.00">TaskServerTask</text>
-</g>
-<!-- \\AdvancedTask -->
-<g id="node32" class="node"><title>\\AdvancedTask</title>
-<ellipse fill="none" stroke="black" cx="455" cy="-542" rx="82.939" ry="18.3848"/>
-<text text-anchor="middle" x="455" y="-538.4" font-family="Times Roman,serif" font-size="14.00" fill="gray">\AdvancedTask</text>
-</g>
-<!-- \\TaskServerTask&#45;&gt;\\AdvancedTask -->
-<g id="edge9" class="edge"><title>\\TaskServerTask&#45;&gt;\\AdvancedTask</title>
-<path fill="none" stroke="black" d="M774.305,-1564.51C755.608,-1561.08 736.381,-1553.77 724,-1539 584.447,-1372.49 802.716,-720.477 652,-564 620.902,-531.713 570.447,-526.587 528.385,-529.341"/>
-<polygon fill="none" stroke="black" points="527.85,-525.873 518.167,-530.172 528.418,-532.85 527.85,-525.873"/>
-</g>
-<!-- \\TaskShell -->
-<g id="node7" class="node"><title>\\TaskShell</title>
-<polygon fill="none" stroke="black" points="868,-1530 792,-1530 792,-1494 868,-1494 868,-1530"/>
-<text text-anchor="middle" x="830" y="-1509.1" font-family="Courier,monospace" font-size="11.00">TaskShell</text>
-</g>
-<!-- \\AdvancedShell -->
-<g id="node34" class="node"><title>\\AdvancedShell</title>
-<ellipse fill="none" stroke="black" cx="455" cy="-488" rx="85.7684" ry="18.3848"/>
-<text text-anchor="middle" x="455" y="-484.4" font-family="Times Roman,serif" font-size="14.00" fill="gray">\AdvancedShell</text>
-</g>
-<!-- \\TaskShell&#45;&gt;\\AdvancedShell -->
-<g id="edge11" class="edge"><title>\\TaskShell&#45;&gt;\\AdvancedShell</title>
-<path fill="none" stroke="black" d="M791.342,-1512.69C768.204,-1510.89 740.227,-1504.35 724,-1485 585.128,-1319.37 800.02,-672.513 652,-515 622.906,-484.04 576.256,-476.608 535.654,-477.237"/>
-<polygon fill="none" stroke="black" points="535.359,-473.744 525.476,-477.561 535.582,-480.74 535.359,-473.744"/>
-</g>
 <!-- \\TaskHelper -->
-<g id="node8" class="node"><title>\\TaskHelper</title>
-<polygon fill="none" stroke="black" points="872,-1476 788,-1476 788,-1440 872,-1440 872,-1476"/>
-<text text-anchor="middle" x="830" y="-1455.1" font-family="Courier,monospace" font-size="11.00">TaskHelper</text>
+<g id="node2" class="node"><title>\\TaskHelper</title>
+<polygon fill="none" stroke="black" points="872,-1638 788,-1638 788,-1602 872,-1602 872,-1638"/>
+<text text-anchor="middle" x="830" y="-1617.1" font-family="Courier,monospace" font-size="11.00">TaskHelper</text>
 </g>
 <!-- \\AppHelper -->
-<g id="node36" class="node"><title>\\AppHelper</title>
-<ellipse fill="none" stroke="black" cx="455" cy="-434" rx="65.0538" ry="18.3848"/>
-<text text-anchor="middle" x="455" y="-430.4" font-family="Times Roman,serif" font-size="14.00" fill="gray">\AppHelper</text>
+<g id="node28" class="node"><title>\\AppHelper</title>
+<ellipse fill="none" stroke="black" cx="455" cy="-542" rx="65.0538" ry="18.3848"/>
+<text text-anchor="middle" x="455" y="-538.4" font-family="Times Roman,serif" font-size="14.00" fill="gray">\AppHelper</text>
 </g>
 <!-- \\TaskHelper&#45;&gt;\\AppHelper -->
-<g id="edge13" class="edge"><title>\\TaskHelper&#45;&gt;\\AppHelper</title>
-<path fill="none" stroke="black" d="M787.917,-1458.39C765.498,-1456.22 739.434,-1449.41 724,-1431 585.128,-1265.37 800.02,-618.513 652,-461 619.281,-426.183 564.358,-421.121 520.805,-423.817"/>
-<polygon fill="none" stroke="black" points="520.268,-420.348 510.566,-424.604 520.805,-427.327 520.268,-420.348"/>
-</g>
-<!-- \\TaskRunner -->
-<g id="node9" class="node"><title>\\TaskRunner</title>
-<polygon fill="none" stroke="black" points="872,-1368 788,-1368 788,-1332 872,-1332 872,-1368"/>
-<text text-anchor="middle" x="830" y="-1347.1" font-family="Courier,monospace" font-size="11.00">TaskRunner</text>
-</g>
-<!-- \\Object -->
-<g id="node38" class="node"><title>\\Object</title>
-<ellipse fill="none" stroke="black" cx="455" cy="-380" rx="45.9619" ry="18.3848"/>
-<text text-anchor="middle" x="455" y="-376.4" font-family="Times Roman,serif" font-size="14.00" fill="gray">\Object</text>
-</g>
-<!-- \\TaskRunner&#45;&gt;\\Object -->
-<g id="edge15" class="edge"><title>\\TaskRunner&#45;&gt;\\Object</title>
-<path fill="none" stroke="black" d="M787.948,-1350.37C765.538,-1348.18 739.474,-1341.38 724,-1323 592.475,-1166.82 792.15,-555.489 652,-407 615.619,-368.454 552.013,-366.433 506.927,-370.989"/>
-<polygon fill="none" stroke="black" points="506.284,-367.54 496.75,-372.16 507.084,-374.494 506.284,-367.54"/>
-</g>
-<!-- \\TaskType -->
-<g id="node10" class="node"><title>\\TaskType</title>
-<polygon fill="none" stroke="black" points="872,-1422 788,-1422 788,-1386 872,-1386 872,-1422"/>
-<text text-anchor="start" x="796" y="-1409.43" font-family="Courier,monospace" font-size="11.00">«abstract»</text>
-<text text-anchor="start" x="802.5" y="-1396.23" font-family="Courier,monospace" font-size="11.00">TaskType</text>
-</g>
-<!-- \\TaskProcess -->
-<g id="node11" class="node"><title>\\TaskProcess</title>
-<polygon fill="none" stroke="black" points="875,-1314 785,-1314 785,-1278 875,-1278 875,-1314"/>
-<text text-anchor="middle" x="830" y="-1293.1" font-family="Courier,monospace" font-size="11.00">TaskProcess</text>
-</g>
-<!-- \\Symfony\\Component\\Process\\Process -->
-<g id="node40" class="node"><title>\\Symfony\\Component\\Process\\Process</title>
-<ellipse fill="none" stroke="black" cx="455" cy="-326" rx="196.075" ry="18.3848"/>
-<text text-anchor="middle" x="455" y="-322.4" font-family="Times Roman,serif" font-size="14.00" fill="gray">\Symfony\Component\Process\Process</text>
-</g>
-<!-- \\TaskProcess&#45;&gt;\\Symfony\\Component\\Process\\Process -->
-<g id="edge17" class="edge"><title>\\TaskProcess&#45;&gt;\\Symfony\\Component\\Process\\Process</title>
-<path fill="none" stroke="black" d="M784.466,-1295.99C762.888,-1293.45 738.679,-1286.43 724,-1269 592.475,-1112.82 792.15,-501.489 652,-353 647.413,-348.14 642.393,-343.86 637.032,-340.102"/>
-<polygon fill="none" stroke="black" points="638.664,-336.993 628.339,-334.615 634.927,-342.912 638.664,-336.993"/>
-</g>
-<!-- \\DependentTaskFixture -->
-<g id="node12" class="node"><title>\\DependentTaskFixture</title>
-<polygon fill="none" stroke="black" points="906,-1260 754,-1260 754,-1224 906,-1224 906,-1260"/>
-<text text-anchor="middle" x="830" y="-1239.1" font-family="Courier,monospace" font-size="11.00">DependentTaskFixture</text>
-</g>
-<!-- \\CakeTestFixture -->
-<g id="node42" class="node"><title>\\CakeTestFixture</title>
-<ellipse fill="none" stroke="black" cx="93" cy="-950" rx="92.1303" ry="18.3848"/>
-<text text-anchor="middle" x="93" y="-946.4" font-family="Times Roman,serif" font-size="14.00" fill="gray">\CakeTestFixture</text>
-</g>
-<!-- \\DependentTaskFixture&#45;&gt;\\CakeTestFixture -->
-<g id="edge19" class="edge"><title>\\DependentTaskFixture&#45;&gt;\\CakeTestFixture</title>
-<path fill="none" stroke="black" d="M753.774,-1234.91C742.368,-1230.63 731.829,-1224.3 724,-1215 592.475,-1058.82 801.93,-437.607 652,-299 619.854,-269.282 292.55,-272.115 258,-299 156.156,-378.251 107.071,-807.188 95.6516,-921.82"/>
-<polygon fill="none" stroke="black" points="92.1548,-921.616 94.6636,-931.909 99.1215,-922.298 92.1548,-921.616"/>
-</g>
-<!-- \\TaskProfilerFixture -->
-<g id="node13" class="node"><title>\\TaskProfilerFixture</title>
-<polygon fill="none" stroke="black" points="902,-1638 758,-1638 758,-1602 902,-1602 902,-1638"/>
-<text text-anchor="middle" x="830" y="-1617.1" font-family="Courier,monospace" font-size="11.00">TaskProfilerFixture</text>
-</g>
-<!-- \\TaskFixture -->
-<g id="node14" class="node"><title>\\TaskFixture</title>
-<polygon fill="none" stroke="black" points="500,-1638 410,-1638 410,-1602 500,-1602 500,-1638"/>
-<text text-anchor="middle" x="455" y="-1617.1" font-family="Courier,monospace" font-size="11.00">TaskFixture</text>
-</g>
-<!-- \\TaskProfilerFixture&#45;&gt;\\TaskFixture -->
-<g id="edge21" class="edge"><title>\\TaskProfilerFixture&#45;&gt;\\TaskFixture</title>
-<path fill="none" stroke="black" d="M757.252,-1620C685.176,-1620 576.342,-1620 510.824,-1620"/>
-<polygon fill="none" stroke="black" points="510.693,-1616.5 500.693,-1620 510.693,-1623.5 510.693,-1616.5"/>
-</g>
-<!-- \\TaskFixture&#45;&gt;\\CakeTestFixture -->
-<g id="edge23" class="edge"><title>\\TaskFixture&#45;&gt;\\CakeTestFixture</title>
-<path fill="none" stroke="black" d="M409.359,-1628.39C365.269,-1633.71 299.269,-1633.93 258,-1598 161.199,-1513.72 108.522,-1091.6 95.9639,-978.121"/>
-<polygon fill="none" stroke="black" points="99.4373,-977.687 94.8737,-968.125 92.4786,-978.446 99.4373,-977.687"/>
-</g>
-<!-- \\TaskClientTest -->
-<g id="node15" class="node"><title>\\TaskClientTest</title>
-<polygon fill="none" stroke="black" points="885,-828 775,-828 775,-792 885,-792 885,-828"/>
-<text text-anchor="middle" x="830" y="-807.1" font-family="Courier,monospace" font-size="11.00">TaskClientTest</text>
-</g>
-<!-- \\CakeTestCase -->
-<g id="node46" class="node"><title>\\CakeTestCase</title>
-<ellipse fill="none" stroke="black" cx="455" cy="-234" rx="82.0244" ry="18.3848"/>
-<text text-anchor="middle" x="455" y="-230.4" font-family="Times Roman,serif" font-size="14.00" fill="gray">\CakeTestCase</text>
-</g>
-<!-- \\TaskClientTest&#45;&gt;\\CakeTestCase -->
-<g id="edge25" class="edge"><title>\\TaskClientTest&#45;&gt;\\CakeTestCase</title>
-<path fill="none" stroke="black" d="M774.269,-807.96C755.796,-804.44 736.726,-797.223 724,-783 569.31,-610.104 814.177,-431.893 652,-266 623.256,-236.597 578.829,-227.578 539.435,-226.362"/>
-<polygon fill="none" stroke="black" points="539.326,-222.86 529.276,-226.214 539.224,-229.86 539.326,-222.86"/>
+<g id="edge3" class="edge"><title>\\TaskHelper&#45;&gt;\\AppHelper</title>
+<path fill="none" stroke="black" d="M787.887,-1620.42C765.458,-1618.25 739.395,-1611.44 724,-1593 577.098,-1417.03 810.701,-729.404 652,-564 618.291,-528.867 561.672,-525.848 517.761,-530.177"/>
+<polygon fill="none" stroke="black" points="517.29,-526.708 507.748,-531.31 518.078,-533.663 517.29,-526.708"/>
 </g>
 <!-- \\TaskProfilerTest -->
-<g id="node16" class="node"><title>\\TaskProfilerTest</title>
-<polygon fill="none" stroke="black" points="892,-1206 768,-1206 768,-1170 892,-1170 892,-1206"/>
-<text text-anchor="middle" x="830" y="-1185.1" font-family="Courier,monospace" font-size="11.00">TaskProfilerTest</text>
+<g id="node3" class="node"><title>\\TaskProfilerTest</title>
+<polygon fill="none" stroke="black" points="892,-1260 768,-1260 768,-1224 892,-1224 892,-1260"/>
+<text text-anchor="middle" x="830" y="-1239.1" font-family="Courier,monospace" font-size="11.00">TaskProfilerTest</text>
+</g>
+<!-- \\CakeTestCase -->
+<g id="node30" class="node"><title>\\CakeTestCase</title>
+<ellipse fill="none" stroke="black" cx="455" cy="-488" rx="82.0244" ry="18.3848"/>
+<text text-anchor="middle" x="455" y="-484.4" font-family="Times Roman,serif" font-size="14.00" fill="gray">\CakeTestCase</text>
 </g>
 <!-- \\TaskProfilerTest&#45;&gt;\\CakeTestCase -->
-<g id="edge27" class="edge"><title>\\TaskProfilerTest&#45;&gt;\\CakeTestCase</title>
-<path fill="none" stroke="black" d="M767.441,-1185.01C751.031,-1181.12 734.899,-1173.92 724,-1161 595.332,-1008.5 787.28,-412.67 652,-266 623.521,-235.124 577.839,-226.314 537.632,-225.596"/>
-<polygon fill="none" stroke="black" points="537.548,-222.096 527.542,-225.579 537.536,-229.096 537.548,-222.096"/>
+<g id="edge5" class="edge"><title>\\TaskProfilerTest&#45;&gt;\\CakeTestCase</title>
+<path fill="none" stroke="black" d="M767.347,-1238.79C751.036,-1234.88 734.98,-1227.72 724,-1215 621.839,-1096.61 760.695,-627.423 652,-515 622.027,-483.999 574.4,-476.823 533.484,-477.603"/>
+<polygon fill="none" stroke="black" points="533.112,-474.113 523.241,-477.963 533.358,-481.109 533.112,-474.113"/>
 </g>
 <!-- \\TaskServerTest -->
-<g id="node17" class="node"><title>\\TaskServerTest</title>
-<polygon fill="none" stroke="black" points="885,-1152 775,-1152 775,-1116 885,-1116 885,-1152"/>
-<text text-anchor="middle" x="830" y="-1131.1" font-family="Courier,monospace" font-size="11.00">TaskServerTest</text>
+<g id="node4" class="node"><title>\\TaskServerTest</title>
+<polygon fill="none" stroke="black" points="885,-1206 775,-1206 775,-1170 885,-1170 885,-1206"/>
+<text text-anchor="middle" x="830" y="-1185.1" font-family="Courier,monospace" font-size="11.00">TaskServerTest</text>
 </g>
 <!-- \\TaskServerTest&#45;&gt;\\CakeTestCase -->
-<g id="edge29" class="edge"><title>\\TaskServerTest&#45;&gt;\\CakeTestCase</title>
-<path fill="none" stroke="black" d="M774.399,-1132.43C755.712,-1128.99 736.467,-1121.7 724,-1107 602.676,-963.948 779.525,-403.553 652,-266 623.551,-235.314 578.103,-226.458 538.025,-225.665"/>
-<polygon fill="none" stroke="black" points="537.978,-222.165 527.965,-225.629 537.952,-229.165 537.978,-222.165"/>
+<g id="edge7" class="edge"><title>\\TaskServerTest&#45;&gt;\\CakeTestCase</title>
+<path fill="none" stroke="black" d="M774.328,-1186.2C755.748,-1182.72 736.592,-1175.47 724,-1161 534.34,-943.088 853.684,-721.834 652,-515 622.006,-484.24 574.617,-477.007 533.834,-477.695"/>
+<polygon fill="none" stroke="black" points="533.502,-474.204 523.622,-478.031 533.732,-481.2 533.502,-474.204"/>
 </g>
-<!-- \\TaskShellTest -->
-<g id="node18" class="node"><title>\\TaskShellTest</title>
-<polygon fill="none" stroke="black" points="882,-1098 778,-1098 778,-1062 882,-1062 882,-1098"/>
-<text text-anchor="middle" x="830" y="-1077.1" font-family="Courier,monospace" font-size="11.00">TaskShellTest</text>
+<!-- \\TaskClientTest -->
+<g id="node5" class="node"><title>\\TaskClientTest</title>
+<polygon fill="none" stroke="black" points="885,-1584 775,-1584 775,-1548 885,-1548 885,-1584"/>
+<text text-anchor="middle" x="830" y="-1563.1" font-family="Courier,monospace" font-size="11.00">TaskClientTest</text>
 </g>
-<!-- \\TaskShellTest&#45;&gt;\\CakeTestCase -->
-<g id="edge31" class="edge"><title>\\TaskShellTest&#45;&gt;\\CakeTestCase</title>
-<path fill="none" stroke="black" d="M777.752,-1078.96C758.063,-1075.78 737.25,-1068.53 724,-1053 610.018,-919.395 771.773,-394.439 652,-266 623.462,-235.397 578.008,-226.546 537.95,-225.735"/>
-<polygon fill="none" stroke="black" points="537.91,-222.235 527.896,-225.693 537.881,-229.235 537.91,-222.235"/>
-</g>
-<!-- \\TaskServerTaskTest -->
-<g id="node19" class="node"><title>\\TaskServerTaskTest</title>
-<polygon fill="none" stroke="black" points="899,-1044 761,-1044 761,-1008 899,-1008 899,-1044"/>
-<text text-anchor="middle" x="830" y="-1023.1" font-family="Courier,monospace" font-size="11.00">TaskServerTaskTest</text>
-</g>
-<!-- \\TaskServerTaskTest&#45;&gt;\\CakeTestCase -->
-<g id="edge33" class="edge"><title>\\TaskServerTaskTest&#45;&gt;\\CakeTestCase</title>
-<path fill="none" stroke="black" d="M760.975,-1021.13C746.914,-1016.95 733.528,-1010.09 724,-999 617.356,-874.839 764.025,-385.328 652,-266 623.469,-235.609 578.247,-226.715 538.323,-225.825"/>
-<polygon fill="none" stroke="black" points="538.322,-222.325 528.301,-225.763 538.279,-229.325 538.322,-222.325"/>
-</g>
-<!-- \\TaskServerTaskTestEventModel1 -->
-<g id="node20" class="node"><title>\\TaskServerTaskTestEventModel1</title>
-<polygon fill="none" stroke="black" points="936,-774 724,-774 724,-738 936,-738 936,-774"/>
-<text text-anchor="middle" x="830" y="-753.1" font-family="Courier,monospace" font-size="11.00">TaskServerTaskTestEventModel1</text>
-</g>
-<!-- \\CakeEventListener -->
-<g id="node52" class="node"><title>\\CakeEventListener</title>
-<ellipse fill="none" stroke="black" cx="455" cy="-180" rx="106.98" ry="18.3848"/>
-<text text-anchor="middle" x="455" y="-176.4" font-family="Times Roman,serif" font-size="14.00" fill="gray">\CakeEventListener</text>
-</g>
-<!-- \\TaskServerTaskTestEventModel1&#45;&gt;\\CakeEventListener -->
-<g id="edge35" class="edge"><title>\\TaskServerTaskTestEventModel1&#45;&gt;\\CakeEventListener</title>
-<path fill="none" stroke="black" stroke-dasharray="1,5" d="M733.645,-737.709C730.153,-735.147 726.91,-732.257 724,-729 567.957,-554.362 817.673,-372.531 652,-207 626.828,-181.85 589.99,-172.576 554.96,-170.47"/>
-<polygon fill="none" stroke="black" points="554.787,-166.96 544.652,-170.047 554.501,-173.954 554.787,-166.96"/>
-</g>
-<!-- \\AllTaskTest -->
-<g id="node21" class="node"><title>\\AllTaskTest</title>
-<polygon fill="none" stroke="black" points="875,-720 785,-720 785,-684 875,-684 875,-720"/>
-<text text-anchor="middle" x="830" y="-699.1" font-family="Courier,monospace" font-size="11.00">AllTaskTest</text>
-</g>
-<!-- \\PHPUnit_Framework_TestSuite -->
-<g id="node54" class="node"><title>\\PHPUnit_Framework_TestSuite</title>
-<ellipse fill="none" stroke="black" cx="455" cy="-126" rx="166.877" ry="18.3848"/>
-<text text-anchor="middle" x="455" y="-122.4" font-family="Times Roman,serif" font-size="14.00" fill="gray">\PHPUnit_Framework_TestSuite</text>
-</g>
-<!-- \\AllTaskTest&#45;&gt;\\PHPUnit_Framework_TestSuite -->
-<g id="edge37" class="edge"><title>\\AllTaskTest&#45;&gt;\\PHPUnit_Framework_TestSuite</title>
-<path fill="none" stroke="black" d="M784.356,-701.557C763.02,-698.871 739.057,-691.852 724,-675 567.957,-500.362 817.673,-318.531 652,-153 644.505,-145.511 635.976,-139.43 626.768,-134.527"/>
-<polygon fill="none" stroke="black" points="628.271,-131.366 617.743,-130.179 625.233,-137.673 628.271,-131.366"/>
+<!-- \\TaskClientTest&#45;&gt;\\CakeTestCase -->
+<g id="edge9" class="edge"><title>\\TaskClientTest&#45;&gt;\\CakeTestCase</title>
+<path fill="none" stroke="black" d="M774.277,-1564.53C755.576,-1561.1 736.355,-1553.79 724,-1539 577.779,-1363.91 807.893,-681.538 652,-515 622.251,-483.219 574.009,-476.197 532.712,-477.253"/>
+<polygon fill="none" stroke="black" points="532.499,-473.758 522.652,-477.669 532.789,-480.752 532.499,-473.758"/>
 </g>
 <!-- \\TaskProcessTest -->
-<g id="node22" class="node"><title>\\TaskProcessTest</title>
-<polygon fill="none" stroke="black" points="889,-990 771,-990 771,-954 889,-954 889,-990"/>
-<text text-anchor="middle" x="830" y="-969.1" font-family="Courier,monospace" font-size="11.00">TaskProcessTest</text>
+<g id="node6" class="node"><title>\\TaskProcessTest</title>
+<polygon fill="none" stroke="black" points="889,-1530 771,-1530 771,-1494 889,-1494 889,-1530"/>
+<text text-anchor="middle" x="830" y="-1509.1" font-family="Courier,monospace" font-size="11.00">TaskProcessTest</text>
 </g>
 <!-- \\TaskProcessTest&#45;&gt;\\CakeTestCase -->
-<g id="edge39" class="edge"><title>\\TaskProcessTest&#45;&gt;\\CakeTestCase</title>
-<path fill="none" stroke="black" d="M770.969,-969.58C753.449,-965.875 735.808,-958.64 724,-945 525.381,-715.557 860.561,-486.445 652,-266 623.352,-235.719 578.123,-226.832 538.225,-225.918"/>
-<polygon fill="none" stroke="black" points="538.233,-222.418 528.209,-225.849 538.185,-229.418 538.233,-222.418"/>
+<g id="edge11" class="edge"><title>\\TaskProcessTest&#45;&gt;\\CakeTestCase</title>
+<path fill="none" stroke="black" d="M770.988,-1509.86C753.362,-1506.18 735.652,-1498.9 724,-1485 585.128,-1319.37 800.02,-672.513 652,-515 622.189,-483.277 573.946,-476.256 532.664,-477.297"/>
+<polygon fill="none" stroke="black" points="532.457,-473.803 522.609,-477.71 532.744,-480.797 532.457,-473.803"/>
 </g>
 <!-- \\TaskRunnerTest -->
-<g id="node23" class="node"><title>\\TaskRunnerTest</title>
-<polygon fill="none" stroke="black" points="885,-936 775,-936 775,-900 885,-900 885,-936"/>
-<text text-anchor="middle" x="830" y="-915.1" font-family="Courier,monospace" font-size="11.00">TaskRunnerTest</text>
+<g id="node7" class="node"><title>\\TaskRunnerTest</title>
+<polygon fill="none" stroke="black" points="885,-1476 775,-1476 775,-1440 885,-1440 885,-1476"/>
+<text text-anchor="middle" x="830" y="-1455.1" font-family="Courier,monospace" font-size="11.00">TaskRunnerTest</text>
 </g>
 <!-- \\TaskRunnerTest&#45;&gt;\\CakeTestCase -->
-<g id="edge41" class="edge"><title>\\TaskRunnerTest&#45;&gt;\\CakeTestCase</title>
-<path fill="none" stroke="black" d="M774.357,-916.178C755.78,-912.694 736.619,-905.445 724,-891 540.039,-680.423 845.084,-468.245 652,-266 623.386,-236.028 578.515,-227.076 538.821,-226.045"/>
-<polygon fill="none" stroke="black" points="538.619,-222.543 528.586,-225.947 538.552,-229.543 538.619,-222.543"/>
+<g id="edge13" class="edge"><title>\\TaskRunnerTest&#45;&gt;\\CakeTestCase</title>
+<path fill="none" stroke="black" d="M774.343,-1456.48C755.65,-1453.04 736.416,-1445.74 724,-1431 592.475,-1274.82 792.15,-663.489 652,-515 622.12,-483.342 573.876,-476.321 532.611,-477.348"/>
+<polygon fill="none" stroke="black" points="532.409,-473.853 522.56,-477.756 532.694,-480.847 532.409,-473.853"/>
 </g>
 <!-- \\TaskTypeTest -->
-<g id="node24" class="node"><title>\\TaskTypeTest</title>
-<polygon fill="none" stroke="black" points="879,-882 781,-882 781,-846 879,-846 879,-882"/>
-<text text-anchor="middle" x="830" y="-861.1" font-family="Courier,monospace" font-size="11.00">TaskTypeTest</text>
+<g id="node8" class="node"><title>\\TaskTypeTest</title>
+<polygon fill="none" stroke="black" points="879,-1422 781,-1422 781,-1386 879,-1386 879,-1422"/>
+<text text-anchor="middle" x="830" y="-1401.1" font-family="Courier,monospace" font-size="11.00">TaskTypeTest</text>
 </g>
 <!-- \\TaskTypeTest&#45;&gt;\\CakeTestCase -->
-<g id="edge43" class="edge"><title>\\TaskTypeTest&#45;&gt;\\CakeTestCase</title>
-<path fill="none" stroke="black" d="M780.751,-863.155C760.325,-860.167 738.142,-853.014 724,-837 554.683,-645.274 829.621,-450.059 652,-266 623.336,-236.297 578.689,-227.309 539.142,-226.189"/>
-<polygon fill="none" stroke="black" points="538.985,-222.687 528.944,-226.067 538.901,-229.686 538.985,-222.687"/>
+<g id="edge15" class="edge"><title>\\TaskTypeTest&#45;&gt;\\CakeTestCase</title>
+<path fill="none" stroke="black" d="M780.976,-1403.51C760.338,-1400.62 737.924,-1393.45 724,-1377 599.82,-1230.27 784.281,-654.467 652,-515 622.152,-483.531 574.151,-476.447 533.005,-477.393"/>
+<polygon fill="none" stroke="black" points="532.837,-473.897 522.98,-477.782 533.109,-480.892 532.837,-473.897"/>
+</g>
+<!-- \\AllTaskTest -->
+<g id="node9" class="node"><title>\\AllTaskTest</title>
+<polygon fill="none" stroke="black" points="875,-1152 785,-1152 785,-1116 875,-1116 875,-1152"/>
+<text text-anchor="middle" x="830" y="-1131.1" font-family="Courier,monospace" font-size="11.00">AllTaskTest</text>
+</g>
+<!-- \\PHPUnit_Framework_TestSuite -->
+<g id="node37" class="node"><title>\\PHPUnit_Framework_TestSuite</title>
+<ellipse fill="none" stroke="black" cx="455" cy="-434" rx="166.877" ry="18.3848"/>
+<text text-anchor="middle" x="455" y="-430.4" font-family="Times Roman,serif" font-size="14.00" fill="gray">\PHPUnit_Framework_TestSuite</text>
+</g>
+<!-- \\AllTaskTest&#45;&gt;\\PHPUnit_Framework_TestSuite -->
+<g id="edge17" class="edge"><title>\\AllTaskTest&#45;&gt;\\PHPUnit_Framework_TestSuite</title>
+<path fill="none" stroke="black" d="M784.436,-1133.76C762.985,-1131.14 738.899,-1124.12 724,-1107 534.34,-889.088 853.684,-667.834 652,-461 644.77,-453.585 636.529,-447.538 627.613,-442.638"/>
+<polygon fill="none" stroke="black" points="628.999,-439.419 618.485,-438.114 625.891,-445.691 628.999,-439.419"/>
 </g>
 <!-- \\TaskControllerTest -->
-<g id="node25" class="node"><title>\\TaskControllerTest</title>
-<polygon fill="none" stroke="black" points="899,-666 761,-666 761,-630 899,-630 899,-666"/>
-<text text-anchor="middle" x="830" y="-645.1" font-family="Courier,monospace" font-size="11.00">TaskControllerTest</text>
+<g id="node10" class="node"><title>\\TaskControllerTest</title>
+<polygon fill="none" stroke="black" points="899,-1098 761,-1098 761,-1062 899,-1062 899,-1098"/>
+<text text-anchor="middle" x="830" y="-1077.1" font-family="Courier,monospace" font-size="11.00">TaskControllerTest</text>
 </g>
 <!-- \\ControllerTestCase -->
-<g id="node59" class="node"><title>\\ControllerTestCase</title>
-<ellipse fill="none" stroke="black" cx="455" cy="-72" rx="106.773" ry="18.3848"/>
-<text text-anchor="middle" x="455" y="-68.4" font-family="Times Roman,serif" font-size="14.00" fill="gray">\ControllerTestCase</text>
+<g id="node39" class="node"><title>\\ControllerTestCase</title>
+<ellipse fill="none" stroke="black" cx="455" cy="-380" rx="106.773" ry="18.3848"/>
+<text text-anchor="middle" x="455" y="-376.4" font-family="Times Roman,serif" font-size="14.00" fill="gray">\ControllerTestCase</text>
 </g>
 <!-- \\TaskControllerTest&#45;&gt;\\ControllerTestCase -->
-<g id="edge45" class="edge"><title>\\TaskControllerTest&#45;&gt;\\ControllerTestCase</title>
-<path fill="none" stroke="black" d="M760.742,-642.688C746.865,-638.514 733.616,-631.762 724,-621 567.957,-446.362 817.673,-264.531 652,-99 626.717,-73.739 589.664,-64.494 554.496,-62.4422"/>
-<polygon fill="none" stroke="black" points="554.279,-58.9311 544.15,-62.0364 554.005,-65.9257 554.279,-58.9311"/>
+<g id="edge19" class="edge"><title>\\TaskControllerTest&#45;&gt;\\ControllerTestCase</title>
+<path fill="none" stroke="black" d="M760.807,-1074.95C746.841,-1070.78 733.538,-1063.96 724,-1053 534.34,-835.088 853.684,-613.834 652,-407 626.556,-380.906 588.594,-371.743 552.766,-369.983"/>
+<polygon fill="none" stroke="black" points="552.832,-366.484 542.729,-369.675 552.617,-373.48 552.832,-366.484"/>
+</g>
+<!-- \\TaskShellTest -->
+<g id="node11" class="node"><title>\\TaskShellTest</title>
+<polygon fill="none" stroke="black" points="882,-1368 778,-1368 778,-1332 882,-1332 882,-1368"/>
+<text text-anchor="middle" x="830" y="-1347.1" font-family="Courier,monospace" font-size="11.00">TaskShellTest</text>
+</g>
+<!-- \\TaskShellTest&#45;&gt;\\CakeTestCase -->
+<g id="edge21" class="edge"><title>\\TaskShellTest&#45;&gt;\\CakeTestCase</title>
+<path fill="none" stroke="black" d="M777.733,-1348.98C758.042,-1345.8 737.231,-1338.55 724,-1323 607.163,-1185.72 776.416,-645.449 652,-515 622.065,-483.614 574.062,-476.532 532.937,-477.458"/>
+<polygon fill="none" stroke="black" points="532.777,-473.961 522.918,-477.841 533.045,-480.956 532.777,-473.961"/>
+</g>
+<!-- \\TaskServerTaskTest -->
+<g id="node12" class="node"><title>\\TaskServerTaskTest</title>
+<polygon fill="none" stroke="black" points="899,-1314 761,-1314 761,-1278 899,-1278 899,-1314"/>
+<text text-anchor="middle" x="830" y="-1293.1" font-family="Courier,monospace" font-size="11.00">TaskServerTaskTest</text>
+</g>
+<!-- \\TaskServerTaskTest&#45;&gt;\\CakeTestCase -->
+<g id="edge23" class="edge"><title>\\TaskServerTaskTest&#45;&gt;\\CakeTestCase</title>
+<path fill="none" stroke="black" d="M760.953,-1291.15C746.892,-1286.97 733.513,-1280.11 724,-1269 614.503,-1141.17 768.554,-636.434 652,-515 622.14,-483.89 574.516,-476.711 533.573,-477.517"/>
+<polygon fill="none" stroke="black" points="533.191,-474.028 523.323,-477.884 533.442,-481.024 533.191,-474.028"/>
+</g>
+<!-- \\TaskServerTaskTestEventModel1 -->
+<g id="node13" class="node"><title>\\TaskServerTaskTestEventModel1</title>
+<polygon fill="none" stroke="black" points="936,-1044 724,-1044 724,-1008 936,-1008 936,-1044"/>
+<text text-anchor="middle" x="830" y="-1023.1" font-family="Courier,monospace" font-size="11.00">TaskServerTaskTestEventModel1</text>
+</g>
+<!-- \\CakeEventListener -->
+<g id="node43" class="node"><title>\\CakeEventListener</title>
+<ellipse fill="none" stroke="black" cx="455" cy="-326" rx="106.98" ry="18.3848"/>
+<text text-anchor="middle" x="455" y="-322.4" font-family="Times Roman,serif" font-size="14.00" fill="gray">\CakeEventListener</text>
+</g>
+<!-- \\TaskServerTaskTestEventModel1&#45;&gt;\\CakeEventListener -->
+<g id="edge25" class="edge"><title>\\TaskServerTaskTestEventModel1&#45;&gt;\\CakeEventListener</title>
+<path fill="none" stroke="black" stroke-dasharray="1,5" d="M733.539,-1007.8C730.075,-1005.22 726.868,-1002.29 724,-999 534.34,-781.088 853.684,-559.834 652,-353 626.666,-327.019 588.922,-317.822 553.231,-316.006"/>
+<polygon fill="none" stroke="black" points="553.339,-312.508 543.231,-315.682 553.112,-319.505 553.339,-312.508"/>
+</g>
+<!-- \\TaskProfilerFixture -->
+<g id="node14" class="node"><title>\\TaskProfilerFixture</title>
+<polygon fill="none" stroke="black" points="902,-1692 758,-1692 758,-1656 902,-1656 902,-1692"/>
+<text text-anchor="middle" x="830" y="-1671.1" font-family="Courier,monospace" font-size="11.00">TaskProfilerFixture</text>
+</g>
+<!-- \\TaskFixture -->
+<g id="node15" class="node"><title>\\TaskFixture</title>
+<polygon fill="none" stroke="black" points="500,-1692 410,-1692 410,-1656 500,-1656 500,-1692"/>
+<text text-anchor="middle" x="455" y="-1671.1" font-family="Courier,monospace" font-size="11.00">TaskFixture</text>
+</g>
+<!-- \\TaskProfilerFixture&#45;&gt;\\TaskFixture -->
+<g id="edge27" class="edge"><title>\\TaskProfilerFixture&#45;&gt;\\TaskFixture</title>
+<path fill="none" stroke="black" d="M757.252,-1674C685.176,-1674 576.342,-1674 510.824,-1674"/>
+<polygon fill="none" stroke="black" points="510.693,-1670.5 500.693,-1674 510.693,-1677.5 510.693,-1670.5"/>
+</g>
+<!-- \\CakeTestFixture -->
+<g id="node46" class="node"><title>\\CakeTestFixture</title>
+<ellipse fill="none" stroke="black" cx="93" cy="-977" rx="92.1303" ry="18.3848"/>
+<text text-anchor="middle" x="93" y="-973.4" font-family="Times Roman,serif" font-size="14.00" fill="gray">\CakeTestFixture</text>
+</g>
+<!-- \\TaskFixture&#45;&gt;\\CakeTestFixture -->
+<g id="edge29" class="edge"><title>\\TaskFixture&#45;&gt;\\CakeTestFixture</title>
+<path fill="none" stroke="black" d="M409.284,-1682.48C365.138,-1687.86 299.097,-1688.13 258,-1652 157.608,-1563.75 107.383,-1122.49 95.6989,-1005.51"/>
+<polygon fill="none" stroke="black" points="99.1493,-1004.83 94.688,-995.22 92.1829,-1005.51 99.1493,-1004.83"/>
+</g>
+<!-- \\DependentTaskFixture -->
+<g id="node16" class="node"><title>\\DependentTaskFixture</title>
+<polygon fill="none" stroke="black" points="906,-936 754,-936 754,-900 906,-900 906,-936"/>
+<text text-anchor="middle" x="830" y="-915.1" font-family="Courier,monospace" font-size="11.00">DependentTaskFixture</text>
+</g>
+<!-- \\DependentTaskFixture&#45;&gt;\\CakeTestFixture -->
+<g id="edge31" class="edge"><title>\\DependentTaskFixture&#45;&gt;\\CakeTestFixture</title>
+<path fill="none" stroke="black" d="M753.837,-910.522C742.497,-906.281 731.962,-900.056 724,-891 548.99,-691.945 850.41,-474.741 652,-299 619.229,-269.973 292.421,-271.951 258,-299 152.238,-382.111 105.805,-831.208 95.3538,-948.802"/>
+<polygon fill="none" stroke="black" points="91.8618,-948.559 94.4795,-958.825 98.8353,-949.167 91.8618,-948.559"/>
+</g>
+<!-- \\TaskClient -->
+<g id="node17" class="node"><title>\\TaskClient</title>
+<polygon fill="none" stroke="black" points="872,-1746 788,-1746 788,-1710 872,-1710 872,-1746"/>
+<text text-anchor="middle" x="830" y="-1725.1" font-family="Courier,monospace" font-size="11.00">TaskClient</text>
+</g>
+<!-- \\TaskModel -->
+<g id="node19" class="node"><title>\\TaskModel</title>
+<polygon fill="none" stroke="black" points="493,-1746 417,-1746 417,-1710 493,-1710 493,-1746"/>
+<text text-anchor="middle" x="455" y="-1725.1" font-family="Courier,monospace" font-size="11.00">TaskModel</text>
+</g>
+<!-- \\TaskClient&#45;&gt;\\TaskModel -->
+<g id="edge33" class="edge"><title>\\TaskClient&#45;&gt;\\TaskModel</title>
+<path fill="none" stroke="black" d="M787.712,-1728C717.645,-1728 577.87,-1728 503.756,-1728"/>
+<polygon fill="none" stroke="black" points="503.748,-1724.5 493.748,-1728 503.748,-1731.5 503.748,-1724.5"/>
+</g>
+<!-- \\TaskProfiler -->
+<g id="node18" class="node"><title>\\TaskProfiler</title>
+<polygon fill="none" stroke="black" points="879,-990 781,-990 781,-954 879,-954 879,-990"/>
+<text text-anchor="middle" x="830" y="-969.1" font-family="Courier,monospace" font-size="11.00">TaskProfiler</text>
+</g>
+<!-- \\AppModel -->
+<g id="node50" class="node"><title>\\AppModel</title>
+<ellipse fill="none" stroke="black" cx="93" cy="-1728" rx="62.2254" ry="18.3848"/>
+<text text-anchor="middle" x="93" y="-1724.4" font-family="Times Roman,serif" font-size="14.00" fill="gray">\AppModel</text>
+</g>
+<!-- \\TaskModel&#45;&gt;\\AppModel -->
+<g id="edge35" class="edge"><title>\\TaskModel&#45;&gt;\\AppModel</title>
+<path fill="none" stroke="black" d="M416.26,-1728C356.596,-1728 241.219,-1728 165.674,-1728"/>
+<polygon fill="none" stroke="black" points="165.288,-1724.5 155.288,-1728 165.288,-1731.5 165.288,-1724.5"/>
+</g>
+<!-- \\TaskServer -->
+<g id="node20" class="node"><title>\\TaskServer</title>
+<polygon fill="none" stroke="black" points="872,-1800 788,-1800 788,-1764 872,-1764 872,-1800"/>
+<text text-anchor="middle" x="830" y="-1779.1" font-family="Courier,monospace" font-size="11.00">TaskServer</text>
+</g>
+<!-- \\TaskServer&#45;&gt;\\TaskModel -->
+<g id="edge37" class="edge"><title>\\TaskServer&#45;&gt;\\TaskModel</title>
+<path fill="none" stroke="black" d="M787.712,-1775.91C717.645,-1765.82 577.87,-1745.69 503.756,-1735.02"/>
+<polygon fill="none" stroke="black" points="504.145,-1731.54 493.748,-1733.58 503.147,-1738.47 504.145,-1731.54"/>
+</g>
+<!-- \\TaskProcess -->
+<g id="node21" class="node"><title>\\TaskProcess</title>
+<polygon fill="none" stroke="black" points="875,-882 785,-882 785,-846 875,-846 875,-882"/>
+<text text-anchor="middle" x="830" y="-861.1" font-family="Courier,monospace" font-size="11.00">TaskProcess</text>
+</g>
+<!-- \\Symfony\\Component\\Process\\Process -->
+<g id="node53" class="node"><title>\\Symfony\\Component\\Process\\Process</title>
+<ellipse fill="none" stroke="black" cx="455" cy="-234" rx="196.075" ry="18.3848"/>
+<text text-anchor="middle" x="455" y="-230.4" font-family="Times Roman,serif" font-size="14.00" fill="gray">\Symfony\Component\Process\Process</text>
+</g>
+<!-- \\TaskProcess&#45;&gt;\\Symfony\\Component\\Process\\Process -->
+<g id="edge39" class="edge"><title>\\TaskProcess&#45;&gt;\\Symfony\\Component\\Process\\Process</title>
+<path fill="none" stroke="black" d="M784.272,-863.632C762.915,-860.964 738.959,-853.939 724,-837 554.683,-645.274 829.621,-450.059 652,-266 645.374,-259.134 637.893,-253.374 629.82,-248.563"/>
+<polygon fill="none" stroke="black" points="631.299,-245.384 620.838,-243.707 627.97,-251.542 631.299,-245.384"/>
+</g>
+<!-- \\TaskType -->
+<g id="node22" class="node"><title>\\TaskType</title>
+<polygon fill="none" stroke="black" points="872,-828 788,-828 788,-792 872,-792 872,-828"/>
+<text text-anchor="start" x="796" y="-815.433" font-family="Courier,monospace" font-size="11.00">«abstract»</text>
+<text text-anchor="start" x="802.5" y="-802.233" font-family="Courier,monospace" font-size="11.00">TaskType</text>
+</g>
+<!-- \\TaskRunner -->
+<g id="node23" class="node"><title>\\TaskRunner</title>
+<polygon fill="none" stroke="black" points="872,-774 788,-774 788,-738 872,-738 872,-774"/>
+<text text-anchor="middle" x="830" y="-753.1" font-family="Courier,monospace" font-size="11.00">TaskRunner</text>
+</g>
+<!-- \\Object -->
+<g id="node55" class="node"><title>\\Object</title>
+<ellipse fill="none" stroke="black" cx="455" cy="-180" rx="45.9619" ry="18.3848"/>
+<text text-anchor="middle" x="455" y="-176.4" font-family="Times Roman,serif" font-size="14.00" fill="gray">\Object</text>
+</g>
+<!-- \\TaskRunner&#45;&gt;\\Object -->
+<g id="edge41" class="edge"><title>\\TaskRunner&#45;&gt;\\Object</title>
+<path fill="none" stroke="black" d="M787.827,-755.959C765.665,-753.608 739.88,-746.772 724,-729 567.957,-554.362 817.673,-372.531 652,-207 614.731,-169.763 551.886,-167.328 507.204,-171.434"/>
+<polygon fill="none" stroke="black" points="506.691,-167.969 497.114,-172.499 507.426,-174.93 506.691,-167.969"/>
 </g>
 <!-- \\TaskController -->
-<g id="node26" class="node"><title>\\TaskController</title>
-<polygon fill="none" stroke="black" points="885,-612 775,-612 775,-576 885,-576 885,-612"/>
-<text text-anchor="middle" x="830" y="-591.1" font-family="Courier,monospace" font-size="11.00">TaskController</text>
+<g id="node24" class="node"><title>\\TaskController</title>
+<polygon fill="none" stroke="black" points="885,-720 775,-720 775,-684 885,-684 885,-720"/>
+<text text-anchor="middle" x="830" y="-699.1" font-family="Courier,monospace" font-size="11.00">TaskController</text>
 </g>
 <!-- \\AppController -->
-<g id="node61" class="node"><title>\\AppController</title>
-<ellipse fill="none" stroke="black" cx="455" cy="-18" rx="82.0244" ry="18.3848"/>
-<text text-anchor="middle" x="455" y="-14.4" font-family="Times Roman,serif" font-size="14.00" fill="gray">\AppController</text>
+<g id="node57" class="node"><title>\\AppController</title>
+<ellipse fill="none" stroke="black" cx="455" cy="-126" rx="82.0244" ry="18.3848"/>
+<text text-anchor="middle" x="455" y="-122.4" font-family="Times Roman,serif" font-size="14.00" fill="gray">\AppController</text>
 </g>
 <!-- \\TaskController&#45;&gt;\\AppController -->
-<g id="edge47" class="edge"><title>\\TaskController&#45;&gt;\\AppController</title>
-<path fill="none" stroke="black" d="M826.765,-575.855C810.918,-489.073 738.739,-117.577 652,-45 621.134,-19.1738 577.525,-11.2706 539.181,-10.3221"/>
-<polygon fill="none" stroke="black" points="539.073,-6.82105 529.041,-10.2267 539.007,-13.8207 539.073,-6.82105"/>
+<g id="edge43" class="edge"><title>\\TaskController&#45;&gt;\\AppController</title>
+<path fill="none" stroke="black" d="M774.258,-699.969C755.785,-696.451 736.716,-689.232 724,-675 567.957,-500.362 817.673,-318.531 652,-153 621.833,-122.859 574.909,-115.52 534.423,-115.995"/>
+<polygon fill="none" stroke="black" points="534.183,-112.5 524.284,-116.275 534.376,-119.497 534.183,-112.5"/>
+</g>
+<!-- \\TaskServerTask -->
+<g id="node25" class="node"><title>\\TaskServerTask</title>
+<polygon fill="none" stroke="black" points="885,-666 775,-666 775,-630 885,-630 885,-666"/>
+<text text-anchor="middle" x="830" y="-645.1" font-family="Courier,monospace" font-size="11.00">TaskServerTask</text>
+</g>
+<!-- \\AdvancedTask -->
+<g id="node59" class="node"><title>\\AdvancedTask</title>
+<ellipse fill="none" stroke="black" cx="455" cy="-72" rx="82.939" ry="18.3848"/>
+<text text-anchor="middle" x="455" y="-68.4" font-family="Times Roman,serif" font-size="14.00" fill="gray">\AdvancedTask</text>
+</g>
+<!-- \\TaskServerTask&#45;&gt;\\AdvancedTask -->
+<g id="edge45" class="edge"><title>\\TaskServerTask&#45;&gt;\\AdvancedTask</title>
+<path fill="none" stroke="black" d="M774.258,-645.969C755.785,-642.451 736.716,-635.232 724,-621 567.957,-446.362 817.673,-264.531 652,-99 622.058,-69.0838 575.608,-61.6304 535.331,-61.9855"/>
+<polygon fill="none" stroke="black" points="535.148,-58.4888 525.238,-62.2351 535.321,-65.4867 535.148,-58.4888"/>
+</g>
+<!-- \\TaskShell -->
+<g id="node26" class="node"><title>\\TaskShell</title>
+<polygon fill="none" stroke="black" points="868,-612 792,-612 792,-576 868,-576 868,-612"/>
+<text text-anchor="middle" x="830" y="-591.1" font-family="Courier,monospace" font-size="11.00">TaskShell</text>
+</g>
+<!-- \\AdvancedShell -->
+<g id="node61" class="node"><title>\\AdvancedShell</title>
+<ellipse fill="none" stroke="black" cx="455" cy="-18" rx="85.7684" ry="18.3848"/>
+<text text-anchor="middle" x="455" y="-14.4" font-family="Times Roman,serif" font-size="14.00" fill="gray">\AdvancedShell</text>
+</g>
+<!-- \\TaskShell&#45;&gt;\\AdvancedShell -->
+<g id="edge47" class="edge"><title>\\TaskShell&#45;&gt;\\AdvancedShell</title>
+<path fill="none" stroke="black" d="M826.765,-575.855C810.918,-489.073 738.739,-117.577 652,-45 622.355,-20.1949 580.954,-11.9235 543.753,-10.4679"/>
+<polygon fill="none" stroke="black" points="543.463,-6.96043 533.385,-10.23 543.302,-13.9586 543.463,-6.96043"/>
 </g>
 </g>
 </svg>
