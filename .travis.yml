@@ -14,7 +14,6 @@ env:
     - CAKE_VERSION=2.5
     - secure: w5IMuODF6f1khf9EAR4sNVRXp3fjWocgXAlAAdV+tfz4cqhsRiFeBtIeKrO2LHcT00op1NmO4gL9+8N4wW3Xz7Bu0tf5ZwGxMJ3Fz+mKg/Bwza1J7+/EQvMIkfOjocBNU4hoI7cHyVZ6JkB9MPuiVrhUlFsqV3JK93rcKmvAX+I=
   matrix:
-    - CAKE_VERSION=2.3
     - CAKE_VERSION=2.4
     - CAKE_VERSION=2.5
 
