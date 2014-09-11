@@ -198,7 +198,7 @@ class TaskController extends AppController {
 			if (empty($conditions[$dateRangeField])) {
 				continue;
 			}
-			if (preg_match('/(?P<start>\S*)\s([\w-]*+)\s(?P<end>\S*)/', $conditions[$dateRangeField], $range)) {
+			if (preg_match('/^(?P<start>.*)\s(-|to)\s(?P<end>.*)$/is', $conditions[$dateRangeField], $range)) {
 				$conditions[$dateRangeField . ' BETWEEN ? AND ?'] = array(
 					(new DateTime($range['start']))->format('Y-m-d H:i:s'),
 					(new DateTime($range['end']))->format('Y-m-d H:i:s')
