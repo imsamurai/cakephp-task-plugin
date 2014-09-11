@@ -70,7 +70,6 @@ class TaskRunnerTest extends CakeTestCase {
 		$TaskRunner = new TaskRunner($task, $TaskServer, $TaskClient, $Shell);
 
 		$runnedTask = $TaskRunner->start();
-		debug($runnedTask);
 
 		$this->assertNotEqual((int)$runnedTask['code'], 0);
 	}
@@ -109,7 +108,6 @@ class TaskRunnerTest extends CakeTestCase {
 		$TaskRunner = new TaskRunner($task, $TaskServer, $TaskClient, $Shell);
 
 		$runnedTask = $TaskRunner->start();
-		debug($runnedTask);
 
 		$this->assertSame(134, $runnedTask['code']);
 	}
@@ -128,11 +126,7 @@ class TaskRunnerTest extends CakeTestCase {
 		$TaskServer->useDbConfig = 'test';
 		$TaskServer->expects($this->once())->method('started');
 		$TaskServer->expects($this->once())->method('stopped');
-		$TaskServer->expects($this->atLeastOnce())->method('updated')->will(
-				$this->returnCallback(function($task) {
-					debug($task['stdout']);
-				})
-		);
+		$TaskServer->expects($this->atLeastOnce())->method('updated');
 		$TaskServer->expects($this->atLeastOnce())->method('mustStop')->will($this->returnValue(false));
 		$Shell = $this->getMock('Shell', array(
 			'out',
@@ -151,7 +145,6 @@ class TaskRunnerTest extends CakeTestCase {
 		$TaskRunner = new TaskRunner($task, $TaskServer, $TaskClient, $Shell);
 
 		$runnedTask = $TaskRunner->start();
-		debug($runnedTask);
 
 		$this->assertSame('123555321444', $runnedTask['stdout']);
 		$this->assertSame('error', $runnedTask['stderr']);
