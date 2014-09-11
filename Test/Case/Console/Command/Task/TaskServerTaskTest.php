@@ -40,9 +40,9 @@ class TaskServerTaskTest extends CakeTestCase {
 	/**
 	 * Test task execution
 	 * 
-	 * @param type $freeSlots
-	 * @param type $getPending
-	 * @param type $processEvents
+	 * @param array $freeSlots
+	 * @param array $getPending
+	 * @param array $processEvents
 	 * @dataProvider executeProvider
 	 */
 	public function testExecute(array $freeSlots, array $getPending, array $processEvents) {
@@ -221,6 +221,9 @@ class TaskServerTaskTestEventModel1 implements CakeEventListener {
 
 	/**
 	 * Test event methods
+	 * 
+	 * @param string $name
+	 * @param array $arguments
 	 */
 	public function __call($name, $arguments) {
 		static::$calls[$name][] = $arguments;
