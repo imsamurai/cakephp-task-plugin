@@ -49,6 +49,9 @@ class TaskProcess extends Process {
 	 * @return array
 	 */
 	protected function _getPidRecursive($ppid) {
+		if (!$ppid) {
+			return array();
+		}
 		$allPids = $pids = array_filter(preg_split('/\s+/', `ps -o pid --no-heading --ppid $ppid`));
 
 		foreach ($pids as $pid) {
