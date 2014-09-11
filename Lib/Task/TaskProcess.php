@@ -1,10 +1,10 @@
 <?php
+
 /**
  * Author: imsamurai <im.samuray@gmail.com>
  * Date: 19.06.2014
  * Time: 13:12:39
  */
-
 use Symfony\Component\Process\Process;
 
 /**
@@ -36,14 +36,25 @@ class TaskProcess extends Process {
 	 * @param int $signal
 	 */
 	protected function _terminate($timeout = 10, $signal = /* SIGTERM */ 15) {
-		$ppid = $this->getPid();
-		$pids = preg_split('/\s+/', `ps -o pid --no-heading --ppid $ppid`);
-		foreach ($pids as $pid) {
-			if (is_numeric($pid)) {
-				posix_kill($pid, $signal);
-			}
+		foreach ($this->_getPidRecursive($this->getPid()) as $pid) {
+			posix_kill($pid, $signal);
 		}
 		parent::stop($timeout, $signal);
+	}
+
+	/**
+	 * Collect all childrens pids recursively
+	 * 
+	 * @param int $ppid
+	 * @return array
+	 */
+	protected function _getPidRecursive($ppid) {
+		$allPids = $pids = array_filter(preg_split('/\s+/', `ps -o pid --no-heading --ppid $ppid`));
+
+		foreach ($pids as $pid) {
+			$allPids = array_merge($allPids, $this->_getPidRecursive($pid));
+		}
+		return $allPids;
 	}
 
 }
