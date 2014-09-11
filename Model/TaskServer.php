@@ -177,12 +177,11 @@ class TaskServer extends TaskModel {
 			$File = new File(TMP . 'task_server_id', true);
 			$serverId = (int)$File->read();
 			if (!$serverId) {
-				$serverId = mt_srand();
+				$serverId = mt_rand();
 				$File->write($serverId);
 			}
 			$File->close();
 		}
-
 		return $serverId;
 	}
 

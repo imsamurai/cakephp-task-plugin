@@ -29,6 +29,7 @@ class TaskProcessTest extends CakeTestCase {
 	public function setUp() {
 		parent::setUp();
 		$this->executable = defined('HHVM_VERSION') ? 'hhvm' : 'php';
+		`rm -rf /tmp/task_process_test_stop*`;
 	}
 
 	/**
@@ -37,7 +38,7 @@ class TaskProcessTest extends CakeTestCase {
 	 * @throws Exception
 	 */
 	public function testStop() {
-		$fileName = '/tmp/task_process_test_stop' . mt_srand();
+		$fileName = '/tmp/task_process_test_stop' . mt_rand();
 		$Process = new TaskProcess($this->executable . ' -f task_process_test_stop.php ' . $fileName, dirname(dirname(dirname(dirname(__FILE__)))) . DS . 'Data' . DS);
 		$Process->start();
 		sleep(1);
