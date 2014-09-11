@@ -35,7 +35,7 @@ class TaskFixture extends CakeTestFixture {
 		'arguments' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 1000, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'hash' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 100, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'status' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 3, 'collate' => 'utf8_general_ci'),
-		'code' => array('type' => 'integer', 'null' => false, 'default' => '0', 'length' => 10),
+		'code' => array('type' => 'integer', 'null' => true, 'default' => '0', 'length' => 10),
 		'code_string' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 500, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'stdout' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'stderr' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),

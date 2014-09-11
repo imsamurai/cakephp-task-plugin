@@ -30,9 +30,6 @@ class TaskServer extends TaskModel {
 	 */
 	public function freeSlots() {
 		$maxSlots = (int)Configure::read('Task.maxSlots');
-		if (!$maxSlots) {
-			$maxSlots = 10;
-		}
 		$runnedCount = $this->find('count', array(
 			'conditions' => array(
 				'status' => array(TaskType::DEFFERED, TaskType::RUNNING, TaskType::STOPPING),
@@ -143,7 +140,7 @@ class TaskServer extends TaskModel {
 					'server_id' => array(0, $this->_serverId())
 				),
 				'order' => array(
-					'created' => 'asc'
+					'id' => 'asc'
 				),
 				'offset' => $taskNumber
 			));
@@ -180,7 +177,7 @@ class TaskServer extends TaskModel {
 			$File = new File(TMP . 'task_server_id', true);
 			$serverId = (int)$File->read();
 			if (!$serverId) {
-				$serverId = mt_rand();
+				$serverId = mt_srand();
 				$File->write($serverId);
 			}
 			$File->close();

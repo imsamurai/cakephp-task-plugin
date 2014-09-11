@@ -6,14 +6,17 @@
  * Time: 17:12
  * Format: http://book.cakephp.org/2.0/en/console-and-shells.html#creating-a-shell
  */
+App::uses('AdvancedShell', 'AdvancedShell.Console/Command');
 
 /**
  * Task shell
  * 
+ * @property TaskServerTask $Server
+ * 
  * @package Task
  * @subpackage Console.Command
  */
-class TaskShell extends Shell {
+class TaskShell extends AdvancedShell {
 
 	/**
 	 * {@inheritdoc}
@@ -21,7 +24,9 @@ class TaskShell extends Shell {
 	 * @var array
 	 */
 	public $tasks = array(
-		'Task.TaskServer'
+		'Server' => array(
+			'className' => 'Task.TaskServer'
+		)
 	);
 
 	/**
@@ -30,17 +35,8 @@ class TaskShell extends Shell {
 	 * @return ConsoleOptionParser
 	 */
 	public function getOptionParser() {
-		$parser = parent::getOptionParser();
-		$parser->description('Task shell global options');
-
-		foreach ($this->tasks as $task) {
-			list(, $taskName) = pluginSplit($task);
-			$parser->addSubcommand(Inflector::underscore($taskName), array(
-				'help' => $this->{$taskName}->getOptionParser()->description(),
-				'parser' => $this->{$taskName}->getOptionParser()
-			));
-		}
-		return $parser;
+		return parent::getOptionParser()
+						->description('Task shell');
 	}
 
 }

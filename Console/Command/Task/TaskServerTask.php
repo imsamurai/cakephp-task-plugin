@@ -7,6 +7,7 @@
  * Format: http://book.cakephp.org/2.0/en/console-and-shells.html#shell-tasks
  */
 App::uses('TaskRunner', 'Task.Lib/Task');
+App::uses('AdvancedTask', 'AdvancedShell.Console/Command/Task');
 
 /**
  * Task server script
@@ -14,14 +15,40 @@ App::uses('TaskRunner', 'Task.Lib/Task');
  * @package Task
  * @subpackage Console.Command.Task
  */
-class TaskServerTask extends Shell {
+class TaskServerTask extends AdvancedTask {
 
+	/**
+	 * {@inheritdoc}
+	 *
+	 * @var string
+	 */
+	public $name = 'Server';
+	
 	/**
 	 * {@inheritdoc}
 	 *
 	 * @var array
 	 */
 	public $uses = array('Task.TaskServer', 'Task.TaskClient');
+
+	/**
+	 * Process manager
+	 *
+	 * @var Spork\ProcessManager 
+	 */
+	public $ProcessManager = null;
+
+	/**
+	 * {@inheritdoc}
+	 * 
+	 * @param ConsoleOutput $stdout
+	 * @param ConsoleOutput $stderr
+	 * @param ConsoleInput $stdin
+	 */
+	public function __construct($stdout = null, $stderr = null, $stdin = null) {
+		parent::__construct($stdout, $stderr, $stdin);
+		$this->ProcessManager = new Spork\ProcessManager();
+	}
 
 	/**
 	 * {@inheritdoc}
@@ -39,21 +66,50 @@ class TaskServerTask extends Shell {
 		}
 
 		$events = (array)Configure::read('Task.processEvents');
+		
 		foreach ($events as $event) {
 			CakeEventManager::instance()->attach(ClassRegistry::init($event['model']), $event['key'], $event['options']);
 		}
 
-		$ProcessManager = new Spork\ProcessManager();
 		foreach ($tasks as $task) {
-			$ProcessManager->fork(function () use ($task) {
-				$TaskRunner = new TaskRunner($task, $this->TaskServer, $this->TaskClient);
-				$TaskRunner->start();
-			});
+			$this->_run($task);
 		}
 
 		foreach ($events as $event) {
 			CakeEventManager::instance()->detach(ClassRegistry::init($event['model']), $event['key'], $event['options']);
 		}
+	}
+	
+	/**
+	 * {@inheritdoc}
+	 *
+	 * @return ConsoleOptionParser
+	 */
+	public function getOptionParser() {
+		$parser = parent::getOptionParser();
+		$parser->description('Task server');
+		return $parser;
+	}
+
+	/**
+	 * Run task
+	 * 
+	 * @param array $task
+	 */
+	protected function _run(array $task) {
+		$this->ProcessManager->fork(function () use ($task) {
+			$this->_makeRunner($task)->start();
+		});
+	}
+	
+	/**
+	 * Make task runner
+	 * 
+	 * @param array $task
+	 * @return \TaskRunner
+	 */
+	protected function _makeRunner(array $task) {
+		return new TaskRunner($task, $this->TaskServer, $this->TaskClient);
 	}
 
 }

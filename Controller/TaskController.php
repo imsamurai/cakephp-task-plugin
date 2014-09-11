@@ -6,7 +6,7 @@
  * Time: 15:23:19
  * Format: http://book.cakephp.org/2.0/en/controllers.html
  */
-App::uses('TaskAppController', 'Task.Controller');
+App::uses('AppController', 'Controller');
 
 /**
  * TasksController
@@ -14,9 +14,10 @@ App::uses('TaskAppController', 'Task.Controller');
  * @property TaskClient $TaskClient TaskClient model
  * @property TaskProfiler $TaskProfiler TaskProfiler model
  * 
- * @package Task.Controller
+ * @package Task
+ * @subpackage Controller
  */
-class TaskController extends TaskAppController {
+class TaskController extends AppController {
 
 	/**
 	 * {@inheritdoc}

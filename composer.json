@@ -22,7 +22,8 @@
 		"composer/installers": "*",
 		"symfony/process": "2.4.*",
 		"kriswallsmith/spork": "dev-master",
-		"imsamurai/cakephp-serializable-behaviour": "1.0.*"
+		"imsamurai/cakephp-serializable-behaviour": "1.0.*",
+		"imsamurai/cakephp-advancedshell": "1.3.*"
 	},
 	"suggest": {
 		"imsamurai/cakephp-google-chart": "Install it if you want have profiling graphs"

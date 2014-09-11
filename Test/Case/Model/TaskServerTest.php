@@ -72,6 +72,7 @@ class TaskServerTest extends CakeTestCase {
 		$this->assertEqual($task['status'], TaskType::UNSTARTED);
 		$this->assertEqual($pendedTask['status'], TaskType::DEFFERED);
 		$this->assertSame($task['id'], $pendedTask['id']);
+		$this->assertFalse($this->TaskServer->getPending());
 	}
 
 	/**
@@ -122,6 +123,62 @@ class TaskServerTest extends CakeTestCase {
 
 		$this->assertEqual($pendedTask1['id'], $task1['id']);
 		$this->assertEqual($pendedTask2['id'], $task2['id']);
+	}
+
+	/**
+	 * Tast if task must be stopped
+	 * 
+	 * @param array $task
+	 * @param int $taskId
+	 * @param bool $mustStop
+	 * @dataProvider mustStopProvider
+	 */
+	public function testMustStop(array $task, $taskId, $mustStop) {
+		$this->TaskClient->save($task);
+		$this->assertSame($mustStop, $this->TaskServer->mustStop($taskId));
+	}
+
+	/**
+	 * Data provider for testMustStop
+	 * 
+	 * @return array
+	 */
+	public function mustStopProvider() {
+		return array(
+			//set #0
+			array(
+				//task
+				array(),
+				//taskId
+				10001,
+				//mustStop
+				false
+			),
+			//set #1
+			array(
+				//task
+				array(
+					'id' => 10001,
+					'status' => TaskType::STOPPING
+				),
+				//taskId
+				10001,
+				//mustStop
+				true
+			),
+			//set #2
+			array(
+				//task
+				array(
+					'id' => 10001,
+					'status' => TaskType::DEFFERED
+				),
+				//taskId
+				10001,
+				//mustStop
+				false
+			),
+		);
 	}
 
 }

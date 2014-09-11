@@ -19,6 +19,13 @@ App::uses('Shell', 'Console');
 class TaskRunnerTest extends CakeTestCase {
 
 	/**
+	 * PHP or HHVM executable
+	 *
+	 * @var string
+	 */
+	public $executable = null;
+	
+	/**
 	 * {@inheritdoc}
 	 */
 	public function setUp() {
@@ -27,6 +34,7 @@ class TaskRunnerTest extends CakeTestCase {
 			'checkInterval' => 1,
 			'stopTimeout' => 1
 		));
+		$this->executable = defined('HHVM_VERSION') ? 'hhvm' : 'php';
 	}
 
 	/**
@@ -53,9 +61,9 @@ class TaskRunnerTest extends CakeTestCase {
 		$task = array(
 			'id' => 1,
 			'path' => '',
-			'command' => 'php',
+			'command' => $this->executable,
 			'arguments' => array(
-				'-r' => 'sleep(2);'
+				'-f' => $this->_code2File('sleep(2);')
 			),
 			'timeout' => 1
 		);
@@ -91,9 +99,10 @@ class TaskRunnerTest extends CakeTestCase {
 		$task = array(
 			'id' => 1,
 			'path' => '',
-			'command' => 'php',
+			'command' => $this->executable,
 			'arguments' => array(
-				'-r' => 'while (true) {};'
+				'-f' => $this->_code2File('while (true) {};'),
+				'hello'
 			),
 			'timeout' => 10
 		);
@@ -133,9 +142,9 @@ class TaskRunnerTest extends CakeTestCase {
 		$task = array(
 			'id' => 1,
 			'path' => '',
-			'command' => 'php',
+			'command' => $this->executable,
 			'arguments' => array(
-				'-r' => 'echo 123;sleep(1);echo 555;sleep(1);echo 321;sleep(1);echo 444;'
+				'-f' => $this->_code2File('echo 123;sleep(1);echo 555;sleep(1);echo 321;sleep(1);echo 444;file_put_contents("php://stderr", "error", FILE_APPEND);')
 			),
 			'timeout' => 10
 		);
@@ -145,6 +154,19 @@ class TaskRunnerTest extends CakeTestCase {
 		debug($runnedTask);
 
 		$this->assertSame('123555321444', $runnedTask['stdout']);
+		$this->assertSame('error', $runnedTask['stderr']);
+	}
+	
+	/**
+	 * Helper for make file with code
+	 * 
+	 * @param string $code
+	 * @return string
+	 */
+	protected function _code2File($code) {
+		$name = tempnam('/tmp', 'task_test');
+		file_put_contents($name, "<?php \n".$code);
+		return $name;
 	}
 
 }

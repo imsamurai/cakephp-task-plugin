@@ -112,11 +112,11 @@ class TaskClient extends TaskModel {
 	 * Stop task by id
 	 * 
 	 * @param int $taskId Unique task id
-	 * @param int $retry Retry count
+	 * @param int $maxRetries Maximum retry count
 	 * @return boolean True if success
 	 * @throws NotFoundException If no such task found
 	 */
-	public function stop($taskId, $retry = 0) {
+	public function stop($taskId, $maxRetries = 10) {
 		$task = $this->read(null, $taskId);
 
 		if (!$task) {
@@ -125,22 +125,22 @@ class TaskClient extends TaskModel {
 
 		switch ($task[$this->alias]['status']) {
 			case TaskType::FINISHED:
+			case TaskType::STOPPING: 
 			case TaskType::STOPPED: {
 					return true;
 				}
 			case TaskType::UNSTARTED: {
-					return $this->saveField('status', TaskType::STOPPED);
+					return (bool)$this->saveField('status', TaskType::STOPPED);
 				}
 			case TaskType::RUNNING:
-			case TaskType::STOPPED: 
-					return $this->saveField('status', TaskType::STOPPING);
+					return (bool)$this->saveField('status', TaskType::STOPPING);
 				
 			case TaskType::DEFFERED: {
-					if ($retry >= 10) {
-						return $this->saveField('status', TaskType::STOPPED);
+					if ($maxRetries <= 0) {
+						return (bool)$this->saveField('status', TaskType::STOPPED);
 					}
 					sleep(1);
-					return $this->stop($taskId, ++$retry);
+					return $this->stop($taskId, --$maxRetries);
 				}
 			default:
 				return false;
@@ -151,7 +151,7 @@ class TaskClient extends TaskModel {
 	 * Restart task by id
 	 * 
 	 * @param int $taskId Unique task id
-	 * @return bool True if success
+	 * @return int|false New task id on success, else false
 	 * @throws NotFoundException If no such task found
 	 */
 	public function restart($taskId) {
@@ -170,29 +170,27 @@ class TaskClient extends TaskModel {
 			'stopped' => ''
 				) + $this->read(null, $taskId)[$this->alias];
 		$this->create();		
-		return $this->saveAssociated(array(
+		$success = (bool)$this->saveAssociated(array(
 					$this->alias => $task,
 					$this->DependsOnTask->alias => array($taskId)
 		));
+		return $success ? $this->id : $success;
 	}
 	
 	/**
 	 * Delete task by id
 	 * 
 	 * @param int $taskId Unique task id
+	 * @param int $maxRetries Maximum retry count
 	 * @return bool True if success
 	 * @throws NotFoundException If no such task found
 	 */
-	public function remove($taskId) {
-		if (!$this->stop($taskId)) {
+	public function remove($taskId, $maxRetries = 10) {
+		if (!$this->stop($taskId, $maxRetries)) {
 			return false;
 		}
-		$this->id = $taskId;
-		while (!in_array($this->field('status'), array(TaskType::STOPPED, TaskType::FINISHED))) {
-			sleep(1);
-		}
 
-		return $this->delete($taskId);
+		return (bool)$this->delete($taskId);
 	}
 
 	/**

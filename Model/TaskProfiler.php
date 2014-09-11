@@ -70,12 +70,12 @@ class TaskProfiler {
 		}, Hash::extract($tasks, '{n}.{s}'));
 		
 		$runtimes = Hash::extract($statistics, '{n}.runtime');
-		$runtimeAverage = $runtimes ? array_sum($runtimes) / count($runtimes) : 0;
+		$runtimeAverage = (int)round($runtimes ? array_sum($runtimes) / count($runtimes) : 0);
 		$runtimeMax = $runtimes ? max($runtimes) : 0;
 		$runtimeMin = $runtimes ? min($runtimes) : 0;
 
 		$waittimes = Hash::extract($statistics, '{n}.waittime');
-		$waittimeAverage = $waittimes ? array_sum($waittimes) / count($waittimes) : 0;
+		$waittimeAverage = (int)round($waittimes ? array_sum($waittimes) / count($waittimes) : 0);
 		$waittimeMax = $waittimes ? max($waittimes) : 0;
 		$waittimeMin = $waittimes ? min($waittimes) : 0;
 
@@ -136,7 +136,7 @@ class TaskProfiler {
 			)
 		));
 		
-		return $tasks ? (int)(array_sum($tasks) / count($tasks)) : 0;
+		return $tasks ? (int)round(array_sum($tasks) / count($tasks)) : 0;
 	}
 	
 	/**
