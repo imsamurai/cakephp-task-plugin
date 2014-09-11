@@ -29,7 +29,7 @@ class TaskClient extends TaskModel {
 	 * @var array
 	 */
 	public $virtualFields = array(
-		'errored' => '!ISNULL(stderr)',
+		'errored' => 'stderr!=""',
 		'runtime' => 'TIME_TO_SEC(TIMEDIFF(IFNULL(stopped, \'%s\'), started))',
 		'waittime' => 'TIME_TO_SEC(TIMEDIFF(started, created))',
 	);
