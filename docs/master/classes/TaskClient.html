@@ -326,7 +326,7 @@ can also be an array of options, see above.</p></p>
                                             <a id="method_remove"></a>
                         <div class="element clickable method public  method_remove" data-toggle="collapse" data-target=".method_remove .collapse">
                             <h2>Delete task by id</h2>
-                            <pre>remove(integer $taskId) : boolean</pre>
+                            <pre>remove(integer $taskId, integer $maxRetries = 10) : boolean</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
 
@@ -351,6 +351,10 @@ can also be an array of options, see above.</p></p>
                                                                                     <div class="subelement argument">
                                                 <h4>$taskId</h4>
                                                 <code>integer</code><p><p>Unique task id</p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$maxRetries</h4>
+                                                <code>integer</code><p><p>Maximum retry count</p></p>
                                             </div>
                                                                             
                                                                             <h3>Response</h3>
@@ -362,7 +366,7 @@ can also be an array of options, see above.</p></p>
                                             <a id="method_restart"></a>
                         <div class="element clickable method public  method_restart" data-toggle="collapse" data-target=".method_restart .collapse">
                             <h2>Restart task by id</h2>
-                            <pre>restart(integer $taskId) : boolean</pre>
+                            <pre>restart(integer $taskId) : integer|false</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
 
@@ -390,7 +394,7 @@ can also be an array of options, see above.</p></p>
                                             </div>
                                                                             
                                                                             <h3>Response</h3>
-                                        <code>boolean</code><p><p>True if success</p></p>
+                                        <code>integer|false</code><p><p>New task id on success, else false</p></p>
                                                                     </div>
                             </div>
 
@@ -398,7 +402,7 @@ can also be an array of options, see above.</p></p>
                                             <a id="method_stop"></a>
                         <div class="element clickable method public  method_stop" data-toggle="collapse" data-target=".method_stop .collapse">
                             <h2>Stop task by id</h2>
-                            <pre>stop(integer $taskId, integer $retry) : boolean</pre>
+                            <pre>stop(integer $taskId, integer $maxRetries = 10) : boolean</pre>
                             <div class="labels">
                                                                                                                                                                                             </div>
 
@@ -425,8 +429,8 @@ can also be an array of options, see above.</p></p>
                                                 <code>integer</code><p><p>Unique task id</p></p>
                                             </div>
                                                                                     <div class="subelement argument">
-                                                <h4>$retry</h4>
-                                                <code>integer</code><p><p>Retry count</p></p>
+                                                <h4>$maxRetries</h4>
+                                                <code>integer</code><p><p>Maximum retry count</p></p>
                                             </div>
                                                                             
                                                                             <h3>Response</h3>
@@ -614,7 +618,7 @@ can also be an array of options, see above.</p></p>
             Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
             <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
             Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
-            generated on Mon, 08 Sep 2014 13:20:42 +0000.<br/>
+            generated on Thu, 11 Sep 2014 09:21:27 +0000.<br/>
     </footer>
     </body>
 </html>
