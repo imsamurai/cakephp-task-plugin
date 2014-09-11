@@ -177,10 +177,10 @@ class TaskServerTaskTest extends CakeTestCase {
 	protected function _makeRunner(array $processEvents) {
 		return function() use ($processEvents) {
 			$Runner = $this->getMockBuilder('TaskRunner')
-					->disableAutoload()
 					->setMethods(array(
 						'start'
 					))
+					->disableOriginalConstructor()
 					->getMock();
 			$Runner->expects($this->once())->method('start')->willReturnCallback(function() use ($processEvents) {
 				foreach ($processEvents as $processEvent) {
