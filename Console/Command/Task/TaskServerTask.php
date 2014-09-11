@@ -67,8 +67,10 @@ class TaskServerTask extends AdvancedTask {
 
 		$events = (array)Configure::read('Task.processEvents');
 		
+		$models = array();
 		foreach ($events as $event) {
-			CakeEventManager::instance()->attach(ClassRegistry::init($event['model']), $event['key'], $event['options']);
+			$models[$event['model']] = ClassRegistry::init($event['model']);
+			CakeEventManager::instance()->attach($models[$event['model']], $event['key'], $event['options']);
 		}
 
 		foreach ($tasks as $task) {
@@ -76,7 +78,7 @@ class TaskServerTask extends AdvancedTask {
 		}
 
 		foreach ($events as $event) {
-			CakeEventManager::instance()->detach(ClassRegistry::init($event['model']), $event['key'], $event['options']);
+			CakeEventManager::instance()->detach($models[$event['model']], $event['key'], $event['options']);
 		}
 	}
 	
