@@ -29,7 +29,7 @@ class TaskHelper extends AppHelper {
 	public static $statuses = array(
 		TaskType::UNSTARTED => array(
 			'name' => 'new',
-			'class' => 'label label-success'
+			'class' => 'label-success'
 		),
 		TaskType::DEFFERED => array(
 			'name' => 'deffered',
@@ -156,8 +156,11 @@ class TaskHelper extends AppHelper {
 
 		$format = Configure::read('Task.dateDiffBarFormat');
 
-		if ($delta >= 0) {
+		if ($delta > 0) {
 			$deltaString = '- ' . $this->_secondsToHuman($delta, $format);
+			$class .= ' progress-success';
+		} elseif ($delta == 0) {
+			$deltaString = $this->_secondsToHuman($delta, $format);
 			$class .= ' progress-success';
 		} else {
 			$deltaString = '+ ' . $this->_secondsToHuman(-1 * $delta, $format);
@@ -299,7 +302,7 @@ class TaskHelper extends AppHelper {
 	 * @return string
 	 */
 	public function details(array $task) {
-		return implode(' ,', Hash::flatten($task['details']));
+		return implode(', ', Hash::flatten($task['details']));
 	}
 
 	/**
@@ -328,7 +331,7 @@ class TaskHelper extends AppHelper {
 			}
 			$arguments .= ' ' . $value;
 		}
-		return $this->_text($arguments, $full ? 0 : Configure::read('Task.truncateArguments'), true);
+		return $this->_text(trim($arguments), $full ? 0 : Configure::read('Task.truncateArguments'), true);
 	}
 
 	/**
@@ -384,7 +387,7 @@ class TaskHelper extends AppHelper {
 	 */
 	protected function _date($date = null) {
 		$timeAgoInWords = $date ? $this->Time->timeAgoInWords($date, array('format' => Configure::read('Task.dateFormat'))) : $this->_none();
-		return $this->_isCli ? $timeAgoInWords : $this->Html->tag('span', $timeAgoInWords, array('title' => $date));
+		return $this->_isCli ? $timeAgoInWords : $this->Html->tag('span', $timeAgoInWords, array('title' => $date instanceof DateTime ? $date->format(Configure::read('Task.dateFormat')) : $date));
 	}
 
 	/**
