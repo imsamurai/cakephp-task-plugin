@@ -84,7 +84,7 @@ class TaskControllerTest extends ControllerTestCase {
 			'data' => $query
 		));
 
-		$this->assertSame($paginate, $Controller->paginate);
+		$this->assertEqual($paginate, $Controller->paginate);
 		$this->assertSame($query, $Controller->request->data('Task'));
 		$this->assertSame(array('TaskClient pagination data'), $Controller->viewVars['data']);
 		$this->assertSame($commands, $Controller->viewVars['commandList']);
@@ -102,7 +102,9 @@ class TaskControllerTest extends ControllerTestCase {
 			//set #0
 			array(
 				//query
-				array(),
+				array(
+					'status' => '1'
+				),
 				//paginate
 				array(
 					'TaskClient' => array(
@@ -121,7 +123,9 @@ class TaskControllerTest extends ControllerTestCase {
 							'id',
 							'process_id',
 						),
-						'conditions' => array(),
+						'conditions' => array(
+							'status' => '1'
+						),
 						'order' => array('created' => 'desc'),
 						'contain' => array('DependsOnTask' => array('id', 'status'))
 					)
@@ -142,6 +146,7 @@ class TaskControllerTest extends ControllerTestCase {
 					'created' => '12:00:01 01.01.2014 to 01:00:10 02.03.2014',
 					'stopped' => '01.01.2014 to 02.02.2014',
 					'modified' => '2014/01/01 11:05:23 - 2014/02/02 17:05:23',
+					'status' => '0'
 				),
 				//paginate
 				array(
@@ -167,6 +172,7 @@ class TaskControllerTest extends ControllerTestCase {
 							'created BETWEEN ? AND ?' => array('2014-01-01 12:00:01', '2014-03-02 01:00:10'),
 							'stopped BETWEEN ? AND ?' => array('2014-01-01 00:00:00', '2014-02-02 00:00:00'),
 							'modified BETWEEN ? AND ?' => array('2014-01-01 11:05:23', '2014-02-02 17:05:23'),
+							'status' => '0'
 						),
 						'order' => array('created' => 'desc'),
 						'contain' => array('DependsOnTask' => array('id', 'status'))

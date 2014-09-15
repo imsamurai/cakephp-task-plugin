@@ -192,7 +192,9 @@ class TaskController extends AppController {
 	 * @return array
 	 */
 	protected function _paginationFilter() {
-		$conditions = array_filter($this->request->query);
+		$conditions = array_filter($this->request->query, function($var) {
+			return $var !== '';
+		});
 		unset($conditions['url']);
 		foreach (array('started', 'created', 'stopped', 'modified') as $dateRangeField) {
 			if (empty($conditions[$dateRangeField])) {
