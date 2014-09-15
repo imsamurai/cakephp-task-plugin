@@ -136,7 +136,7 @@ class TaskHelper extends AppHelper {
 			return '';
 		}
 
-		if (!isset($runtimes[$task['command']])) {
+		if (empty($runtimes[$task['command']])) {
 			$percent = 100;
 			$delta = 0;
 		} else {
