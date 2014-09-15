@@ -51,7 +51,7 @@ class TaskProfilerTest extends CakeTestCase {
 	 */
 	public function testProfileCommand($command, $profile, $profilerLimit) {
 		Configure::write('Task.profilerLimit', $profilerLimit);
-		$this->assertSame($profile, $this->Profiler->profileCommand($command));
+		$this->assertEqual($profile, $this->Profiler->profileCommand($command));
 	}
 
 	/**
@@ -96,7 +96,7 @@ class TaskProfilerTest extends CakeTestCase {
 							'waittime' => 80433,
 							'runtimeHuman' => '0 days, 0 hours, 1 minutes',
 							'waittimeHuman' => '0 days, 22 hours, 20 minutes',
-							'startedTimestamp' => 1410088323
+							'startedTimestamp' => (new DateTime('2014-09-07 11:12:03'))->getTimestamp()
 						)
 					),
 					'runtimeAverage' => 66,
@@ -141,7 +141,7 @@ class TaskProfilerTest extends CakeTestCase {
 							'waittime' => 80433,
 							'runtimeHuman' => '0 days, 0 hours, 1 minutes',
 							'waittimeHuman' => '0 days, 22 hours, 20 minutes',
-							'startedTimestamp' => 1410088323
+							'startedTimestamp' => (new DateTime('2014-09-07 11:12:03'))->getTimestamp()
 						),
 						1 => array(
 							'id' => '4',
@@ -152,7 +152,7 @@ class TaskProfilerTest extends CakeTestCase {
 							'waittime' => 80374,
 							'runtimeHuman' => '0 days, 0 hours, 0 minutes',
 							'waittimeHuman' => '0 days, 22 hours, 19 minutes',
-							'startedTimestamp' => 1410088264
+							'startedTimestamp' => (new DateTime('2014-09-07 11:11:04'))->getTimestamp()
 						)
 					),
 					'runtimeAverage' => 58,
