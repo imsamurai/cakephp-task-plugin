@@ -21,6 +21,16 @@ App::uses('Shell', 'Console');
 class TaskServerTaskTest extends CakeTestCase {
 
 	/**
+	 * Fixtures
+	 *
+	 * @var array
+	 */
+	public $fixtures = array(
+		'plugin.Task.Task',
+		'plugin.Task.DependentTask',
+	);
+	
+	/**
 	 * {@inheritdoc}
 	 */
 	public function setUp() {
@@ -81,11 +91,14 @@ class TaskServerTaskTest extends CakeTestCase {
 				->setConstructorArgs(array(false, null, 'test'))
 				->setMethods(array(
 					'freeSlots',
-					'getPending'
+					'getPending',
+					'killZombies'
 				))
 				->getMock();
 		
-		$at = 0;
+		$Task->TaskServer->expects($this->at(0))->method('killZombies');
+		
+		$at = 1;
 		for ($number = 0; $number < $slotsCount; $number++) {
 			$Task->TaskServer->expects($this->at($at++))->method('freeSlots')->willReturn($freeSlots[$number]);
 			if (isset($getPending[$number])) {

@@ -12,6 +12,9 @@ App::uses('AdvancedTask', 'AdvancedShell.Console/Command/Task');
 /**
  * Task server script
  * 
+ * @property TaskServer $TaskServer TaskServer model
+ * @property TaskClient $TaskClient TaskClient model
+ * 
  * @package Task
  * @subpackage Console.Command.Task
  */
@@ -57,6 +60,7 @@ class TaskServerTask extends AdvancedTask {
 	 */
 	public function execute() {
 		$tasks = array();
+		$this->TaskServer->killZombies();
 		while ($this->TaskServer->freeSlots() > 0 && ($task = $this->TaskServer->getPending())) {
 			$tasks[] = $task;
 		}

@@ -181,4 +181,117 @@ class TaskServerTest extends CakeTestCase {
 		);
 	}
 
+	/**
+	 * Test kill zombie
+	 * 
+	 * @param array $tasks
+	 * @param array $zombieId
+	 * @dataProvider killZombiesProvider
+	 */
+	public function testKillZombies(array $tasks, array $zombieId) {
+		Configure::write('Task.zombieTimeout', 10);
+		$this->TaskServer->saveAll($tasks);
+		$this->TaskServer->killZombies();
+		$this->assertCount($this->TaskServer->find('count', array(
+					'conditions' => array(
+						'code_string' => 'zombie',
+						'status' => TaskType::STOPPED,
+						'code' => 1
+					)
+		)), $zombieId);
+		$this->assertCount($this->TaskServer->find('count', array(
+					'conditions' => array(
+						'code_string' => 'zombie',
+						'status' => TaskType::STOPPED,
+						'code' => 1,
+						'id' => $zombieId
+					)
+		)), $zombieId);
+	}
+
+	/**
+	 * Data provider for testKillZombies
+	 * 
+	 * @return array
+	 */
+	public function killZombiesProvider() {
+		return array(
+			//set #0
+			array(
+				//tasks
+				array(),
+				//zombieId
+				array()
+			),
+			//set #1
+			array(
+				//tasks
+				array(
+					array(
+						'id' => 1,
+						'status' => TaskType::STOPPING,
+						'modified' => (new DateTime('now -10 seconds'))->format('Y-m-d H:i:s')
+					)
+				),
+				//zombieId
+				array(1)
+			),
+			//set #2
+			array(
+				//tasks
+				array(
+					array(
+						'id' => 1,
+						'status' => TaskType::STOPPING,
+						'modified' => (new DateTime('now -10 seconds'))->format('Y-m-d H:i:s')
+					),
+					array(
+						'id' => 2,
+						'status' => TaskType::STOPPING,
+						'modified' => (new DateTime('now -5 seconds'))->format('Y-m-d H:i:s')
+					),
+					array(
+						'id' => 3,
+						'status' => TaskType::RUNNING,
+						'modified' => (new DateTime('now -50 seconds'))->format('Y-m-d H:i:s')
+					),
+				),
+				//zombieId
+				array(1)
+			),
+			//set #3
+			array(
+				//tasks
+				array(
+					array(
+						'id' => 1,
+						'status' => TaskType::STOPPING,
+						'modified' => (new DateTime('now -10 seconds'))->format('Y-m-d H:i:s')
+					),
+					array(
+						'id' => 2,
+						'status' => TaskType::STOPPING,
+						'modified' => (new DateTime('now -5 seconds'))->format('Y-m-d H:i:s')
+					),
+					array(
+						'id' => 3,
+						'status' => TaskType::RUNNING,
+						'modified' => (new DateTime('now -50 seconds'))->format('Y-m-d H:i:s'),
+						'timeout' => 10,
+						'started' => (new DateTime('now -20 seconds'))->format('Y-m-d H:i:s')
+					),
+					array(
+						'id' => 4,
+						'status' => TaskType::RUNNING,
+						'modified' => (new DateTime('now -50 seconds'))->format('Y-m-d H:i:s'),
+						'timeout' => 20,
+						'started' => (new DateTime('now -20 seconds'))->format('Y-m-d H:i:s')
+					),
+				),
+				//zombieId
+				array(1, 3)
+			),
+		);
+	}
+
 }

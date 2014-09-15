@@ -59,8 +59,33 @@ class TaskModel extends AppModel {
 	/**
 	 * {@inheritdoc}
 	 *
+	 * @var array
+	 */
+	public $virtualFields = array(
+		'errored' => 'stderr!=""',
+		'runtime' => 'TIME_TO_SEC(TIMEDIFF(IFNULL(stopped, \'%s\'), started))',
+		'waittime' => 'TIME_TO_SEC(TIMEDIFF(started, created))',
+		'modified_since' => 'TIME_TO_SEC(TIMEDIFF(NOW(), modified))',
+	);
+
+	/**
+	 * {@inheritdoc}
+	 *
 	 * @var bool
 	 */
 	public $recursive = false;
+
+	/**
+	 * {@inheritdoc}
+	 * 
+	 * @param boolean|integer|string|array $id Set this ID for this model on startup,
+	 * can also be an array of options, see above.
+	 * @param string $table Name of database table to use.
+	 * @param string $ds DataSource connection name.
+	 */
+	public function __construct($id = false, $table = null, $ds = null) {
+		parent::__construct($id, $table, $ds);
+		$this->virtualFields['runtime'] = sprintf($this->virtualFields['runtime'], date('Y-m-d H:i:s'));
+	}
 
 }

@@ -22,7 +22,7 @@ class TaskServer extends TaskModel {
 	 * @var string
 	 */
 	public $name = 'TaskServer';
-
+	
 	/**
 	 * Returns number of free slots
 	 *
@@ -117,6 +117,30 @@ class TaskServer extends TaskModel {
 	 */
 	public function mustStop($taskId) {
 		return $this->field('status', array('id' => $taskId)) == TaskType::STOPPING;
+	}
+	
+	/**
+	 * Kill zombie processes
+	 * 
+	 * @return boolean True on success, false on failure
+	 */
+	public function killZombies() {
+		return $this->updateAll(array(
+			'status' => TaskType::STOPPED,
+			'code' => 1,
+			'code_string' => "'zombie'"
+				), array(
+			'OR' => array(
+				array(
+					'status' => array(TaskType::STOPPING, TaskType::DEFFERED),
+					'modified_since >=' => Configure::read('Task.zombieTimeout')
+				),
+				array(
+					'status' => TaskType::RUNNING,
+					"({$this->virtualFields['runtime']} - timeout) >=" => Configure::read('Task.zombieTimeout')
+				)
+			)
+		));
 	}
 
 	/**

@@ -24,6 +24,7 @@ $config += array(
 	'truncateWaitFor' => 5,
 	'profilerLimit' => 100,
 	'approximateLimit' => 10,
+	'zombieTimeout' => 60,
 );
 Configure::write('Task', $config);
 App::uses('TaskType', 'Task.Lib/Task');
