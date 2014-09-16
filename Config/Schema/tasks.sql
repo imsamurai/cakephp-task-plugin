@@ -28,3 +28,16 @@ CREATE TABLE `dependent_tasks` (
   `task_id` bigint(20) unsigned NOT NULL,
   `depends_on_task_id` bigint(20) unsigned NOT NULL
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8$$
+
+CREATE TABLE IF NOT EXISTS `task_statistics` (
+  `id` BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `task_id` BIGINT(20) UNSIGNED NOT NULL,
+  `memory` DECIMAL(4,1) NULL DEFAULT 0.0,
+  `cpu` DECIMAL(4,1) NULL DEFAULT 0.0,
+  `status` VARCHAR(10) NULL DEFAULT NULL,
+  `created` DATETIME NULL DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  INDEX `task_id` (`task_id` ASC),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC))
+ENGINE = MyISAM
+DEFAULT CHARACTER SET = utf8$$

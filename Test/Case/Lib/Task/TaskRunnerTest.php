@@ -8,6 +8,7 @@
  */
 App::uses('TaskRunner', 'Task.Lib/Task');
 App::uses('TaskClient', 'Task.Model');
+App::uses('TaskServer', 'Task.Model');
 App::uses('Shell', 'Console');
 
 /**
@@ -19,12 +20,23 @@ App::uses('Shell', 'Console');
 class TaskRunnerTest extends CakeTestCase {
 
 	/**
+	 * Fixtures
+	 *
+	 * @var array
+	 */
+	public $fixtures = array(
+		'plugin.Task.Task',
+		'plugin.Task.DependentTask',
+		'plugin.Task.TaskStatistics',
+	);
+
+	/**
 	 * PHP or HHVM executable
 	 *
 	 * @var string
 	 */
 	public $executable = null;
-	
+
 	/**
 	 * {@inheritdoc}
 	 */
@@ -46,7 +58,8 @@ class TaskRunnerTest extends CakeTestCase {
 			'stopped',
 			'started',
 			'updated',
-			'mustStop'
+			'mustStop',
+			'updateStatistics'
 		));
 		$TaskServer->useDbConfig = 'test';
 		$TaskServer->expects($this->once())->method('started');
@@ -83,7 +96,8 @@ class TaskRunnerTest extends CakeTestCase {
 			'stopped',
 			'started',
 			'updated',
-			'mustStop'
+			'mustStop',
+			'updateStatistics'
 		));
 		$TaskServer->useDbConfig = 'test';
 		$TaskServer->expects($this->once())->method('started');
@@ -121,7 +135,8 @@ class TaskRunnerTest extends CakeTestCase {
 			'stopped',
 			'started',
 			'updated',
-			'mustStop'
+			'mustStop',
+			'updateStatistics'
 		));
 		$TaskServer->useDbConfig = 'test';
 		$TaskServer->expects($this->once())->method('started');
@@ -149,7 +164,54 @@ class TaskRunnerTest extends CakeTestCase {
 		$this->assertSame('123555321444', $runnedTask['stdout']);
 		$this->assertSame('error', $runnedTask['stderr']);
 	}
-	
+
+	/**
+	 * Test update process statistics
+	 */
+	public function testUpdateStatistics() {
+		$TaskClient = $this->getMock('TaskClient');
+		$TaskServer = $this->getMock('TaskServer', array(
+			'stopped',
+			'started',
+			'updated',
+			'mustStop'
+		));
+		$TaskServer->useDbConfig = 'test';
+		$TaskServer->expects($this->once())->method('started');
+		$TaskServer->expects($this->once())->method('stopped');
+		$TaskServer->expects($this->any())->method('updated');
+		$TaskServer->expects($this->any())->method('mustStop')->will($this->returnValue(false));
+		$Shell = $this->getMock('Shell', array(
+			'out',
+			'err'
+		));
+
+		$task = array(
+			'id' => 1,
+			'path' => '',
+			'command' => $this->executable,
+			'arguments' => array(
+				'-f' => $this->_code2File('$a = array(); while(count($a) < 20000){ $a = array_merge($a, array(new stdClass));}')
+			),
+			'timeout' => 100
+		);
+		$TaskRunner = new TaskRunner($task, $TaskServer, $TaskClient, $Shell);
+
+		$runnedTask = $TaskRunner->start();
+		$statistics = ClassRegistry::init('Task.TaskStatistics')->find('all', array(
+			'conditions' => array(
+				'task_id' => $runnedTask['id']
+			)
+				)
+		);
+
+		$this->assertGreaterThan(1, count($statistics));
+		$statisticsOne = $statistics[count($statistics) - 1]['TaskStatistics'];
+		$this->assertGreaterThan(0, (float)$statisticsOne['memory']);
+		$this->assertGreaterThan(0, (float)$statisticsOne['cpu']);
+		$this->assertNotEmpty($statisticsOne['status']);
+	}
+
 	/**
 	 * Helper for make file with code
 	 * 
@@ -158,7 +220,7 @@ class TaskRunnerTest extends CakeTestCase {
 	 */
 	protected function _code2File($code) {
 		$name = tempnam('/tmp', 'task_test');
-		file_put_contents($name, "<?php \n".$code);
+		file_put_contents($name, "<?php \n" . $code);
 		return $name;
 	}
 

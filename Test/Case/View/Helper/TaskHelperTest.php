@@ -1187,7 +1187,7 @@ class TaskHelperTest extends CakeTestCase {
 	}
 
 	/**
-	 * Test arguments provider
+	 * Test arguments
 	 * 
 	 * @param array $task
 	 * @param bool $full
@@ -1478,6 +1478,147 @@ class TaskHelperTest extends CakeTestCase {
 				false,
 				//result
 				'<span title="1"><a href="http://example.com/task%sview/1">1</a></span>',
+				//settings
+				array('cli' => false)
+			),
+		);
+	}
+
+	/**
+	 * Test statistics
+	 * 
+	 * @param array $statistics
+	 * @param string $result
+	 * @param array $settings
+	 * @dataProvider statisticsProvider
+	 */
+	public function testStatistics(array $statistics, $result, array $settings) {
+		$Helper = new TaskHelper(new View, $settings);
+		$this->assertSame($result, $Helper->statistics($statistics));
+	}
+
+	/**
+	 * Data provider for testStatistics
+	 * 
+	 * @return array
+	 */
+	public function statisticsProvider() {
+		return array(
+			//set #0
+			array(
+				//statistics
+				array(),
+				//result
+				'Not allowed in cli',
+				//settings
+				array('cli' => true)
+			),
+			//set #1
+			array(
+				//statistics
+				array(),
+				//result
+				'<span class="task-not-yet" style="color: gray;">Please install <b>imsamurai/cakephp-google-chart</b> plugin to view graph</span>',
+				//settings
+				array('cli' => false, 'chartEnabled' => false)
+			)
+		);
+	}
+
+	/**
+	 * Test statistics chart
+	 * 
+	 * @param array $statistics
+	 * @param string $result
+	 * @param array $settings
+	 * @dataProvider statisticsChartProvider
+	 */
+	public function testStatisticsChart(array $statistics, $result, array $settings) {
+		$this->skipUnless(CakePlugin::loaded('GoogleChart'), 'Please install imsamurai/cakephp-google-chart for this test');
+		$View = new View;
+		$Helper = new TaskHelper($View, $settings);
+		$this->assertStringMatchesFormat($result, $Helper->statistics($statistics) . $View->fetch('script'));
+	}
+
+	/**
+	 * Data provider for testStatistics
+	 * 
+	 * @return array
+	 */
+	public function statisticsChartProvider() {
+		return array(
+			//set #0
+			array(
+				//statistics
+				array(),
+				//result
+				'<div id="%s"></div><script type="text/javascript" src="https://www.google.com/jsapi"></script><script type="text/javascript">
+//<![CDATA[
+google.load(\'visualization\', 1.0, {"packages":["corechart","controls"]});
+//]]>
+</script><script type="text/javascript">
+//<![CDATA[
+setTimeout(function(){$(document).ready(function () {var data = new google.visualization.DataTable({"cols":[{"id":"date","label":"date","type":"string"},{"id":"memory","label":"memory","type":"string"},{"id":"cpu","label":"cpu","type":"string"},{"p":{"role":"annotation"},"type":"string"}],"rows":[]});var chart = new google.visualization.LineChart(document.getElementById("%s"));chart.draw(data, {"height":300,"width":800,"pointSize":5,"vAxis":{"title":"Percentage"},"hAxis":{"title":"Time"},"chartArea":{"left":50,"top":10,"height":230,"width":650}});});}, 100);
+//]]>
+</script>',
+				//settings
+				array('cli' => false)
+			),
+			//set #1
+			array(
+				//statistics
+				array(
+					(int)0 => array(
+						'id' => '1',
+						'task_id' => '1',
+						'memory' => '0.0',
+						'cpu' => '0.0',
+						'status' => 'R',
+						'created' => '2014-09-16 14:31:47'
+					),
+					(int)1 => array(
+						'id' => '2',
+						'task_id' => '1',
+						'memory' => '0.4',
+						'cpu' => '102.0',
+						'status' => 'R',
+						'created' => '2014-09-16 14:31:48'
+					),
+					(int)2 => array(
+						'id' => '3',
+						'task_id' => '1',
+						'memory' => '0.4',
+						'cpu' => '101.0',
+						'status' => 'R',
+						'created' => '2014-09-16 14:31:49'
+					),
+					(int)3 => array(
+						'id' => '4',
+						'task_id' => '1',
+						'memory' => '0.4',
+						'cpu' => '101.0',
+						'status' => 'R',
+						'created' => '2014-09-16 14:31:50'
+					),
+					(int)4 => array(
+						'id' => '5',
+						'task_id' => '1',
+						'memory' => '0.4',
+						'cpu' => '101.0',
+						'status' => 'R',
+						'created' => '2014-09-16 14:31:51'
+					),
+				),
+				//result
+				'<div id="%s"></div><script type="text/javascript" src="https://www.google.com/jsapi"></script><script type="text/javascript">
+//<![CDATA[
+google.load(\'visualization\', 1.0, {"packages":["corechart","controls"]});
+//]]>
+</script><script type="text/javascript">
+//<![CDATA[
+setTimeout(function(){$(document).ready(function () {var data = new google.visualization.DataTable({"cols":[{"id":"date","label":"date","type":"datetime"},{"id":"memory","label":"memory","type":"number"},{"id":"cpu","label":"cpu","type":"number"},{"p":{"role":"annotation"},"type":"string"}],"rows":[{"c":[{"v":new Date(1410867107000),"f":"2014-09-16 14:31:47"},{"v":0,"f":"0"},{"v":0,"f":"0"},{"v":"R","f":"R"}]},{"c":[{"v":new Date(1410867108000),"f":"2014-09-16 14:31:48"},{"v":0.4,"f":"0.4"},{"v":102,"f":"102"},{"v":"R","f":"R"}]},{"c":[{"v":new Date(1410867109000),"f":"2014-09-16 14:31:49"},{"v":0.4,"f":"0.4"},{"v":101,"f":"101"},{"v":"R","f":"R"}]},{"c":[{"v":new Date(1410867110000),"f":"2014-09-16 14:31:50"},{"v":0.4,"f":"0.4"},{"v":101,"f":"101"},{"v":"R","f":"R"}]},{"c":[{"v":new Date(1410867111000),"f":"2014-09-16 14:31:51"},{"v":0.4,"f":"0.4"},{"v":101,"f":"101"},{"v":"R","f":"R"}]}]});var chart = new google.visualization.LineChart(document.getElementById("%s"));chart.draw(data, {"height":300,"width":800,"pointSize":5,"vAxis":{"title":"Percentage"},"hAxis":{"title":"Time"},"chartArea":{"left":50,"top":10,"height":230,"width":650}});});}, 100);
+//]]>
+</script>',
 				//settings
 				array('cli' => false)
 			),

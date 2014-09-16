@@ -142,6 +142,26 @@ class TaskServer extends TaskModel {
 			)
 		));
 	}
+	
+	/**
+	 * Update task process statistics
+	 * 
+	 * @param array $task
+	 * @return bool
+	 */
+	public function updateStatistics(array $task) {
+		if (!$task['process_id'] || !$task['id']) {
+			return;
+		}
+		$statistics = array_values(array_filter(preg_split('/\s+/', `ps -o '%mem,%cpu,stat' --ppid {$task['process_id']} --no-headers`)));
+		$this->Statistics->create();
+		return (bool)$this->Statistics->save(array(
+			'task_id' => $task['id'],
+			'memory' => (float)$statistics[0],
+			'cpu' => (float)$statistics[1],
+			'status' => (string)$statistics[2]
+		));
+	}
 
 	/**
 	 * Returns first task id that can be run

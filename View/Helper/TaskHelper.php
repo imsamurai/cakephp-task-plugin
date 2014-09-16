@@ -58,7 +58,7 @@ class TaskHelper extends AppHelper {
 	 *
 	 * @var array 
 	 */
-	public $helpers = array('Html', 'Time', 'Text');
+	public $helpers = array('Html', 'Time', 'Text', 'GoogleChart.GoogleChart');
 
 	/**
 	 * True if is cli run
@@ -76,6 +76,9 @@ class TaskHelper extends AppHelper {
 	public function __construct(\View $View, $settings = array()) {
 		parent::__construct($View, $settings);
 		$this->_isCli = isset($settings['cli']) ? $settings['cli'] : (php_sapi_name() === 'cli');
+		$this->settings += array(
+			'chartEnabled' => CakePlugin::loaded('GoogleChart')
+		);
 	}
 
 	/**
@@ -359,6 +362,58 @@ class TaskHelper extends AppHelper {
 						'title' => implode(', ', $formattedTasks)
 			));
 		}
+	}
+	
+	/**
+	 * Make statistics graph
+	 * 
+	 * @param array $statistics
+	 * @return string
+	 */
+	public function statistics(array $statistics) {
+		if ($this->_isCli) {
+			return $this->_none('Not allowed in cli');
+		}
+		if (!$this->settings['chartEnabled']) {
+			return $this->_none('Please install <b>imsamurai/cakephp-google-chart</b> plugin to view graph');
+		}
+		
+		$this->GoogleChart->load();
+
+		$chartData = $this->GoogleChart->dataFromArray(array(
+			'memory' => array_map('floatval', Hash::extract($statistics, '{n}.memory')),
+			'cpu' => array_map('floatval', Hash::extract($statistics, '{n}.cpu')),
+			'date' => array_map('strtotime', Hash::extract($statistics, '{n}.created')),
+			'statistics' => $statistics
+				), array(
+			'date' => array(
+				'v' => 'date.{n}',
+				'f' => 'statistics.{n}.created'
+			),
+			'memory' => 'memory.{n}',
+			'cpu' => 'cpu.{n}',
+			'{"role": "annotation"}' => 'statistics.{n}.status',
+				)
+		);
+
+		return $this->GoogleChart->draw('LineChart', $chartData, array(
+			'height' => 300,
+			'width' => 800,
+			'pointSize' => 5,
+			'vAxis' => array(
+				'title' => 'Percentage'
+			),
+			'hAxis' => array(
+				'title' => 'Time'
+			),
+			'chartArea' => array(
+				'left' => 50,
+				'top' => 10,
+				'height' => 230,
+				'width' => 650,
+			)
+				)
+		);
 	}
 
 	/**

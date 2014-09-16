@@ -225,7 +225,8 @@ class TaskControllerTest extends ControllerTestCase {
 						'DependsOnTask' => array(
 							'id',
 							'status'
-						)
+						),
+						'Statistics'
 					)
 				))
 				->willReturn($task);

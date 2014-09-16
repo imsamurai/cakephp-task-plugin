@@ -97,7 +97,8 @@ class TaskController extends AppController {
 				'DependsOnTask' => array(
 					'id',
 					'status'
-				)
+				),
+				'Statistics'
 			)
 		));
 
@@ -111,6 +112,7 @@ class TaskController extends AppController {
 		}, $commandList);
 		$this->set('task', $task['TaskClient']);
 		$this->set('dependentTasks', $task['DependsOnTask']);
+		$this->set('statistics', $task['Statistics']);
 		$this->set('approximateRuntimes', $approximateRuntimes);
 	}
 

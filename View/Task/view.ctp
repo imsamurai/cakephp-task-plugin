@@ -22,6 +22,7 @@ if (!isset($task)) {
 	$fields = array(
 		'id' => null,
 		'process_id' => null,
+		'statistics' => '<td><div>' . $this->Task->statistics($statistics) . '</div></td>',
 		'command' => null,
 		'arguments' => null,
 		'status' => null,

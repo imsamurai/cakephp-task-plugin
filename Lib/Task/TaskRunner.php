@@ -131,6 +131,7 @@ class TaskRunner extends Object {
 
 			while ($this->_Process->isRunning()) {
 				$this->_task['process_id'] = $this->_Process->getPid();
+				$this->_TaskServer->updateStatistics($this->_task);
 				$this->_Process->checkTimeout();
 				sleep(Configure::read('Task.checkInterval'));
 				if ($this->_TaskServer->mustStop($this->_task['id'])) {

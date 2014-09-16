@@ -11,6 +11,8 @@ App::uses('TaskType', 'Task.Lib/Task');
 /**
  * Task base model
  * 
+ * @property TaskStatistics $Statistics Task statistics model
+ * 
  * @package Task
  * @subpackage Model
  */
@@ -38,7 +40,7 @@ class TaskModel extends AppModel {
 	public $actsAs = array(
 		'Containable',
 		'Serializable.Serializable' => array(
-			'fields' => array('details', 'arguments')
+			'fields' => array('details', 'arguments', 'statistics')
 		)
 	);
 
@@ -53,6 +55,17 @@ class TaskModel extends AppModel {
 			'joinTable' => 'dependent_tasks',
 			'foreignKey' => 'task_id',
 			'associationForeignKey' => 'depends_on_task_id'
+		)
+	);
+	
+	/**
+	 * {@inheritdoc}
+	 *
+	 * @var array
+	 */
+	public $hasMany = array(
+		'Statistics' => array(
+			'className' => 'Task.TaskStatistics'
 		)
 	);
 
