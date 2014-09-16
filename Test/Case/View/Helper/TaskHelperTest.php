@@ -158,7 +158,7 @@ class TaskHelperTest extends CakeTestCase {
 	 */
 	public function testRunning(array $task, $result, array $settings) {
 		$Helper = new TaskHelper(new View, $settings);
-		$this->assertSame($result, $Helper->running($task));
+		$this->assertStringMatchesFormat($result, $Helper->running($task));
 	}
 
 	/**
@@ -173,7 +173,7 @@ class TaskHelperTest extends CakeTestCase {
 				//task
 				array('started' => '2014-01-01 12:00:00', 'stopped' => '2014-01-03 15:13:05'),
 				//result
-				'2 days, 3 hours, 13 minutes',
+				'2 days, 3 hours, %d minutes',
 				//settings
 				array('cli' => true)
 			),
@@ -182,7 +182,7 @@ class TaskHelperTest extends CakeTestCase {
 				//task
 				array('started' => new DateTime('2014-01-01 12:00:00'), 'stopped' => new DateTime('2014-01-03 15:13:05')),
 				//result
-				'2 days, 3 hours, 13 minutes',
+				'2 days, 3 hours, %d minutes',
 				//settings
 				array('cli' => true)
 			),
@@ -200,7 +200,7 @@ class TaskHelperTest extends CakeTestCase {
 				//task
 				array('started' => new DateTime('now -1 day -5 hour -3 minutes'), 'stopped' => null),
 				//result
-				'1 days, 5 hours, 3 minutes',
+				'1 days, 5 hours, %d minutes',
 				//settings
 				array('cli' => true)
 			),
@@ -209,7 +209,7 @@ class TaskHelperTest extends CakeTestCase {
 				//task
 				array('started' => '2014-01-01 12:00:00', 'stopped' => '2014-01-03 15:13:05'),
 				//result
-				'<span>2 days, 3 hours, 13 minutes</span>',
+				'<span>2 days, 3 hours, %d minutes</span>',
 				//settings
 				array('cli' => false)
 			),
@@ -218,7 +218,7 @@ class TaskHelperTest extends CakeTestCase {
 				//task
 				array('started' => new DateTime('2014-01-01 12:00:00'), 'stopped' => new DateTime('2014-01-03 15:13:05')),
 				//result
-				'<span>2 days, 3 hours, 13 minutes</span>',
+				'<span>2 days, 3 hours, %d minutes</span>',
 				//settings
 				array('cli' => false)
 			),
@@ -236,7 +236,7 @@ class TaskHelperTest extends CakeTestCase {
 				//task
 				array('started' => new DateTime('now -1 day -5 hour -3 minutes'), 'stopped' => null),
 				//result
-				'<span>1 days, 5 hours, 3 minutes</span>',
+				'<span>1 days, 5 hours, %d minutes</span>',
 				//settings
 				array('cli' => false)
 			),
@@ -477,7 +477,7 @@ class TaskHelperTest extends CakeTestCase {
 	 */
 	public function testDates($formatter, array $task, $result, array $settings) {
 		$Helper = new TaskHelper(new View, $settings);
-		$this->assertSame($result, $Helper->{$formatter}($task));
+		$this->assertStringMatchesFormat($result, $Helper->{$formatter}($task));
 	}
 
 	/**
@@ -522,7 +522,7 @@ class TaskHelperTest extends CakeTestCase {
 					'created' => new DateTime('now -11 hours -3 minutes -5 seconds')
 				),
 				//result
-				'11 hours, 3 minutes ago',
+				'11 hours, %d minutes ago',
 				//settings
 				array('cli' => true)
 			),
@@ -535,7 +535,7 @@ class TaskHelperTest extends CakeTestCase {
 					'created' => new DateTime('now +11 hours +3 minutes +59 seconds')
 				),
 				//result
-				'11 hours, 3 minutes',
+				'11 hours, %d minutes',
 				//settings
 				array('cli' => true)
 			),
@@ -587,7 +587,7 @@ class TaskHelperTest extends CakeTestCase {
 					'created' => (new DateTime('now +11 hours +3 minutes +59 seconds'))->format('Y-m-d H:i:s')
 				),
 				//result
-				'<span title="' . (new DateTime('now +11 hours +3 minutes +59 seconds'))->format('Y-m-d H:i:s') . '">11 hours, 3 minutes</span>',
+				'<span title="' . (new DateTime('now +11 hours +3 minutes +59 seconds'))->format('Y-m-d H:i:s') . '">11 hours, %d minutes</span>',
 				//settings
 				array('cli' => false)
 			),
