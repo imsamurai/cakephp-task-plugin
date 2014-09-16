@@ -189,25 +189,25 @@ class TaskServerTest extends CakeTestCase {
 	 * @dataProvider killZombiesProvider
 	 */
 	public function testKillZombies(array $tasks, array $zombieId) {
-		Configure::write('Task.zombieTimeout', 10000);
+		Configure::write('Task.zombieTimeout', 9000);
 		$this->TaskServer->deleteAll(array(1 => 1));
 		$this->TaskServer->saveAll($tasks);
 		$this->TaskServer->killZombies();
-		$this->assertCount($this->TaskServer->find('count', array(
+		$this->assertSame(count($zombieId), $this->TaskServer->find('count', array(
 					'conditions' => array(
 						'code_string' => 'zombie',
 						'status' => TaskType::STOPPED,
 						'code' => 1
 					)
-		)), $zombieId);
-		$this->assertCount($this->TaskServer->find('count', array(
+		)));
+		$this->assertSame(count($zombieId), $this->TaskServer->find('count', array(
 					'conditions' => array(
 						'code_string' => 'zombie',
 						'status' => TaskType::STOPPED,
 						'code' => 1,
 						'id' => $zombieId
 					)
-		)), $zombieId);
+		)));
 	}
 
 	/**
@@ -279,14 +279,14 @@ class TaskServerTest extends CakeTestCase {
 						'status' => TaskType::RUNNING,
 						'modified' => (new DateTime('now -500 seconds'))->format('Y-m-d H:i:s'),
 						'timeout' => 10000,
-						'started' => (new DateTime('now -2000 seconds'))->format('Y-m-d H:i:s')
+						'started' => (new DateTime('now -20000 seconds'))->format('Y-m-d H:i:s')
 					),
 					array(
 						'id' => 4,
 						'status' => TaskType::RUNNING,
 						'modified' => (new DateTime('now -500 seconds'))->format('Y-m-d H:i:s'),
 						'timeout' => 20000,
-						'started' => (new DateTime('now -20000 seconds'))->format('Y-m-d H:i:s')
+						'started' => (new DateTime('now -10000 seconds'))->format('Y-m-d H:i:s')
 					),
 				),
 				//zombieId
