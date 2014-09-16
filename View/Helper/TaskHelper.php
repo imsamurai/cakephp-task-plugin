@@ -377,6 +377,9 @@ class TaskHelper extends AppHelper {
 		if (!$this->settings['chartEnabled']) {
 			return $this->_none('Please install <b>imsamurai/cakephp-google-chart</b> plugin to view graph');
 		}
+		if (empty($statistics)) {
+			return $this->_none();
+		}
 		
 		$this->GoogleChart->load();
 

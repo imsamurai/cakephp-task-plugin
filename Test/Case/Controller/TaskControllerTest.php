@@ -276,7 +276,8 @@ class TaskControllerTest extends ControllerTestCase {
 					'TaskClient' => array(
 						'command' => 'whoami',
 					),
-					'DependsOnTask' => array(2, 3, 4)
+					'DependsOnTask' => array(2, 3, 4),
+					'Statistics' => array()
 				),
 				//exception
 				''

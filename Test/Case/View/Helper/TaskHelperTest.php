@@ -1552,15 +1552,7 @@ class TaskHelperTest extends CakeTestCase {
 				//statistics
 				array(),
 				//result
-				'<div id="%s"></div><script type="text/javascript" src="https://www.google.com/jsapi"></script><script type="text/javascript">
-//<![CDATA[
-google.load(\'visualization\', 1.0, {"packages":["corechart","controls"]});
-//]]>
-</script><script type="text/javascript">
-//<![CDATA[
-setTimeout(function(){$(document).ready(function () {var data = new google.visualization.DataTable({"cols":[{"id":"date","label":"date","type":"string"},{"id":"memory","label":"memory","type":"string"},{"id":"cpu","label":"cpu","type":"string"},{"p":{"role":"annotation"},"type":"string"}],"rows":[]});var chart = new google.visualization.LineChart(document.getElementById("%s"));chart.draw(data, {"height":300,"width":800,"pointSize":5,"vAxis":{"title":"Percentage"},"hAxis":{"title":"Time"},"chartArea":{"left":50,"top":10,"height":230,"width":650}});});}, 100);
-//]]>
-</script>',
+				'<span class="task-not-yet" style="color: gray;">none</span>',
 				//settings
 				array('cli' => false)
 			),
