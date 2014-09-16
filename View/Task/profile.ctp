@@ -48,7 +48,7 @@ if (empty($data)) {
 								), array(
 							'startedTimestamp' => array(
 								'v' => 's.{n}.startedTimestamp',
-								'f' => 's{n}.started',
+								'f' => 's.{n}.started',
 							),
 							'runtime' => array(
 								'v' => 's.{n}.runtime',
