@@ -189,7 +189,7 @@ class TaskServerTest extends CakeTestCase {
 	 * @dataProvider killZombiesProvider
 	 */
 	public function testKillZombies(array $tasks, array $zombieId) {
-		Configure::write('Task.zombieTimeout', 100);
+		Configure::write('Task.zombieTimeout', 10000);
 		$this->TaskServer->deleteAll(array(1 => 1));
 		$this->TaskServer->saveAll($tasks);
 		$this->TaskServer->killZombies();
@@ -231,7 +231,7 @@ class TaskServerTest extends CakeTestCase {
 					array(
 						'id' => 1,
 						'status' => TaskType::STOPPING,
-						'modified' => (new DateTime('now -100 seconds'))->format('Y-m-d H:i:s')
+						'modified' => (new DateTime('now -10000 seconds'))->format('Y-m-d H:i:s')
 					)
 				),
 				//zombieId
@@ -244,7 +244,7 @@ class TaskServerTest extends CakeTestCase {
 					array(
 						'id' => 1,
 						'status' => TaskType::STOPPING,
-						'modified' => (new DateTime('now -100 seconds'))->format('Y-m-d H:i:s')
+						'modified' => (new DateTime('now -10000 seconds'))->format('Y-m-d H:i:s')
 					),
 					array(
 						'id' => 2,
@@ -254,7 +254,7 @@ class TaskServerTest extends CakeTestCase {
 					array(
 						'id' => 3,
 						'status' => TaskType::RUNNING,
-						'modified' => (new DateTime('now -50 seconds'))->format('Y-m-d H:i:s')
+						'modified' => (new DateTime('now -500 seconds'))->format('Y-m-d H:i:s')
 					),
 				),
 				//zombieId
@@ -267,7 +267,7 @@ class TaskServerTest extends CakeTestCase {
 					array(
 						'id' => 1,
 						'status' => TaskType::STOPPING,
-						'modified' => (new DateTime('now -100 seconds'))->format('Y-m-d H:i:s')
+						'modified' => (new DateTime('now -10000 seconds'))->format('Y-m-d H:i:s')
 					),
 					array(
 						'id' => 2,
@@ -277,16 +277,16 @@ class TaskServerTest extends CakeTestCase {
 					array(
 						'id' => 3,
 						'status' => TaskType::RUNNING,
-						'modified' => (new DateTime('now -50 seconds'))->format('Y-m-d H:i:s'),
-						'timeout' => 100,
-						'started' => (new DateTime('now -200 seconds'))->format('Y-m-d H:i:s')
+						'modified' => (new DateTime('now -500 seconds'))->format('Y-m-d H:i:s'),
+						'timeout' => 10000,
+						'started' => (new DateTime('now -2000 seconds'))->format('Y-m-d H:i:s')
 					),
 					array(
 						'id' => 4,
 						'status' => TaskType::RUNNING,
-						'modified' => (new DateTime('now -50 seconds'))->format('Y-m-d H:i:s'),
-						'timeout' => 200,
-						'started' => (new DateTime('now -200 seconds'))->format('Y-m-d H:i:s')
+						'modified' => (new DateTime('now -500 seconds'))->format('Y-m-d H:i:s'),
+						'timeout' => 20000,
+						'started' => (new DateTime('now -20000 seconds'))->format('Y-m-d H:i:s')
 					),
 				),
 				//zombieId
