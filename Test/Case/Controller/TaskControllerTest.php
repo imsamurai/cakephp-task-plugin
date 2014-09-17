@@ -90,6 +90,7 @@ class TaskControllerTest extends ControllerTestCase {
 		$this->assertSame($commands, $Controller->viewVars['commandList']);
 		$this->assertSame($statuses, $Controller->viewVars['statusList']);
 		$this->assertSame($approximateRuntimes, $Controller->viewVars['approximateRuntimes']);
+		$this->assertSame(array_combine($Controller->batchActions, $Controller->batchActions), $Controller->viewVars['batchActions']);
 	}
 
 	/**
@@ -544,7 +545,7 @@ class TaskControllerTest extends ControllerTestCase {
 		} catch (Exception $E) {
 			$googleChartLoaded = false;
 		}
-		
+
 		$this->testAction('/task/task/profile/', array(
 			'method' => 'GET',
 			'data' => compact('command')
@@ -590,6 +591,151 @@ class TaskControllerTest extends ControllerTestCase {
 				array(),
 				//profileData
 				null
+			),
+		);
+	}
+
+	/**
+	 * Test batch actions
+	 * 
+	 * @param array $query
+	 * @param array $taskSuccesses
+	 * @param string $sessionMessage
+	 * @param string $exception
+	 * @dataProvider batchProvider
+	 */
+	public function testBatch(array $query, array $taskSuccesses, $sessionMessage, $exception) {
+		$actions = array('stop', 'restart', 'remove');
+		$action = $query['batch_action'];
+		$Controller = $this->generate('Task.Task', array(
+			'models' => array(
+				'Task.TaskClient' => $actions,
+			),
+			'components' => array(
+				'Session' => array('setFlash')
+			),
+			'methods' => array('redirect', 'referer')
+		));
+		if ($exception) {
+			$this->expectException($exception);
+		} else {
+			if ($taskSuccesses) {
+				$at = 0;
+				foreach ($taskSuccesses as $taskId => $taskSuccess) {
+					$Controller->TaskClient->expects($this->at($at++))->method($action)->with($taskId)->willReturn($taskSuccess);
+				}
+			} else {
+				$Controller->TaskClient->expects($this->never())->method($action);
+			}
+
+			foreach ($actions as $otherAction) {
+				if ($otherAction == $action) {
+					continue;
+				}
+				$Controller->TaskClient->expects($this->never())->method($otherAction);
+			}
+
+			$Controller->Session
+					->expects($this->once())
+					->method('setFlash')
+					->with($sessionMessage);
+
+			$Controller
+					->expects($this->once())
+					->method('referer')
+					->willReturn('referer');
+			$Controller
+					->expects($this->once())
+					->method('redirect')
+					->with('referer');
+		}
+
+		$this->testAction('/task/task/batch/', array(
+			'method' => 'GET',
+			'data' => $query
+		));
+	}
+
+	/**
+	 * Data provider for testBatch
+	 * 
+	 * @return array
+	 */
+	public function batchProvider() {
+		return array(
+			//set #0
+			array(
+				//query
+				array(
+					'batch_action' => ''
+				),
+				//taskSuccesses
+				array(),
+				//sessionMessage
+				'',
+				//exception
+				"ForbiddenException"
+			),
+			//set #1
+			array(
+				//query
+				array(
+					'batch_action' => 'noactualactionprovide'
+				),
+				//taskSuccesses
+				array(),
+				//sessionMessage
+				'',
+				//exception
+				"ForbiddenException"
+			),
+			//set #2
+			array(
+				//query
+				array(
+					'batch_action' => 'stop'
+				),
+				//taskSuccesses
+				array(),
+				//sessionMessage
+				'No ids specified',
+				//exception
+				""
+			),
+			//set #3
+			array(
+				//query
+				array(
+					'batch_action' => 'stop',
+					'ids' => array(0, 0, 0, 0, 1, 2, 0)
+				),
+				//taskSuccesses
+				array(
+					'1' => true,
+					'2' => true
+				),
+				//sessionMessage
+				'Batch stop successfully applied to 2 task(s)',
+				//exception
+				""
+			),
+			//set #4
+			array(
+				//query
+				array(
+					'batch_action' => 'restart',
+					'ids' => array(0, 0, 0, 0, 1, 2, 3, 0, 0, 0)
+				),
+				//taskSuccesses
+				array(
+					'1' => true,
+					'2' => true,
+					'3' => false,
+				),
+				//sessionMessage
+				'1 of 3 operations was errored (with ids: 3)',
+				//exception
+				""
 			),
 		);
 	}

@@ -25,13 +25,20 @@ class TaskController extends AppController {
 	 * @var array 
 	 */
 	public $uses = array('Task.TaskClient', 'Task.TaskProfiler');
-	
+
 	/**
 	 * {@inheritdoc}
 	 *
 	 * @var array 
 	 */
 	public $helpers = array('Task.Task');
+
+	/**
+	 * Allowed actions for batch
+	 *
+	 * @var array
+	 */
+	public $batchActions = array('stop', 'restart', 'remove');
 
 	/**
 	 * View list of tasks
@@ -79,6 +86,7 @@ class TaskController extends AppController {
 			'commandList' => $commandList,
 			'statusList' => $statusList,
 			'approximateRuntimes' => $approximateRuntimes,
+			'batchActions' => array_combine($this->batchActions, $this->batchActions)
 		));
 	}
 
@@ -105,7 +113,7 @@ class TaskController extends AppController {
 		if (!$task) {
 			throw new NotFoundException("Task id=$taskId not found!");
 		}
-		
+
 		$commandList = array($task['TaskClient']['command'] => $task['TaskClient']['command']);
 		$approximateRuntimes = array_map(function($command) {
 			return $this->TaskProfiler->approximateRuntime($command);
@@ -133,7 +141,7 @@ class TaskController extends AppController {
 		}
 		$this->redirect($this->referer());
 	}
-	
+
 	/**
 	 * Restart task
 	 * 
@@ -151,7 +159,7 @@ class TaskController extends AppController {
 		}
 		$this->redirect($this->referer());
 	}
-	
+
 	/**
 	 * Delete task
 	 * 
@@ -169,7 +177,7 @@ class TaskController extends AppController {
 		}
 		$this->redirect($this->referer());
 	}
-	
+
 	/**
 	 * Profile task command
 	 */
@@ -186,6 +194,48 @@ class TaskController extends AppController {
 		if (CakePlugin::loaded('GoogleChart')) {
 			$this->helpers[] = 'GoogleChart.GoogleChart';
 		}
+	}
+
+	/**
+	 * Batch operations
+	 * 
+	 * @throws ForbiddenException
+	 */
+	public function batch() {
+		$success = array();
+		$action = $this->request->query('batch_action');
+		$ids = array_filter((array)$this->request->query('ids'));
+
+		if (!in_array($action, $this->batchActions, true)) {
+			throw new ForbiddenException("Method '$action' not allowed");
+		}
+
+		if ($ids) {
+			foreach ($ids as $id) {
+				$success[$id] = $this->TaskClient->{$action}($id);
+			}
+		}
+
+		if (empty($success)) {
+			$this->Session->setFlash("No ids specified", 'alert/simple', array(
+				'class' => 'alert-warning', 'title' => 'Warning!'
+			));
+		} elseif (array_filter($success) == $success) {
+			$this->Session->setFlash("Batch $action successfully applied to " . count($success) . " task(s)", 'alert/simple', array(
+				'class' => 'alert-success', 'title' => 'Ok!'
+			));
+		} else {
+			$failIds = array_keys(
+					array_filter($success, function($a) {
+						return !$a;
+					})
+			);
+			$this->Session->setFlash(count($failIds) . " of " . count($success) . " operations was errored (with ids: " . implode(', ', $failIds) . ")", 'alert/simple', array(
+				'class' => 'alert-error', 'title' => 'Error!'
+			));
+		}
+
+		$this->redirect($this->referer());
 	}
 
 	/**
