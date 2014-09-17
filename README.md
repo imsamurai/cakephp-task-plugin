@@ -53,5 +53,5 @@ Configure::write('Task', array(
 ## Usage
 
 Use `TaskClient::add()` for adding new tasks
-Put `Console/cake Task.task task_server` in the cron, for ex each 1-5 minutes (depends on your needs)
+Put `Console/cake Task.task server` in the cron, for ex each 1-5 minutes (depends on your needs)
 Try `http://yourdomain/task/` for basic view
