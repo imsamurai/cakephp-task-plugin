@@ -535,7 +535,7 @@ class TaskHelperTest extends CakeTestCase {
 					'created' => new DateTime('now +11 hours +3 minutes +59 seconds')
 				),
 				//result
-				'11 hours, %d minute%s',
+				'11 hours, %d minute%A',
 				//settings
 				array('cli' => true)
 			),
@@ -587,7 +587,7 @@ class TaskHelperTest extends CakeTestCase {
 					'created' => (new DateTime('now +11 hours +3 minutes +59 seconds'))->format('Y-m-d H:i:s')
 				),
 				//result
-				'<span title="' . (new DateTime('now +11 hours +3 minutes +59 seconds'))->format('Y-m-d H:i:s') . '">11 hours, %d minute%s</span>',
+				'<span title="' . (new DateTime('now +11 hours +3 minutes +59 seconds'))->format('Y-m-d H:i:s') . '">11 hours, %d minute%A</span>',
 				//settings
 				array('cli' => false)
 			),
