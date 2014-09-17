@@ -46,7 +46,7 @@ class TaskHelperTest extends CakeTestCase {
 	 * Test id formatter
 	 * 
 	 * @param array $task
-	 * @param type $result
+	 * @param string $result
 	 * @param array $settings
 	 * @dataProvider idProvider
 	 */
@@ -83,6 +83,9 @@ class TaskHelperTest extends CakeTestCase {
 		);
 	}
 
+	/**
+	 * Test command name provider
+	 */
 	public function testCommand() {
 		$Helper = new TaskHelper(new View);
 		$task = array('command' => 'c1');
