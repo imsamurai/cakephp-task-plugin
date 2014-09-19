@@ -293,7 +293,7 @@ class TaskClientTest extends CakeTestCase {
 			$this->assertFalse($newTaskId);
 		} else {
 			$this->assertNotEquals($taskId, $newTask);
-			$this->assertSame($newTask, $this->TaskClient->find('first', array(
+			$this->assertEqual($newTask, $this->TaskClient->find('first', array(
 						'fields' => array(
 							'id',
 							'process_id',
