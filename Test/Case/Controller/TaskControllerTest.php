@@ -104,7 +104,9 @@ class TaskControllerTest extends ControllerTestCase {
 			array(
 				//query
 				array(
-					'status' => '1'
+					'status' => '1',
+					'batch_action' => '123',
+					'batch_conditions' => true,
 				),
 				//paginate
 				array(
@@ -640,14 +642,15 @@ class TaskControllerTest extends ControllerTestCase {
 	 * @param array $taskSuccesses
 	 * @param string $sessionMessage
 	 * @param string $exception
+	 * @param array $findMap
 	 * @dataProvider batchProvider
 	 */
-	public function testBatch(array $query, array $taskSuccesses, $sessionMessage, $exception) {
+	public function testBatch(array $query, array $taskSuccesses, $sessionMessage, $exception, array $findMap) {
 		$actions = array('stop', 'restart', 'remove');
 		$action = $query['batch_action'];
 		$Controller = $this->generate('Task.Task', array(
 			'models' => array(
-				'Task.TaskClient' => $actions,
+				'Task.TaskClient' => array_merge($actions, array('find')),
 			),
 			'components' => array(
 				'Session' => array('setFlash')
@@ -657,8 +660,14 @@ class TaskControllerTest extends ControllerTestCase {
 		if ($exception) {
 			$this->expectException($exception);
 		} else {
+			$at = 0;
+			if ($findMap) {
+				$Controller->TaskClient->expects($this->at($at++))->method('find')->with('list', $findMap['query'])->willReturn($findMap['result']);
+			} else {
+				$Controller->TaskClient->expects($this->never())->method('find');
+			}
 			if ($taskSuccesses) {
-				$at = 0;
+
 				foreach ($taskSuccesses as $taskId => $taskSuccess) {
 					$Controller->TaskClient->expects($this->at($at++))->method($action)->with($taskId)->willReturn($taskSuccess);
 				}
@@ -712,7 +721,9 @@ class TaskControllerTest extends ControllerTestCase {
 				//sessionMessage
 				'',
 				//exception
-				"ForbiddenException"
+				"ForbiddenException",
+				//findMap
+				array()
 			),
 			//set #1
 			array(
@@ -725,7 +736,9 @@ class TaskControllerTest extends ControllerTestCase {
 				//sessionMessage
 				'',
 				//exception
-				"ForbiddenException"
+				"ForbiddenException",
+				//findMap
+				array()
 			),
 			//set #2
 			array(
@@ -738,7 +751,9 @@ class TaskControllerTest extends ControllerTestCase {
 				//sessionMessage
 				'No ids specified',
 				//exception
-				""
+				"",
+				//findMap
+				array()
 			),
 			//set #3
 			array(
@@ -755,7 +770,9 @@ class TaskControllerTest extends ControllerTestCase {
 				//sessionMessage
 				'Batch stop successfully applied to 2 task(s)',
 				//exception
-				""
+				"",
+				//findMap
+				array()
 			),
 			//set #4
 			array(
@@ -773,7 +790,117 @@ class TaskControllerTest extends ControllerTestCase {
 				//sessionMessage
 				'1 of 3 operations was errored (with ids: 3)',
 				//exception
-				""
+				"",
+				//findMap
+				array()
+			),
+			//set #5
+			array(
+				//query
+				array(
+					'batch_action' => '',
+					'batch_conditions' => true,
+				),
+				//taskSuccesses
+				array(),
+				//sessionMessage
+				'',
+				//exception
+				"ForbiddenException",
+				//findMap
+				array()
+			),
+			//set #6
+			array(
+				//query
+				array(
+					'batch_action' => 'noactualactionprovide',
+					'batch_conditions' => true,
+				),
+				//taskSuccesses
+				array(),
+				//sessionMessage
+				'',
+				//exception
+				"ForbiddenException",
+				//findMap
+				array()
+			),
+			//set #7
+			array(
+				//query
+				array(
+					'batch_action' => 'stop',
+					'batch_conditions' => true,
+				),
+				//taskSuccesses
+				array(),
+				//sessionMessage
+				'No ids specified',
+				//exception
+				"",
+				//findMap
+				array(
+					'query' => array(
+						'conditions' => array()
+					),
+					'result' => array()
+				)
+			),
+			//set #8
+			array(
+				//query
+				array(
+					'batch_action' => 'stop',
+					'status' => array('1', '2'),
+					'batch_conditions' => true,
+				),
+				//taskSuccesses
+				array(
+					'1' => true,
+					'2' => true
+				),
+				//sessionMessage
+				'Batch stop successfully applied to 2 task(s)',
+				//exception
+				"",
+				//findMap
+				array(
+					'query' => array(
+						'conditions' => array(
+							'status' => array('1', '2')
+						)
+					),
+					'result' => array(1, 2)
+				)
+			),
+			//set #9
+			array(
+				//query
+				array(
+					'batch_action' => 'restart',
+					'status' => array('0', '1'),
+					'batch_conditions' => true
+				),
+				//taskSuccesses
+				array(
+					'1' => true,
+					'2' => true,
+					'3' => false,
+				),
+				//sessionMessage
+				'1 of 3 operations was errored (with ids: 3)',
+				//exception
+				"",
+				//findMap
+				array(
+					'query' => array(
+						'conditions' => array(
+							'status' => array('0', '1')
+						)
+					),
+					'result' => array(1, 2, 3)
+				)
 			),
 		);
 	}

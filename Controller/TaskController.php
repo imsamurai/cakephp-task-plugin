@@ -204,12 +204,19 @@ class TaskController extends AppController {
 	public function batch() {
 		$success = array();
 		$action = $this->request->query('batch_action');
-		$ids = array_filter((array)$this->request->query('ids'));
 
 		if (!in_array($action, $this->batchActions, true)) {
 			throw new ForbiddenException("Method '$action' not allowed");
 		}
-
+		
+		if ($this->request->query('batch_conditions')) {
+			$ids = array_values($this->TaskClient->find('list', array(
+						'conditions' => $this->_paginationFilter()
+			)));
+		} else {
+			$ids = array_filter((array)$this->request->query('ids'));
+		}
+		
 		if ($ids) {
 			foreach ($ids as $id) {
 				$success[$id] = $this->TaskClient->{$action}($id);
@@ -247,7 +254,7 @@ class TaskController extends AppController {
 		$conditions = array_filter($this->request->query, function($var) {
 			return $var !== '';
 		});
-		unset($conditions['url']);
+		unset($conditions['url'], $conditions['batch_conditions'], $conditions['batch_action']);
 		foreach (array('started', 'created', 'stopped', 'modified') as $dateRangeField) {
 			if (empty($conditions[$dateRangeField])) {
 				continue;

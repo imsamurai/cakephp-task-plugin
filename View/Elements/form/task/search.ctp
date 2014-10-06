@@ -47,10 +47,24 @@ echo $this->Form->create('Task', array(
 	</div>
 </div>
 <div style="clear:left;"></div>
-<div style="float:left;width:400px;">
+<div style="float:left;width:415px;">
 	<div class="div-right">
 		<?= $this->Form->button('Search', array('class' => 'btn btn-primary', 'div' => false)); ?>
 		<?= $this->Html->link('Clear', array('action' => 'index'), array('class' => 'btn', 'id' => "btn-clear")); ?>
+	</div>
+</div>
+<div style="float:left;width:400px;">
+	<div class="div-right">
+		<?php
+		echo $this->Form->select('batch_action', $batchActions, array(
+			'empty' => 'Select batch action',
+			'class' => 'batch-action-conditions'
+		));
+		echo $this->Form->button('Apply', array('type' => 'submit', 'class' => 'batch-apply-conditions btn-danger', 'formaction' => Router::url(array(
+			'action' => 'batch', 'controller' => 'task'
+		))));
+		echo $this->Form->hidden('batch_conditions', array('value' => true));
+		?>
 	</div>
 </div>
 <div style="clear:left;"></div>

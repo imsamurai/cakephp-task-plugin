@@ -19,7 +19,7 @@ echo $this->Form->select('batch_action', $batchActions, array(
 	'empty' => 'Select batch action',
 	'class' => 'batch-action'
 ));
-echo $this->Form->button('Apply', array('type' => 'submit', 'class' => 'batch-apply'));
+echo $this->Form->button('Apply', array('type' => 'submit', 'class' => 'batch-apply btn-danger'));
 ?>
 <table class="table table-bordered table-striped">
 	<thead>
@@ -105,6 +105,15 @@ echo $this->element('pagination/pagination');
 					$('.batch-ids-all').on('click', function() {
 						$('.batch-ids').prop('checked', $(this).prop('checked'));
 					});
+					$('.batch-apply-conditions').on('click', function(event) {
+						var action = $('.batch-action-conditions').first().val();
+						if (action && confirm('Are you sure want to apply "' + action + '" on all tasks founded by current search conditions?')) {
+							return true;
+						} else {
+							event.preventDefault();
+							event.stopPropagation();
+						}
+					});
 					$('.batch-form').on('submit', function(event) {
 						var action = $('.batch-action').first().val();
 						if (action && confirm('Are you sure want to apply "' + action + '" on ' + $('.batch-ids:checked').length + ' task(s)?')) {
@@ -119,6 +128,9 @@ echo $this->element('pagination/pagination');
 <style type="text/css">
 	.batch-apply {
 		margin-bottom:10px;
+		margin-left:10px;
+	}
+	.batch-apply-conditions {
 		margin-left:10px;
 	}
 </style>
