@@ -39,6 +39,9 @@ class TaskShellTest extends CakeTestCase {
 		$this->assertSame(array(
 			'Server' => array(
 				'className' => 'Task.TaskServer'
+			),
+			'TaskServer' => array(
+				'className' => 'Task.TaskServerOld'
 			)
 				), $Shell->tasks);
 	}
