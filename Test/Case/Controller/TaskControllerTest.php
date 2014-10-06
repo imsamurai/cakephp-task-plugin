@@ -192,6 +192,44 @@ class TaskControllerTest extends ControllerTestCase {
 					'c1' => 1, 'c2' => 20, 'c3' => 300
 				)
 			),
+			//set #2
+			array(
+				//query
+				array(
+					'status' => array('1', '2', '3')
+				),
+				//paginate
+				array(
+					'TaskClient' => array(
+						'limit' => 10,
+						'fields' => array(
+							'command',
+							'arguments',
+							'status',
+							'code_string',
+							'stderr',
+							'started',
+							'stopped',
+							'created',
+							'modified',
+							'runtime',
+							'id',
+							'process_id',
+						),
+						'conditions' => array(
+							'status' => array('1', '2', '3')
+						),
+						'order' => array('created' => 'desc'),
+						'contain' => array('DependsOnTask' => array('id', 'status'))
+					)
+				),
+				//commands
+				array(),
+				//statuses
+				array(),
+				//approximateRuntimes
+				array()
+			),
 		);
 	}
 

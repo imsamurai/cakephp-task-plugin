@@ -32,7 +32,7 @@ echo $this->Form->create('Task', array(
 		<?= $this->Form->input('Task.command', array('options' => $commandList, 'type' => 'select', 'empty' => '--none--')); ?>
 	</div>
 	<div class="div-right">
-		<?= $this->Form->input('Task.status', array('options' => $statusOptions, 'type' => 'select', 'empty' => '--none--')); ?>
+		<?= $this->Form->input('Task.status', array('options' => $statusOptions, 'type' => 'select', 'multiple' => true)); ?>
 	</div>
 </div>
 <div style="float:left;width:300px;">
