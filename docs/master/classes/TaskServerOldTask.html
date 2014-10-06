@@ -3,7 +3,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
     <meta charset="utf-8"/>
-    <title>    API Documentation &raquo; \TaskController
+    <title>    API Documentation &raquo; \TaskServerOldTask
 </title>
     <meta name="author" content=""/>
     <meta name="description" content=""/>
@@ -117,45 +117,21 @@
         <li class="nav-header">
             <i class="icon-custom icon-method"></i> Methods
             <ul>
-                                                                                                                                                            <li class="method public">
-        <a href="#method_batch" title="batch :: Batch operations">
-            <span class="description">Batch operations</span><pre>batch</pre>
+                                                                                                    <li class="method public inherited">
+        <a href="#method___construct" title="__construct :: {@inheritdoc}">
+            <span class="description">{@inheritdoc}</span><pre>__construct</pre>
         </a>
     </li>
 
-                                                                                                        <li class="method public">
-        <a href="#method_index" title="index :: View list of tasks">
-            <span class="description">View list of tasks</span><pre>index</pre>
+                                                                                                                                                                                                                        <li class="method public inherited">
+        <a href="#method_execute" title="execute :: {@inheritdoc}">
+            <span class="description">{@inheritdoc}</span><pre>execute</pre>
         </a>
     </li>
 
-                                                                                                        <li class="method public">
-        <a href="#method_profile" title="profile :: Profile task command">
-            <span class="description">Profile task command</span><pre>profile</pre>
-        </a>
-    </li>
-
-                                                                                                        <li class="method public">
-        <a href="#method_remove" title="remove :: Delete task">
-            <span class="description">Delete task</span><pre>remove</pre>
-        </a>
-    </li>
-
-                                                                                                        <li class="method public">
-        <a href="#method_restart" title="restart :: Restart task">
-            <span class="description">Restart task</span><pre>restart</pre>
-        </a>
-    </li>
-
-                                                                                                        <li class="method public">
-        <a href="#method_stop" title="stop :: Stop task">
-            <span class="description">Stop task</span><pre>stop</pre>
-        </a>
-    </li>
-
-                                                                                                        <li class="method public">
-        <a href="#method_view" title="view :: View task">
-            <span class="description">View task</span><pre>view</pre>
+                                                                                                        <li class="method public inherited">
+        <a href="#method_getOptionParser" title="getOptionParser :: {@inheritdoc}">
+            <span class="description">{@inheritdoc}</span><pre>getOptionParser</pre>
         </a>
     </li>
 
@@ -163,16 +139,21 @@
         </li>
         <li class="nav-header protected">» Protected
             <ul>
-                                                                            <li class="method protected">
-                            <a href="#method__paginationFilter" title="_paginationFilter :: Builds pagination conditions from search form">
-                                <span class="description">Builds pagination conditions from search form</span><pre>_paginationFilter</pre>
+                                                                                                                <li class="method protected inherited">
+                            <a href="#method__makeRunner" title="_makeRunner :: Make task runner">
+                                <span class="description">Make task runner</span><pre>_makeRunner</pre>
                             </a>
                         </li>
-                                                                                                                                                                                                                                                                                                            </ul>
+                                                                                <li class="method protected inherited">
+                            <a href="#method__run" title="_run :: Run task">
+                                <span class="description">Run task</span><pre>_run</pre>
+                            </a>
+                        </li>
+                                                                                                                        </ul>
         </li>
         <li class="nav-header private">» Private
             <ul>
-                                                                                                                                                                                                                                                                                                                                            </ul>
+                                                                                                                                                                                                                                </ul>
         </li>
         <li class="nav-header">
             <i class="icon-custom icon-constant"></i> Constants
@@ -186,17 +167,17 @@
 
         <div class="span8">
             <div class="element class">
-                <h1>TaskController</h1>
+                <h1>TaskServerOldTask</h1>
                 <small style="display: block; text-align: right">
-                                            Extends \AppController
+                                            Extends <a href="../classes/TaskServerTask.html">\TaskServerTask</a>
                                                         </small>
-                <p class="short_description">TasksController</p>
+                <p class="short_description">Old task server script (for backward compatrability)</p>
                 <div class="details">
                     <div class="long_description">
                         
                     </div>
                     <table class="table table-bordered">
-                                                                                                                                        <tr>
+                                                                                    <tr>
                                     <th>
                                         package
                                                                             </th>
@@ -211,18 +192,153 @@
                                                                             </th>
                                     <td>
                                                                                     
-                                                                                <p>Controller</p>
+                                                                                <p>Console.Command.Task</p>
+                                    </td>
+                                </tr>
+                                                                                                                <tr>
+                                    <th>
+                                        deprecated
+                                                                            </th>
+                                    <td>
+                                                                                    
+                                                                                <p>since 1.0.17</p>
                                     </td>
                                 </tr>
                                                                                                                             </table>
 
                     <h3><i class="icon-custom icon-method"></i> Methods</h3>
-                                                                <a id="method__paginationFilter"></a>
-                        <div class="element clickable method protected  method__paginationFilter" data-toggle="collapse" data-target=".method__paginationFilter .collapse">
-                            <h2>Builds pagination conditions from search form</h2>
-                            <pre>_paginationFilter() : array</pre>
+                                                                <a id="method___construct"></a>
+                        <div class="element clickable method public  method___construct inherited" data-toggle="collapse" data-target=".method___construct .collapse">
+                            <h2>{@inheritdoc}</h2>
+                            <pre>__construct(\ConsoleOutput $stdout = null, \ConsoleOutput $stderr = null, \ConsoleInput $stdin = null) </pre>
                             <div class="labels">
-                                                                                                                                                                                            </div>
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$stdout</h4>
+                                                <code>\ConsoleOutput</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$stderr</h4>
+                                                <code>\ConsoleOutput</code><p></p>
+                                            </div>
+                                                                                    <div class="subelement argument">
+                                                <h4>$stdin</h4>
+                                                <code>\ConsoleInput</code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method__makeRunner"></a>
+                        <div class="element clickable method protected  method__makeRunner inherited" data-toggle="collapse" data-target=".method__makeRunner .collapse">
+                            <h2>Make task runner</h2>
+                            <pre>_makeRunner(array $task) : \TaskRunner</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$task</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                            <h3>Response</h3>
+                                        <code><a href="../classes/TaskRunner.html">\TaskRunner</a></code><p></p>
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method__run"></a>
+                        <div class="element clickable method protected  method__run inherited" data-toggle="collapse" data-target=".method__run .collapse">
+                            <h2>Run task</h2>
+                            <pre>_run(array $task) </pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                                                            <h3>Arguments</h3>
+                                                                                    <div class="subelement argument">
+                                                <h4>$task</h4>
+                                                <code>array</code><p></p>
+                                            </div>
+                                                                            
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_execute"></a>
+                        <div class="element clickable method public  method_execute inherited" data-toggle="collapse" data-target=".method_execute .collapse">
+                            <h2>{@inheritdoc}</h2>
+                            <pre>execute() : void</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
+
+                            
+                            <div class="row collapse">
+                                <div class="detail-description">
+                                    <div class="long_description"></div>
+
+                                    <table class="table">
+                                                                                    <tr>
+                                                <th>
+                                                    
+                                                </th>
+                                                <td>
+                                                                                                    </td>
+                                            </tr>
+                                                                            </table>
+
+                                    
+                                                                    </div>
+                            </div>
+
+                        </div>
+                                            <a id="method_getOptionParser"></a>
+                        <div class="element clickable method public  method_getOptionParser inherited" data-toggle="collapse" data-target=".method_getOptionParser .collapse">
+                            <h2>{@inheritdoc}</h2>
+                            <pre>getOptionParser() : \ConsoleOptionParser</pre>
+                            <div class="labels">
+                                <span class="label">inherited</span>                                                                                                                                                            </div>
 
                             
                             <div class="row collapse">
@@ -241,255 +357,7 @@
 
                                     
                                                                             <h3>Response</h3>
-                                        <code>array</code><p></p>
-                                                                    </div>
-                            </div>
-
-                        </div>
-                                            <a id="method_batch"></a>
-                        <div class="element clickable method public  method_batch" data-toggle="collapse" data-target=".method_batch .collapse">
-                            <h2>Batch operations</h2>
-                            <pre>batch() </pre>
-                            <div class="labels">
-                                                                                                                                                                                            </div>
-
-                            
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"></div>
-
-                                    <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    throws
-                                                </th>
-                                                <td>
-                                                                                                                                                                        
-                                                                                                                                                                        
-                                                                                                    </td>
-                                            </tr>
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                            </table>
-
-                                    
-                                                                    </div>
-                            </div>
-
-                        </div>
-                                            <a id="method_index"></a>
-                        <div class="element clickable method public  method_index" data-toggle="collapse" data-target=".method_index .collapse">
-                            <h2>View list of tasks</h2>
-                            <pre>index() </pre>
-                            <div class="labels">
-                                                                                                                                                                                            </div>
-
-                            
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"></div>
-
-                                    <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                            </table>
-
-                                    
-                                                                    </div>
-                            </div>
-
-                        </div>
-                                            <a id="method_profile"></a>
-                        <div class="element clickable method public  method_profile" data-toggle="collapse" data-target=".method_profile .collapse">
-                            <h2>Profile task command</h2>
-                            <pre>profile() </pre>
-                            <div class="labels">
-                                                                                                                                                                                            </div>
-
-                            
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"></div>
-
-                                    <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                            </table>
-
-                                    
-                                                                    </div>
-                            </div>
-
-                        </div>
-                                            <a id="method_remove"></a>
-                        <div class="element clickable method public  method_remove" data-toggle="collapse" data-target=".method_remove .collapse">
-                            <h2>Delete task</h2>
-                            <pre>remove(integer $taskId) </pre>
-                            <div class="labels">
-                                                                                                                                                                                            </div>
-
-                            
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"></div>
-
-                                    <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                            </table>
-
-                                                                            <h3>Arguments</h3>
-                                                                                    <div class="subelement argument">
-                                                <h4>$taskId</h4>
-                                                <code>integer</code><p></p>
-                                            </div>
-                                                                            
-                                                                    </div>
-                            </div>
-
-                        </div>
-                                            <a id="method_restart"></a>
-                        <div class="element clickable method public  method_restart" data-toggle="collapse" data-target=".method_restart .collapse">
-                            <h2>Restart task</h2>
-                            <pre>restart(integer $taskId) </pre>
-                            <div class="labels">
-                                                                                                                                                                                            </div>
-
-                            
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"></div>
-
-                                    <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                            </table>
-
-                                                                            <h3>Arguments</h3>
-                                                                                    <div class="subelement argument">
-                                                <h4>$taskId</h4>
-                                                <code>integer</code><p></p>
-                                            </div>
-                                                                            
-                                                                    </div>
-                            </div>
-
-                        </div>
-                                            <a id="method_stop"></a>
-                        <div class="element clickable method public  method_stop" data-toggle="collapse" data-target=".method_stop .collapse">
-                            <h2>Stop task</h2>
-                            <pre>stop(integer $taskId) </pre>
-                            <div class="labels">
-                                                                                                                                                                                            </div>
-
-                            
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"></div>
-
-                                    <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                            </table>
-
-                                                                            <h3>Arguments</h3>
-                                                                                    <div class="subelement argument">
-                                                <h4>$taskId</h4>
-                                                <code>integer</code><p></p>
-                                            </div>
-                                                                            
-                                                                    </div>
-                            </div>
-
-                        </div>
-                                            <a id="method_view"></a>
-                        <div class="element clickable method public  method_view" data-toggle="collapse" data-target=".method_view .collapse">
-                            <h2>View task</h2>
-                            <pre>view(integer $taskId) </pre>
-                            <div class="labels">
-                                                                                                                                                                                            </div>
-
-                            
-                            <div class="row collapse">
-                                <div class="detail-description">
-                                    <div class="long_description"></div>
-
-                                    <table class="table">
-                                                                                    <tr>
-                                                <th>
-                                                    throws
-                                                </th>
-                                                <td>
-                                                                                                                                                                        
-                                                                                                                                                                        <p>If task not found</p>
-                                                                                                    </td>
-                                            </tr>
-                                                                                    <tr>
-                                                <th>
-                                                    
-                                                </th>
-                                                <td>
-                                                                                                    </td>
-                                            </tr>
-                                                                            </table>
-
-                                                                            <h3>Arguments</h3>
-                                                                                    <div class="subelement argument">
-                                                <h4>$taskId</h4>
-                                                <code>integer</code><p></p>
-                                            </div>
-                                                                            
+                                        <code>\ConsoleOptionParser</code><p></p>
                                                                     </div>
                             </div>
 
@@ -497,12 +365,38 @@
                     
                     
                                                                 <h3><i class="icon-custom icon-property"></i> Properties</h3>
+                                                    <a id="property_name"> </a>
+                            <div class="element clickable property  public property_name inherited" data-toggle="collapse" data-target=".property_name .collapse">
+                                <h2>{@inheritdoc}</h2>
+                                <pre>name : string</pre>
+                                <div class="labels">
+                                    <span class="label">inherited</span>                                                                    </div>
+                                <div class="row collapse">
+                                    <div class="detail-description">
+                                        <div class="long_description"></div>
+
+                                        <table class="table">
+                                                                                            <tr>
+                                                    <th>
+                                                        var
+                                                    </th>
+                                                    <td>
+                                                                                                                    
+                                                                                                            </td>
+                                                </tr>
+                                                                                    </table>
+
+                                                                                    <h3>Type(s)</h3>
+                                            <code>string</code>
+                                                                            </div>
+                                </div>
+                            </div>
                                                     <a id="property_uses"> </a>
-                            <div class="element clickable property  public property_uses" data-toggle="collapse" data-target=".property_uses .collapse">
+                            <div class="element clickable property  public property_uses inherited" data-toggle="collapse" data-target=".property_uses .collapse">
                                 <h2>{@inheritdoc}</h2>
                                 <pre>uses : array</pre>
                                 <div class="labels">
-                                                                                                        </div>
+                                    <span class="label">inherited</span>                                                                    </div>
                                 <div class="row collapse">
                                     <div class="detail-description">
                                         <div class="long_description"></div>
@@ -523,12 +417,12 @@
                                                                             </div>
                                 </div>
                             </div>
-                                                    <a id="property_helpers"> </a>
-                            <div class="element clickable property  public property_helpers" data-toggle="collapse" data-target=".property_helpers .collapse">
-                                <h2>{@inheritdoc}</h2>
-                                <pre>helpers : array</pre>
+                                                    <a id="property_ProcessManager"> </a>
+                            <div class="element clickable property  public property_ProcessManager inherited" data-toggle="collapse" data-target=".property_ProcessManager .collapse">
+                                <h2>Process manager</h2>
+                                <pre>ProcessManager : \Spork\ProcessManager</pre>
                                 <div class="labels">
-                                                                                                        </div>
+                                    <span class="label">inherited</span>                                                                    </div>
                                 <div class="row collapse">
                                     <div class="detail-description">
                                         <div class="long_description"></div>
@@ -545,42 +439,41 @@
                                                                                     </table>
 
                                                                                     <h3>Type(s)</h3>
-                                            <code>array</code>
+                                            <code>\Spork\ProcessManager</code>
                                                                             </div>
                                 </div>
                             </div>
-                                                    <a id="property_batchActions"> </a>
-                            <div class="element clickable property  public property_batchActions" data-toggle="collapse" data-target=".property_batchActions .collapse">
-                                <h2>Allowed actions for batch</h2>
-                                <pre>batchActions : array</pre>
+                                                    <a id="property_TaskServer"> </a>
+                            <div class="element clickable property  public property_TaskServer inherited" data-toggle="collapse" data-target=".property_TaskServer .collapse">
+                                <h2>TaskServer</h2>
+                                <pre>TaskServer : \TaskServer</pre>
                                 <div class="labels">
-                                                                                                        </div>
+                                    <span class="label">inherited</span>                                                                    </div>
                                 <div class="row collapse">
                                     <div class="detail-description">
-                                        <div class="long_description"></div>
+                                        <div class="long_description"><p>TaskServer model</p></div>
 
                                         <table class="table">
                                                                                             <tr>
                                                     <th>
-                                                        var
+                                                        
                                                     </th>
                                                     <td>
-                                                                                                                    
                                                                                                             </td>
                                                 </tr>
                                                                                     </table>
 
                                                                                     <h3>Type(s)</h3>
-                                            <code>array</code>
+                                            <code>\TaskServer</code>
                                                                             </div>
                                 </div>
                             </div>
                                                     <a id="property_TaskClient"> </a>
-                            <div class="element clickable property  public property_TaskClient" data-toggle="collapse" data-target=".property_TaskClient .collapse">
+                            <div class="element clickable property  public property_TaskClient inherited" data-toggle="collapse" data-target=".property_TaskClient .collapse">
                                 <h2>TaskClient</h2>
                                 <pre>TaskClient : \TaskClient</pre>
                                 <div class="labels">
-                                                                                                        </div>
+                                    <span class="label">inherited</span>                                                                    </div>
                                 <div class="row collapse">
                                     <div class="detail-description">
                                         <div class="long_description"><p>TaskClient model</p></div>
@@ -600,41 +493,16 @@
                                                                             </div>
                                 </div>
                             </div>
-                                                    <a id="property_TaskProfiler"> </a>
-                            <div class="element clickable property  public property_TaskProfiler" data-toggle="collapse" data-target=".property_TaskProfiler .collapse">
-                                <h2>TaskProfiler</h2>
-                                <pre>TaskProfiler : \TaskProfiler</pre>
-                                <div class="labels">
-                                                                                                        </div>
-                                <div class="row collapse">
-                                    <div class="detail-description">
-                                        <div class="long_description"><p>TaskProfiler model</p></div>
-
-                                        <table class="table">
-                                                                                            <tr>
-                                                    <th>
-                                                        
-                                                    </th>
-                                                    <td>
-                                                                                                            </td>
-                                                </tr>
-                                                                                    </table>
-
-                                                                                    <h3>Type(s)</h3>
-                                            <code>\TaskProfiler</code>
-                                                                            </div>
-                                </div>
-                            </div>
                                                             </div>
             </div>
-            <a id="\TaskController"></a>
+            <a id="\TaskServerOldTask"></a>
             <ul class="breadcrumb">
                 <li><a href="../index.html"><i class="icon-custom icon-class"></i></a></li>
                     
     
     <li><span class="divider">\</span><a href="../namespaces/default.html">\</a></li>
 
-                <li class="active"><span class="divider">\</span><a href="../classes/TaskController.html">TaskController</a></li>
+                <li class="active"><span class="divider">\</span><a href="../classes/TaskServerOldTask.html">TaskServerOldTask</a></li>
             </ul>
         </div>
     </div>
