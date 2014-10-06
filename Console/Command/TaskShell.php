@@ -26,6 +26,9 @@ class TaskShell extends AdvancedShell {
 	public $tasks = array(
 		'Server' => array(
 			'className' => 'Task.TaskServer'
+		),
+		'TaskServer' => array(
+			'className' => 'Task.TaskServerOld'
 		)
 	);
 
