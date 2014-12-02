@@ -10,7 +10,7 @@
 /**
  * TaskProfiler Model
  */
-class TaskProfiler {
+class TaskProfiler extends AppModel {
 
 	/**
 	 * {@inheritdoc}
@@ -18,7 +18,14 @@ class TaskProfiler {
 	 * @var string
 	 */
 	public $name = 'TaskProfiler';
-
+	
+	/**
+	 * {@inheritdoc}
+	 *
+	 * @var bool
+	 */
+	public $useTable = false;
+	
 	/**
 	 * Task model
 	 *
