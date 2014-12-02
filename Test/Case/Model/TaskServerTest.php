@@ -278,19 +278,106 @@ class TaskServerTest extends CakeTestCase {
 						'id' => 3,
 						'status' => TaskType::RUNNING,
 						'modified' => (new DateTime('now -50 days'))->format('Y-m-d H:i:s'),
-						'timeout' => 1000 * 60 * 24,
+						'timeout' => 1000 * 60 * 60 * 24,
 						'started' => (new DateTime('now -2000 days'))->format('Y-m-d H:i:s')
 					),
 					array(
 						'id' => 4,
 						'status' => TaskType::RUNNING,
 						'modified' => (new DateTime('now -50 days'))->format('Y-m-d H:i:s'),
-						'timeout' => 2000 * 60 * 24,
+						'timeout' => 2000 * 60 * 60 * 24,
 						'started' => (new DateTime('now -1000 days'))->format('Y-m-d H:i:s')
 					),
 				),
 				//zombieId
 				array(1, 3)
+			),
+		);
+	}
+	
+	/**
+	 * Test virtual fields
+	 * 
+	 * @param array $task
+	 * @param array $fieldValues
+	 * @dataProvider virtualFieldsProvider
+	 */
+	public function testVirtualFields(array $task, array $fieldValues) {
+		$this->TaskServer->deleteAll(array(1 => 1));
+		$this->TaskServer->save($task);
+		$taskData = $this->TaskServer->read();
+		foreach ($fieldValues as $field => $value) {
+			$this->assertEquals($value, (int)$taskData[$this->TaskServer->alias][$field], $field, (int)($value / 10));
+		}
+	}
+
+	/**
+	 * Data provider for testVirtualFields 
+	 * 
+	 * @return array
+	 */
+	public function virtualFieldsProvider() {
+		return array(
+			//set #0
+			array(
+				//task
+				array(
+					'stderr' => '',
+					'created' => '2014-01-01 00:00:00',
+					'modified' => (new DateTime('now -15000 seconds'))->format('Y-m-d H:i:s'),
+					'started' => '2014-01-01 00:00:10',
+					'stopped' => '2014-01-01 00:00:40',
+				),
+				//fieldValues
+				array(
+					'errored' => 0,
+					'runtime' => 30,
+					'waittime' => 10,
+					'modified_since' => 15000,
+				)
+			),
+			//set #1
+			array(
+				//task
+				array(
+					'stderr' => 'error',
+					'created' => '2014-01-01 00:00:00',
+					'modified' => (new DateTime('now -90 days'))->format('Y-m-d H:i:s'),
+					'started' => '2014-01-01 00:00:10',
+					'stopped' => '2014-01-01 00:00:40',
+				),
+				//fieldValues
+				array(
+					'errored' => 1,
+					'runtime' => 30,
+					'waittime' => 10,
+					'modified_since' => 7776000,
+				)
+			),
+			//set #2
+			array(
+				//task
+				array(
+					'created' => '2013-10-01 00:00:10',
+					'started' => '2014-01-01 00:00:10',
+					'stopped' => '2014-04-01 00:00:10'
+				),
+				//fieldValues
+				array(
+					'runtime' => 7776000,
+					'waittime' => 7948800
+				)
+			),
+			//set #4
+			array(
+				//task
+				array(
+					'started' => (new DateTime('now -90 days'))->format('Y-m-d H:i:s'),
+				),
+				//fieldValues
+				array(
+					'runtime' => 7776000,
+				)
 			),
 		);
 	}
