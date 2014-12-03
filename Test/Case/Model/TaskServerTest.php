@@ -304,6 +304,11 @@ class TaskServerTest extends CakeTestCase {
 	 */
 	public function testVirtualFields(array $task, array $fieldValues) {
 		$this->TaskServer->deleteAll(array(1 => 1));
+		foreach ($task as $field => &$value) {
+			if (!in_array($field, array('stderr'), true)) {
+				$value = (new DateTime($value))->format('Y-m-d H:i:s');
+			}
+		}
 		$this->TaskServer->save($task);
 		$taskData = $this->TaskServer->read();
 		foreach ($fieldValues as $field => $value) {
@@ -324,7 +329,7 @@ class TaskServerTest extends CakeTestCase {
 				array(
 					'stderr' => '',
 					'created' => '2014-01-01 00:00:00',
-					'modified' => (new DateTime('now -15000 seconds'))->format('Y-m-d H:i:s'),
+					'modified' => 'now -15000 seconds',
 					'started' => '2014-01-01 00:00:10',
 					'stopped' => '2014-01-01 00:00:40',
 				),
@@ -342,7 +347,7 @@ class TaskServerTest extends CakeTestCase {
 				array(
 					'stderr' => 'error',
 					'created' => '2014-01-01 00:00:00',
-					'modified' => (new DateTime('now -90 days'))->format('Y-m-d H:i:s'),
+					'modified' => 'now -90 days',
 					'started' => '2014-01-01 00:00:10',
 					'stopped' => '2014-01-01 00:00:40',
 				),
@@ -372,7 +377,7 @@ class TaskServerTest extends CakeTestCase {
 			array(
 				//task
 				array(
-					'started' => (new DateTime('now -90 days'))->format('Y-m-d H:i:s'),
+					'started' => 'now -90 days',
 				),
 				//fieldValues
 				array(
