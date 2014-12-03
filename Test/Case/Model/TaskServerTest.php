@@ -329,7 +329,7 @@ class TaskServerTest extends CakeTestCase {
 				array(
 					'stderr' => '',
 					'created' => '2014-01-01 00:00:00',
-					'modified' => 'now -15000 seconds',
+					'modified' => 'now -1500000 seconds',
 					'started' => '2014-01-01 00:00:10',
 					'stopped' => '2014-01-01 00:00:40',
 				),
@@ -338,7 +338,7 @@ class TaskServerTest extends CakeTestCase {
 					'errored' => 0,
 					'runtime' => 30,
 					'waittime' => 10,
-					'modified_since' => 15000,
+					'modified_since' => 1500000,
 				)
 			),
 			//set #1
