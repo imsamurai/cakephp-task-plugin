@@ -231,7 +231,8 @@ class TaskServerTest extends CakeTestCase {
 					array(
 						'id' => 1,
 						'status' => TaskType::STOPPING,
-						'modified' => (new DateTime('now -1000 days'))->format('Y-m-d H:i:s')
+						'modified' => (new DateTime('now -1000 days'))->format('Y-m-d H:i:s'),
+						'process_id' => 123
 					)
 				),
 				//zombieId
@@ -244,17 +245,20 @@ class TaskServerTest extends CakeTestCase {
 					array(
 						'id' => 1,
 						'status' => TaskType::STOPPING,
-						'modified' => (new DateTime('now -1000 days'))->format('Y-m-d H:i:s')
+						'modified' => (new DateTime('now -1000 days'))->format('Y-m-d H:i:s'),
+						'process_id' => 123
 					),
 					array(
 						'id' => 2,
 						'status' => TaskType::STOPPING,
-						'modified' => (new DateTime('now -5 days'))->format('Y-m-d H:i:s')
+						'modified' => (new DateTime('now -5 days'))->format('Y-m-d H:i:s'),
+						'process_id' => 456
 					),
 					array(
 						'id' => 3,
 						'status' => TaskType::RUNNING,
-						'modified' => (new DateTime('now -50 days'))->format('Y-m-d H:i:s')
+						'modified' => (new DateTime('now -50 days'))->format('Y-m-d H:i:s'),
+						'process_id' => 789
 					),
 				),
 				//zombieId
@@ -267,30 +271,72 @@ class TaskServerTest extends CakeTestCase {
 					array(
 						'id' => 1,
 						'status' => TaskType::STOPPING,
-						'modified' => (new DateTime('now -1000 days'))->format('Y-m-d H:i:s')
+						'modified' => (new DateTime('now -1000 days'))->format('Y-m-d H:i:s'),
+						'process_id' => 123
 					),
 					array(
 						'id' => 2,
 						'status' => TaskType::STOPPING,
-						'modified' => (new DateTime('now -5 days'))->format('Y-m-d H:i:s')
+						'modified' => (new DateTime('now -5 days'))->format('Y-m-d H:i:s'),
+						'process_id' => 456
 					),
 					array(
 						'id' => 3,
 						'status' => TaskType::RUNNING,
 						'modified' => (new DateTime('now -50 days'))->format('Y-m-d H:i:s'),
 						'timeout' => 1000 * 60 * 60 * 24,
-						'started' => (new DateTime('now -2000 days'))->format('Y-m-d H:i:s')
+						'started' => (new DateTime('now -2000 days'))->format('Y-m-d H:i:s'),
+						'process_id' => 789
 					),
 					array(
 						'id' => 4,
 						'status' => TaskType::RUNNING,
 						'modified' => (new DateTime('now -50 days'))->format('Y-m-d H:i:s'),
 						'timeout' => 2000 * 60 * 60 * 24,
-						'started' => (new DateTime('now -1000 days'))->format('Y-m-d H:i:s')
+						'started' => (new DateTime('now -1000 days'))->format('Y-m-d H:i:s'),
+						'process_id' => 111
 					),
 				),
 				//zombieId
 				array(1, 3)
+			),
+			//set #4
+			array(
+				//tasks
+				array(
+					array(
+						'id' => 1,
+						'status' => TaskType::RUNNING,
+						'process_id' => false,
+						'modified' => (new DateTime('now -1000 days'))->format('Y-m-d H:i:s')
+					),
+					array(
+						'id' => 2,
+						'status' => TaskType::RUNNING,
+						'process_id' => 0,
+						'modified' => (new DateTime('now -1000 days'))->format('Y-m-d H:i:s')
+					),
+					array(
+						'id' => 3,
+						'status' => TaskType::RUNNING,
+						'process_id' => '0',
+						'modified' => (new DateTime('now -1000 days'))->format('Y-m-d H:i:s')
+					),
+					array(
+						'id' => 4,
+						'status' => TaskType::RUNNING,
+						'process_id' => '123',
+						'modified' => (new DateTime('now -1000 days'))->format('Y-m-d H:i:s')
+					),
+					array(
+						'id' => 5,
+						'status' => TaskType::RUNNING,
+						'process_id' => 123,
+						'modified' => (new DateTime('now -1000 days'))->format('Y-m-d H:i:s')
+					),
+				),
+				//zombieId
+				array(1, 2, 3)
 			),
 		);
 	}

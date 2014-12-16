@@ -132,6 +132,11 @@ class TaskServer extends TaskModel {
 				), array(
 			'OR' => array(
 				array(
+					'status' => TaskType::RUNNING,
+					'process_id' => '0',
+					'modified_since >=' => Configure::read('Task.zombieTimeout')
+				),
+				array(
 					'status' => array(TaskType::STOPPING, TaskType::DEFFERED),
 					'modified_since >=' => Configure::read('Task.zombieTimeout')
 				),
