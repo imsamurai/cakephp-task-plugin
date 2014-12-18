@@ -13,6 +13,7 @@ App::uses('AppController', 'Controller');
  * 
  * @property TaskClient $TaskClient TaskClient model
  * @property TaskProfiler $TaskProfiler TaskProfiler model
+ * @property TaskStatistics $TaskStatistics TaskStatistics model
  * 
  * @package Task
  * @subpackage Controller
@@ -24,7 +25,7 @@ class TaskController extends AppController {
 	 *
 	 * @var array 
 	 */
-	public $uses = array('Task.TaskClient', 'Task.TaskProfiler');
+	public $uses = array('Task.TaskClient', 'Task.TaskProfiler', 'Task.TaskStatistics',);
 
 	/**
 	 * {@inheritdoc}
@@ -105,8 +106,7 @@ class TaskController extends AppController {
 				'DependsOnTask' => array(
 					'id',
 					'status'
-				),
-				'Statistics'
+				)
 			)
 		));
 
@@ -120,7 +120,16 @@ class TaskController extends AppController {
 		}, $commandList);
 		$this->set('task', $task['TaskClient']);
 		$this->set('dependentTasks', $task['DependsOnTask']);
-		$this->set('statistics', $task['Statistics']);
+		$statistics = $this->TaskStatistics->find('all', array(
+			'conditions' => array(
+				'task_id' => $taskId
+			),
+			'group' => array('CEIL(memory)', 'CEIL(cpu)', 'status'),
+			'order' => array(
+				'created' => 'asc'
+			)
+		));
+		$this->set('statistics', Hash::extract($statistics, '{n}.{s}'));
 		$this->set('approximateRuntimes', $approximateRuntimes);
 	}
 

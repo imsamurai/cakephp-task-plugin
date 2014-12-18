@@ -22,6 +22,16 @@ class TaskControllerTest extends ControllerTestCase {
 		parent::setUp();
 		Configure::write('Pagination.limit', 10);
 	}
+	
+	/**
+	 * Fixtures
+	 *
+	 * @var array
+	 */
+	public $fixtures = array(
+		'plugin.Task.Task',
+		'plugin.Task.TaskStatistics',
+	);
 
 	/**
 	 * Test index action
@@ -266,8 +276,7 @@ class TaskControllerTest extends ControllerTestCase {
 						'DependsOnTask' => array(
 							'id',
 							'status'
-						),
-						'Statistics'
+						)
 					)
 				))
 				->willReturn($task);
@@ -317,8 +326,7 @@ class TaskControllerTest extends ControllerTestCase {
 					'TaskClient' => array(
 						'command' => 'whoami',
 					),
-					'DependsOnTask' => array(2, 3, 4),
-					'Statistics' => array()
+					'DependsOnTask' => array(2, 3, 4)
 				),
 				//exception
 				''
