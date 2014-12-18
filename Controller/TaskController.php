@@ -25,7 +25,7 @@ class TaskController extends AppController {
 	 *
 	 * @var array 
 	 */
-	public $uses = array('Task.TaskClient', 'Task.TaskProfiler', 'Task.TaskStatistics',);
+	public $uses = array('Task.TaskClient', 'Task.TaskProfiler', 'Task.TaskStatistics');
 
 	/**
 	 * {@inheritdoc}
