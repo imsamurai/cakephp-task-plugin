@@ -399,7 +399,7 @@ class TaskClientTest extends CakeTestCase {
 						'started' => null,
 						'stopped' => null,
 						'errored' => '0',
-						'runtime' => null,
+						'runtime' => '0',
 						'waittime' => null
 					),
 					'DependsOnTask' => array(
@@ -462,7 +462,7 @@ class TaskClientTest extends CakeTestCase {
 						'started' => null,
 						'stopped' => null,
 						'errored' => '0',
-						'runtime' => null,
+						'runtime' => '0',
 						'waittime' => null
 					),
 					'DependsOnTask' => array(
