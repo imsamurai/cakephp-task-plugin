@@ -142,7 +142,7 @@ class TaskServer extends TaskModel {
 				),
 				array(
 					'status' => TaskType::RUNNING,
-					"({$this->virtualFields['runtime']} - timeout) >=" => Configure::read('Task.zombieTimeout')
+					"if((@a:= {$this->virtualFields['runtime']}) >= timeout,  @a - timeout, 0) >=" => Configure::read('Task.zombieTimeout')
 				)
 			)
 		));

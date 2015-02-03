@@ -76,7 +76,7 @@ class TaskModel extends AppModel {
 	 */
 	public $virtualFields = array(
 		'errored' => 'stderr!=""',
-		'runtime' => 'TIMESTAMPDIFF(SECOND, started, IFNULL(stopped, NOW()))',
+		'runtime' => 'TIMESTAMPDIFF(SECOND, IFNULL(started, NOW()), IFNULL(stopped, NOW()))',
 		'waittime' => 'TIMESTAMPDIFF(SECOND, created, started)',
 		'modified_since' => 'TIMESTAMPDIFF(SECOND, modified, NOW())',
 	);
