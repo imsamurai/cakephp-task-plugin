@@ -12,15 +12,11 @@
 echo $this->Form->create('Task', array('novalidate', 'class' => 'well form-search', 'type' => 'get'));
 ?>
 <div style="float:left;width:400px;margin-right:15px;">
-	<div class="div-right">
-		<?= $this->Form->input('Task.command', array('options' => $commandList, 'type' => 'select', 'empty' => '--none--', 'class' => 'input-xxlarge')); ?>
-	</div>
+	<?= $this->Form->input('Task.command', array('options' => $commandList, 'type' => 'select', 'empty' => '--none--', 'class' => 'input-xxlarge')); ?>
 </div>
 <div style="clear:left;"></div>
 <div style="float:left;width:400px;">
-	<div class="div-right">
-		<?= $this->Form->button('Profile', array('class' => 'btn btn-primary', 'div' => false)); ?>
-	</div>
+	<?= $this->Form->button('Profile', array('class' => 'btn btn-primary', 'div' => false)); ?>
 </div>
 <div style="clear:left;"></div>
 <?php
