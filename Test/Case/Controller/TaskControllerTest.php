@@ -30,7 +30,7 @@ class TaskControllerTest extends ControllerTestCase {
 	 */
 	public $fixtures = array(
 		'plugin.Task.Task',
-		'plugin.Task.TaskStatistics',
+		'plugin.Task.TaskStatistics'
 	);
 
 	/**
@@ -127,7 +127,7 @@ class TaskControllerTest extends ControllerTestCase {
 							'arguments',
 							'status',
 							'code_string',
-							'stderr',
+							'stderr_truncated',
 							'started',
 							'stopped',
 							'created',
@@ -170,7 +170,7 @@ class TaskControllerTest extends ControllerTestCase {
 							'arguments',
 							'status',
 							'code_string',
-							'stderr',
+							'stderr_truncated',
 							'started',
 							'stopped',
 							'created',
@@ -219,7 +219,7 @@ class TaskControllerTest extends ControllerTestCase {
 							'arguments',
 							'status',
 							'code_string',
-							'stderr',
+							'stderr_truncated',
 							'started',
 							'stopped',
 							'created',
