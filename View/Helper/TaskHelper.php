@@ -221,7 +221,14 @@ class TaskHelper extends AppHelper {
 	 * @return string
 	 */
 	public function stderr(array $task, $full = true) {
-		return $this->_text($task['stderr'], $full ? 0 : Configure::read('Task.truncateError'));
+		if ($full) {
+			$field = 'stderr';
+			$length = 0;
+		} else {
+			$field = 'stderr_truncated';
+			$length = Configure::read('Task.truncateError');
+		}
+		return $this->_text($task[$field], $length);
 	}
 
 	/**
