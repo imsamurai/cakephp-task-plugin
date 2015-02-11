@@ -79,6 +79,7 @@ class TaskModel extends AppModel {
 		'runtime' => 'TIMESTAMPDIFF(SECOND, IFNULL(started, NOW()), IFNULL(stopped, NOW()))',
 		'waittime' => 'TIMESTAMPDIFF(SECOND, created, started)',
 		'modified_since' => 'TIMESTAMPDIFF(SECOND, modified, NOW())',
+		'stderr_truncated' => 'IF(stderr!="", SUBSTRING(stderr, 1, 210), "")'
 	);
 
 	/**

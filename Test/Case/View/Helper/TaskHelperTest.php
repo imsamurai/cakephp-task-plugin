@@ -645,6 +645,10 @@ class TaskHelperTest extends CakeTestCase {
 	 * @dataProvider stderrProvider
 	 */
 	public function testStderr(array $task, $full, $result) {
+		if (!$full) {
+			$task['stderr_truncated'] = $task['stderr'];
+			unset($task['stderr']);
+		}
 		$Helper = new TaskHelper(new View);
 		$this->assertSame($result, $Helper->stderr($task, $full));
 	}
