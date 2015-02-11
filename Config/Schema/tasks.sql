@@ -2,8 +2,8 @@ delimiter $$
 
 CREATE TABLE `tasks` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `process_id` bigint(20) UNSIGNED DEFAULT 0,
-  `server_id` bigint(20) DEFAULT 0,
+  `process_id` bigint(20) unsigned DEFAULT '0',
+  `server_id` bigint(20) DEFAULT '0',
   `command` varchar(500) DEFAULT NULL,
   `path` varchar(500) DEFAULT NULL,
   `arguments` longtext,
@@ -21,8 +21,11 @@ CREATE TABLE `tasks` (
   `created` datetime DEFAULT NULL,
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `id_UNIQUE` (`id`)
-) ENGINE=MyISAM AUTO_INCREMENT=1 DEFAULT CHARSET=utf8$$
+  UNIQUE KEY `id_UNIQUE` (`id`),
+  KEY `command` (`command`(333)),
+  KEY `status` (`status`),
+  KEY `command-status` (`command`(333),`status`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8$$
 
 CREATE TABLE `dependent_tasks` (
   `task_id` bigint(20) unsigned NOT NULL,
