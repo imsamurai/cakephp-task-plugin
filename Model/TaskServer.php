@@ -159,6 +159,9 @@ class TaskServer extends TaskModel {
 			return;
 		}
 		$statistics = array_values(array_filter(preg_split('/\s+/', `ps -o '%mem,%cpu,stat' --ppid {$task['process_id']} --no-headers`)));
+		if (!$statistics) {
+			$statistics = array_values(array_filter(preg_split('/\s+/', `ps -o '%mem,%cpu,stat' --pid {$task['process_id']} --no-headers`)));
+		}
 		$this->Statistics->create();
 		return (bool)$this->Statistics->save(array(
 			'task_id' => $task['id'],
