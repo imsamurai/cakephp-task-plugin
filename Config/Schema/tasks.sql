@@ -29,8 +29,6 @@ CREATE TABLE `tasks` (
 CREATE TABLE `dependent_tasks` (
   `task_id` bigint(20) unsigned NOT NULL,
   `depends_on_task_id` bigint(20) unsigned NOT NULL,
-  KEY `task_id` (`task_id`),
-  KEY `depends_on_task_id` (`depends_on_task_id`),
   KEY `task_id_depends_on_task_id` (`task_id`,`depends_on_task_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8$$
 
