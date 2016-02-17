@@ -3,12 +3,12 @@ delimiter $$
 CREATE TABLE `tasks` (
   `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `process_id` bigint(20) unsigned DEFAULT '0',
-  `server_id` bigint(20) DEFAULT '0',
-  `command` varchar(500) DEFAULT NULL,
+  `server_id` int(10) DEFAULT '0',
+  `command` varchar(333) DEFAULT NULL,
   `path` varchar(500) DEFAULT NULL,
   `arguments` longtext,
   `hash` varchar(100) DEFAULT NULL,
-  `status` tinyint(3) unsigned DEFAULT '0' COMMENT '0 - new\n1 - deffered\n2 - runned\n3 - finished\n4 - stopping\n5 - stopped',
+  `status` tinyint(3) unsigned DEFAULT '0' COMMENT '0 - new\n1 - deffered\n2 - runned\n3 - finished',
   `code` int(10) DEFAULT '0' COMMENT '0 - ok\nother - error code',
   `code_string` varchar(500) DEFAULT NULL,
   `stdout` longtext,
@@ -22,14 +22,16 @@ CREATE TABLE `tasks` (
   `modified` datetime DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
-  KEY `command` (`command`(333)),
-  KEY `status` (`status`),
-  KEY `command-status` (`command`(333),`status`)
+  KEY `created` (`created`),
+  KEY `status-command` (`status`,`command`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8$$
 
 CREATE TABLE `dependent_tasks` (
   `task_id` bigint(20) unsigned NOT NULL,
-  `depends_on_task_id` bigint(20) unsigned NOT NULL
+  `depends_on_task_id` bigint(20) unsigned NOT NULL,
+  KEY `task_id` (`task_id`),
+  KEY `depends_on_task_id` (`depends_on_task_id`),
+  KEY `task_id_depends_on_task_id` (`task_id`,`depends_on_task_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8$$
 
 CREATE TABLE IF NOT EXISTS `task_statistics` (
