@@ -16,6 +16,7 @@ class TaskSchema extends CakeSchema {
 		'task_id' => array('type' => 'biginteger', 'null' => false, 'default' => null, 'unsigned' => true, 'key' => 'primary'),
 		'depends_on_task_id' => array('type' => 'biginteger', 'null' => false, 'default' => null, 'unsigned' => true),
 		'indexes' => array(
+			'task_id_depends_on_task_id' => array('column' => array('task_id','depends_on_task_id'), 'unique' => 0)
 		),
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'MyISAM')
 	);
@@ -63,7 +64,9 @@ other - error code'),
 		'modified' => array('type' => 'datetime', 'null' => true, 'default' => null),
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1),
-			'id_UNIQUE' => array('column' => 'id', 'unique' => 1)
+			'id_UNIQUE' => array('column' => 'id', 'unique' => 1),
+			'created' => array('column' => 'created', 'unique' => 0),
+			'status-command' => array('column' => array('status','command'), 'unique' => 0)
 		),
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_general_ci', 'engine' => 'MyISAM')
 	);
